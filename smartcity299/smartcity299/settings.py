@@ -79,12 +79,8 @@ WSGI_APPLICATION = 'smartcity299.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'smartcity', #Name of DB
-        'USER': 'root', #Default user for DB
-        'PASSWORD': '', #Make sure you set your password to empty
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-        'PORT': '3306', #Default port
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
