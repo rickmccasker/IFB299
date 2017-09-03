@@ -6,6 +6,9 @@
 </head>
 
 <body>
-    <p> This is the results page {{ sQuery }}</p>
+    <div> These are the results: <br /> </div> 
+    {% for result in resultSet %}
+        <div> {{result.name}}</div>
+    {% endfor %}
 </body>
 </html>
