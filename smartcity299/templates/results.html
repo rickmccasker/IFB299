@@ -2,13 +2,14 @@
 
 <html>
 <head>
-    <title>Home page title</title>
+    <title>Resultset</title>
 </head>
 
 <body>
-    <div> These are the results: <br /> </div> 
+    <div> These are the results for your search query "{{queryReq}}": <br /> </div> 
     {% for result in resultSet %}
-        <div> {{result.name}}</div>
+        <!-- It works but is considered inferior<a href="/details/{{result.id}}">LINK{{result.name}}</a> <br />-->
+        <a href='{% url "details" result.name %}'>LINK{{result.name}}</a> <br />
     {% endfor %}
 </body>
 </html>
