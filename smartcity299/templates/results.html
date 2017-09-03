@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+    <title>Home page title</title>
+</head>
+
+<body>
+    <div> These are the results: <br /> </div> 
+    {% for result in resultSet %}
+        <div> {{result.name}}</div>
+    {% endfor %}
+</body>
+</html>
