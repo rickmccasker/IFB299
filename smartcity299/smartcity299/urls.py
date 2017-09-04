@@ -22,5 +22,6 @@ urlpatterns = [
 	url(r'^$', home_views.home),
 	url(r'^search', home_views.home),
 	url(r'^results/$', search_views.search),
+	url(r'^details/(\w+)/$', search_views.details, name='details'),
     url(r'^admin/', admin.site.urls),
 ]

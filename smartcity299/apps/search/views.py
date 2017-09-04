@@ -8,7 +8,10 @@ from ..search.models import Services
 def search(request):
 	sQuery = request.GET['sQuery']
 	resultSet = Services.objects.filter(name__icontains=sQuery)
-	t = loader.get_template('results.html')
-	c = Context({ 'resultSet' : resultSet})
+	context = Context({ 'resultSet' : resultSet, 'queryReq' : sQuery})
+	return render(request, 'results.html', context)
 
-	return HttpResponse(t.render(c))
+def details(request, serviceName):
+	serviceDetails = Services.objects.get(name=serviceName)
+	context = Context({ 'serviceDetails' : serviceDetails})
+	return render(request, 'details.html', context)
