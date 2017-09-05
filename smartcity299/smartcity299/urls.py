@@ -16,11 +16,13 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from apps.search import views as search_views
+from apps.login import views as login_views
 from smartcity299 import views as home_views
 
 urlpatterns = [
-	url(r'^$', home_views.home),
-	url(r'^search', home_views.home),
+	url(r'^$', home_views.index),
+	url(r'^login$', login_views.login),
+	url(r'^search', search_views.searchView),
 	url(r'^results/$', search_views.search),
 	url(r'^details/(\w+)/$', search_views.details, name='details'),
     url(r'^admin/', admin.site.urls),

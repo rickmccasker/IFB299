@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 	'apps.search',
+	'apps.login', 
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -80,11 +81,11 @@ WSGI_APPLICATION = 'smartcity299.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'smartcity', #Name of DB
-        'USER': 'root', #Default user for DB
-        'PASSWORD': '', #Make sure you set your password to empty
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-        'PORT': '3306', #Default port
+        'NAME': 'smartcity',	#Name of DB
+        'USER': 'root',			#Default user for DB
+        'PASSWORD': '',			#Make sure you set your password to empty
+        'HOST': 'localhost',	# Or an IP Address that your DB is hosted on
+        'PORT': '3306',			#Default port for mysql
     }
 }
 

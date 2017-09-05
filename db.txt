@@ -12,11 +12,23 @@ CREATE TABLE `smartcity`.`services` (
   
 	PRIMARY KEY (`id`));
 
-INSERT INTO `smartcity`.`services` 
-	(`name`, `desc`, `city`) 
-	VALUES ('placeA', 'verynice', 'BNE');
+CREATE TABLE `smartcity`.`users` (
+  
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`username` VARCHAR(45) NOT NULL,
+
+	`password` VARCHAR(45) NOT NULL,
+  
+	`usertype` VARCHAR(45) NOT NULL,
+  
+	`name` VARCHAR(45) NOT NULL,
+  
+	`phone` VARCHAR(10) NULL,
+  
+	`email` VARCHAR(45) NULL,
+  
+	`address` VARCHAR(45) NULL,
+  
+	PRIMARY KEY (`id`));
 
 
-INSERT INTO `smartcity`.`services` 
-	(`name`, `desc`, `city`) 
-	VALUES ('placeB', 'very bad', 'VIC');

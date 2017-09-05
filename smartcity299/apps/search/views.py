@@ -5,6 +5,10 @@ from django.template import Context
 
 from ..search.models import Services
 
+def searchView(request):
+	t = loader.get_template('home.html')
+	return HttpResponse(t.render())
+
 def search(request):
 	sQuery = request.GET['sQuery']
 	resultSet = Services.objects.filter(name__icontains=sQuery)
