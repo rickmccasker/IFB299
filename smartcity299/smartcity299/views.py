@@ -1,5 +1,11 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+#BASEAPP VIEWS
+from __future__ import unicode_literals
 
-def index(request):
-	return render(request, 'landing-login.html')
+from django.shortcuts import render, redirect
+
+#Check if the user is logged in then redirect to search on success or login page on faliure
+def redirector(request):
+	if request.user.is_authenticated:
+		return redirect('search/')
+	else:
+		return redirect('login/')

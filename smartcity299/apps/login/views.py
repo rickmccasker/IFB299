@@ -1,28 +1,20 @@
-from django.shortcuts import render
-from django.template import loader
-from ..login.models import Users
+#LOGIN VIEW
+from __future__ import unicode_literals
 
-# Create your views here.
-def login(request): 
-	print('*'*10)
-	print (request.POST["username"])
-	print (request.POST["password"])
-	print('*'*10)
-	context = {}
-	username = request.POST["username"]
-	password = request.POST["password"]
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
 
-	try:
-		if (Users.objects.get(username=username, password=password)):
-		#Needs encryption/salt/hash
-			print ("IT WORKS")
-		#Redirect on success
-	except Exception as e:
-		print('*'*10)
-		print("Exception encountered:", e.message)
-		#Redirect stuff goes in here
-		#Redirect to private login or nah?
-		print('*'*10)
+#Render login.html template
+def drawLogin(request):
+	return render(request, 'login.html')
 
-
-	return render(request, 'landing-login.html')
+#Retrieve post and check if user exists in database. If so direct to home page, if not
+#Loop back to login page with new prompts
+def auth_user(request):
+	user = authenticate(username=request.POST['username'], password=request.POST['password'])
+	if user is not None:
+		login(request, user)
+		return redirect('/')
+	else:
+		#"This user doesnt exist, change page accordingly, Possible with redirect?"
+		return redirect('/login/')
