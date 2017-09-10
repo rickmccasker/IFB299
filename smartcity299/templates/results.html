@@ -6,10 +6,10 @@
 </head>
 
 <body>
-    <div> These are the results for your search query "{{queryReq}}": <br /> </div> 
+    <div> These are the results for your search query "{{queryReq}}": <br /> </div>
     {% for result in resultSet %}
-        <!-- It works but is considered inferior<a href="/details/{{result.id}}">LINK{{result.name}}</a> <br />-->
-        <a href='{% url "details" result.name %}'>LINK{{result.name}}</a> <br />
+    <!-- It works but is considered inferior<a href="/details/{{result.id}}">LINK{{result.name}}</a> <br />-->
+    <a href='{% url "details" result.name %}'>LINK{{result.name}}</a> <br />
     {% endfor %}
 </body>
 </html>

@@ -1,7 +1,7 @@
 """smartcity299 URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.9/topics/http/urls/
+    https://docs.djangoproject.com/en/1.11/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -13,15 +13,14 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
-from apps.search import views as search_views
-from smartcity299 import views as home_views
+from smartcity299 import views as index_view
 
 urlpatterns = [
-	url(r'^$', home_views.home),
-	url(r'^search', home_views.home),
-	url(r'^results/$', search_views.search),
-	url(r'^details/(\w+)/$', search_views.details, name='details'),
+	url(r'^$', index_view.redirector),
+	url(r'^login/', include('apps.login.urls')),
+	url(r'^signUp/', include('apps.signUp.urls')),
+	url(r'^search/', include('apps.search.urls')), 
     url(r'^admin/', admin.site.urls),
 ]

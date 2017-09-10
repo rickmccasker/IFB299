@@ -1,0 +1,21 @@
+INSERT INTO `smartcity`.`services` 
+	(`name`, `desc`, `city`) 
+	VALUES ('placeA', 'verynice', 'BNE');
+
+
+INSERT INTO `smartcity`.`services` 
+	(`name`, `desc`, `city`) 
+	VALUES ('placeB', 'very bad', 'VIC');
+
+INSERT INTO `smartcity`.`users` 
+	(`username`, `password`, `usertype`, `name`, `phone`, `email`, `address`) 
+	VALUES ('userA', 'a', 'student', 'Allan', '1234567890', 'a@a.com', '5 A Adelaide');
+
+
+INSERT INTO `smartcity`.`users` 
+	(`username`, `password`, `usertype`, `name`, `phone`, `email`, `address`) VALUES 
+	('userB', 'b', 'business', 'Bob', '1234567890', 'b@b.com', '5 B Bris');
+
+INSERT INTO `smartcity`.`users` 
+	(`username`, `password`, `usertype`, `name`, `phone`) 
+	VALUES ('userC', 'c', 'tourist', 'Caleb');
