@@ -1,16 +1,20 @@
 <!DOCTYPE HTML>
-
+{% load staticfiles %}
 <html>
 <head>
     <title>Login</title>
+    <script type="text/javascript" src="{% static 'javascript/formValidation.js' %}"></script>
 </head>
 <body>
     <div>
         <h1>Welcome</h1>
-        <form method="POST" action="auth/">
+        <script>testMessage();</script> <!-- remove this forsubmission -->
+        <form method="POST" action="auth/" onsubmit="return validateInput(this)">
             {% csrf_token %}
-            <input type="text" placeholder="username" name="username" />
-            <input type="password" placeholder="password" name="password" />
+            <input id="name" type="text" placeholder="username" name="username" fieldName="Username"/> <br />
+            <span id="errorname"></span>
+            <input id="pass" type="password" placeholder="password" name="password" fieldName="Password"/> <br />
+            <span id="errorpass"></span>
             <button type="submit">Login</button>
         </form>
     </div>

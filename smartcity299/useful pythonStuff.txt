@@ -1,0 +1,9 @@
+python manage.py findstatic --verbosity 2 images/test.jpg
+#This is to find where the program is searching for your static files
+
+python manage.py runserver 127.0.0.2:8080
+#Run you server on another port if needed
+
+python manage.py makemigrations appname
+python manage.py migrate appname
+#Because django doesnt migrate individual apps sometimes
