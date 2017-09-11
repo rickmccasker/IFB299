@@ -9,10 +9,30 @@
         <h1>Welcome</h1>
         <form method="POST" action="attempt_signup/">
             {% csrf_token %}
-            <input type="text" placeholder="username" name="username" />
-            <input type="text" placeholder="email" name="email" />
-            <input type="password" placeholder="password" name="password" />
+            <span>UserName: </span>
+            <input type="text" placeholder="username" name="username" />* <br />
+            <span>Password: </span>
+            <input type="password" placeholder="password" name="password" />* <br />
+            <span>Confirm Password: </span>
+            <input type="password" placeholder="confirm password" name="confpassword" />* <br />
+            <span>User type: </span>
+            <select name="usertype">
+                <option selected disabled>Please select an option...</option>
+                <option value="Tourist">Tourist</option>
+                <option value="Student">Student</option>
+                <option value="Businessman">Businessman</option>
+            </select>* <br />
+            <span>Name: </span>
+            <input type="text" placeholder="fname" name="firstname" /> 
+            <input type="text" placeholder="lname" name="lastname" /> <br />
+            <span>Phone Number: </span>
+            <input type="text" placeholder="phone number" name="phone" /> <br />
+            <span>Email: </span>
+            <input type="text" placeholder="email" name="email" /> <br />
+            <span>Address: </span>
+            <input type="text" placeholder="address" name="address" /> <br />
             <button type="submit">Login</button>
+            <span>*Required Fields</span>
         </form>
     </div>
 </body>
