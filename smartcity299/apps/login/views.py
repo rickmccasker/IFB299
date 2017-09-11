@@ -16,5 +16,5 @@ def auth_user(request):
 		login(request, user)
 		return redirect('/')
 	else:
-		#"This user doesnt exist, change page accordingly, Possible with redirect?"
+		#"This user doesnt exist, render a new page with a context as error?
 		return redirect('/login/')

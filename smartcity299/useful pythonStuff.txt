@@ -7,3 +7,5 @@ python manage.py runserver 127.0.0.2:8080
 python manage.py makemigrations appname
 python manage.py migrate appname
 #Because django doesnt migrate individual apps sometimes
+#Also be aware that django sometimes cant recognise model changes if a previous migration
+	#exists in the migrate folder, to remedy just delete contents of migration in app
