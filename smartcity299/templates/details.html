@@ -1,15 +1,16 @@
-<!DOCTYPE HTML>
-
-<html>
-<head>
+{% extends "base_generic.html" %}
+{% load staticfiles %}
+{% block head %}
     <title>Service {{serviceDetails.name}}</title>
-</head>
+{% endblock %}
 
-<body>
+{% block content %}
     <div>
         Name of place: {{serviceDetails.name}} <br />
         Desc of place: {{serviceDetails.desc}} <br />
         City of service: {{serviceDetails.city}} <br />
+        <!-- THIS CHECKS IF THE IMAGE EXISTS AND RETURNS A 404 IF IT DOESNT-->
+        <img src="{{ STATIC_URL }}/static/images/serviceImg/{{serviceDetails.name}}.jpg/" onerror="this.src='{{ STATIC_URL}}/static/images/serviceImg/404.jpg/'"/>
+        <!-- BE AWARE THAT THE IMAGE NAME MUST MATCH THE PLACE NAME, MAKE IT SO WHEN INSERTING-->
     </div>
-</body>
-</html>
+{% endblock %}

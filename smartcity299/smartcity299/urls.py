@@ -16,10 +16,13 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from smartcity299 import views as index_view
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
 	url(r'^$', index_view.redirector),
-	url(r'^logout/', include('apps.login.urls')),
+	url(r'^logout/', index_view.logout),
 	url(r'^login/', include('apps.login.urls')),
 	url(r'^signUp/', include('apps.signUp.urls')),
 	url(r'^search/', include('apps.search.urls')), 

@@ -11,12 +11,11 @@
         <script>testMessage();</script> <!-- remove this forsubmission -->
         <form method="POST" action="auth/" onsubmit="return validateInput(this)">
             {% csrf_token %}
-            <input id="username" type="text" placeholder="username" name="username" fieldName="Username" inputtype = "email"/> <br />
+            <input id="username" type="text" placeholder="username" name="username" fieldName="Username"/> <br />
             <span id="errorusername"></span>
             <input id="pass" type="password" placeholder="password" name="password" fieldName="Password"/> <br />
             <span id="errorpass"></span>
             <button type="submit">Login</button>
         </form>
-        <a href="/logout">Logout</a>
     </div>
 {% endblock %}
