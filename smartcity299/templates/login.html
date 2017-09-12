@@ -1,18 +1,22 @@
-<!DOCTYPE HTML>
-
-<html>
-<head>
+{% extends "base_generic.html" %}
+{% load staticfiles %}
+{% block head %}
     <title>Login</title>
-</head>
-<body>
+    <script type="text/javascript" src="{% static 'javascript/formValidation.js' %}"></script>
+{% endblock %}
+   
+{% block content %}
     <div>
         <h1>Welcome</h1>
-        <form method="POST" action="auth/">
+        <script>testMessage();</script> <!-- remove this forsubmission -->
+        <form method="POST" action="auth/" onsubmit="return validateInput(this)">
             {% csrf_token %}
-            <input type="text" placeholder="username" name="username" />
-            <input type="password" placeholder="password" name="password" />
+            <input id="username" type="text" placeholder="username" name="username" fieldName="Username" inputtype = "email"/> <br />
+            <span id="errorusername"></span>
+            <input id="pass" type="password" placeholder="password" name="password" fieldName="Password"/> <br />
+            <span id="errorpass"></span>
             <button type="submit">Login</button>
         </form>
+        <a href="/logout">Logout</a>
     </div>
-</body>
-</html>
+{% endblock %}

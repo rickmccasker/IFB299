@@ -1,36 +1,48 @@
 <!DOCTYPE HTML>
-
+{% load staticfiles %}
 <html>
 <head>
     <title>SIGNUP</title>
+    <script type="text/javascript" src="{% static 'javascript/formValidation.js' %}"></script>
 </head>
 <body>
     <div>
         <h1>Welcome</h1>
-        <form method="POST" action="attempt_signup/">
+        <form method="POST" action="attempt_signup/" onsubmit="return validateInput(this)">
             {% csrf_token %}
             <span>UserName: </span>
-            <input type="text" placeholder="username" name="username" />* <br />
+                <input id="username"type="text" placeholder="username" name="username" fieldName="Username" />* <br />
+                <span id="errorusername"></span>
             <span>Password: </span>
-            <input type="password" placeholder="password" name="password" />* <br />
+                <input id="password" type="password" placeholder="password" name="password" fieldName="Password"/>* <br />
+                <span id="errorpassword"></span>
             <span>Confirm Password: </span>
-            <input type="password" placeholder="confirm password" name="confpassword" />* <br />
+                <input id="confpassword" type="password" placeholder="confirm password" name="confpassword" fieldName="Confirm password"/>* <br />
+                <span id="errorconfpassword"></span>
             <span>User type: </span>
-            <select name="usertype">
-                <option selected disabled>Please select an option...</option>
-                <option value="Tourist">Tourist</option>
-                <option value="Student">Student</option>
-                <option value="Businessman">Businessman</option>
-            </select>* <br />
-            <span>Name: </span>
-            <input type="text" placeholder="fname" name="firstname" /> 
-            <input type="text" placeholder="lname" name="lastname" /> <br />
+                <select id="usertype" name="usertype" fieldName="User type">
+                    <option selected disabled>Please select an option...</option>
+                    <option value="Tourist">Tourist</option>
+                    <option value="Student">Student</option>
+                    <option value="Businessman">Businessman</option>
+                </select>* <br />
+                <span id="errorusertype"></span>
+            <span>Name: </span> <br />
+            <span>First Name: </span>
+                <input id="fname" type="text" placeholder="fname" name="firstname" inputtype = "letters" /> <br />
+                <span id="errorfname"></span>
+            <span>Last Name: </span> 
+                <input id="lname" type="text" placeholder="lname" name="lastname" inputtype = "letters"/> <br />
+
+                <span id="errorlname"></span>
             <span>Phone Number: </span>
-            <input type="text" placeholder="phone number" name="phone" /> <br />
+                <input id="phonenum" type="text" placeholder="phone number" name="phone" inputtype = "numbers"/> <br />
+                <span id="errorphonenum"></span>
             <span>Email: </span>
-            <input type="text" placeholder="email" name="email" /> <br />
+                <input id="email" type="text" placeholder="email" name="email" inputtype = "email"/> <br />
+                <span id="erroremail"></span>
             <span>Address: </span>
-            <input type="text" placeholder="address" name="address" /> <br />
+                <input type="text" placeholder="address" name="address" /> <br />
             <button type="submit">Login</button>
             <span>*Required Fields</span>
         </form>

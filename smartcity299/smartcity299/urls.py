@@ -19,6 +19,7 @@ from smartcity299 import views as index_view
 
 urlpatterns = [
 	url(r'^$', index_view.redirector),
+	url(r'^logout/', include('apps.login.urls')),
 	url(r'^login/', include('apps.login.urls')),
 	url(r'^signUp/', include('apps.signUp.urls')),
 	url(r'^search/', include('apps.search.urls')), 

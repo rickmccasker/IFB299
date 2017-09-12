@@ -18,3 +18,8 @@ def auth_user(request):
 	else:
 		#"This user doesnt exist, change page accordingly, Possible with redirect?"
 		return redirect('/login/')
+
+def logout(request):
+	print("LOGGED IN")
+	if request.user.is_authenticated():
+		print("LOGGED IN")
