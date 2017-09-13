@@ -7,7 +7,6 @@ from django.template import Context
 from ..search.models import Services
 
 def drawSearch(request):
-	print(request.user.userprofile.user_type)
 	if(request.user.is_authenticated == False):
 		return redirect("/")
 	return render(request, 'search.html')
@@ -16,7 +15,10 @@ def search(request):
 	if(request.user.is_authenticated == False):
 		return redirect("/")
 	sQuery = request.GET['sQuery']
-	resultSet = Services.objects.filter(name__icontains=sQuery).filter(type__iexact=request.user.userprofile.user_type)
+	resultSet = Services.objects.filter(name__icontains=sQuery)
+	if not(request.user.is_superuser): #A admin/superuser can see all results
+		print(x)
+		resultSet = resultSet.filter(type__iexact=request.user.userprofile.user_type)
 	context = {
 		'resultSet' : resultSet,
 		'queryReq' : sQuery

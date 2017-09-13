@@ -26,5 +26,6 @@ urlpatterns = [
 	url(r'^login/', include('apps.login.urls')),
 	url(r'^signUp/', include('apps.signUp.urls')),
 	url(r'^search/', include('apps.search.urls')), 
-    url(r'^admin/', admin.site.urls),
+	url(r'^admin/', include('apps.adminControls.urls')),
+    #url(r'^admin/', admin.site.urls),
 ]

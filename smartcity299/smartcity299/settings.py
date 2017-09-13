@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 	'apps.login',
 	'apps.signUp',
 	'apps.search',
+	'apps.adminControls',
 ]
 
 MIDDLEWARE = [

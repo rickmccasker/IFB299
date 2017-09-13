@@ -12,7 +12,8 @@ Return:
     Boolean - Return true when input fields are not empty, not all whitespace and satisfy all 
         requirements otherwise return false.
 **/
-function validateInput(form){
+function validateInput(form) {
+    testMessage();
     var inputs = form.getElementsByTagName('input');
     var errorCounter = 0;
     for (i = 0; i < inputs.length; i++)

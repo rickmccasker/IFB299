@@ -1,0 +1,23 @@
+{% extends "base_generic.html" %}
+{% load staticfiles %}
+{% block head %}
+    <title>{{modelName}} - Add Item</title>
+    <script type="text/javascript" src="{% static 'javascript/formValidation.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <script>testMessage()</script>
+    <form method="POST" action="submit_item/" onsubmit="return validateInput(this)">
+        {% csrf_token %}
+        {% for fieldName in fieldArr %} <!--The "addModels" in a url tag is its namespace, ensure it is named in the urls-->
+            <span>{{fieldName}}: </span>
+            <input id="{{fieldName}}" type="text" placeholder="Feed me" name="{{fieldName}}" fieldName="{{fieldName}}" />* <br />
+            <span id="error{{fieldName}}"></span>
+        {% endfor %}
+        <span>UserName: </span>
+        <input id="username" type="text" placeholder="username" name="username" fieldName="Username" />* <br />
+        <span id="errorusername"></span>
+
+        <button type="submit">Submit</button> <!--CURRENTLY SUBMIT_ITEM IS NOT MAPPED, SORT THIS SHIT OUT-->
+    </form>
+{% endblock %}
