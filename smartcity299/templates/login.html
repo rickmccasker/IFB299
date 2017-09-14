@@ -10,26 +10,33 @@
     <container class="container">
         <div class="row">
             <div id="aboutBox" class="col-xs-12 col-sm-12 col-md-7">
-                <h1>Welcome</h1>
-                <form method="POST" action="auth/" onsubmit="return validateInput(this)">
-                    {% csrf_token %}
-                    <input id="username" type="text" placeholder="username" name="username" fieldName="Username" /> <br />
-                    <span id="errorusername"></span>
-                    <input id="pass" type="password" placeholder="password" name="password" fieldName="Password" /> <br />
-                    <span id="errorpass"></span>
-                    <button type="submit">Login</button>
-                </form>
+                <div id="aboutText">
+                    <h1>Welcome to smartycity.app</h1>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Proin vitae mi non enim dapibus interdum. Praesent vel viverra nulla.
+                        Vivamus rhoncus neque nunc, non eleifend neque sodales vitae.
+                        Nullam nec commodo risus, ut tempor ipsum. Phasellus porta sapien porta iaculis
+                        pulvinar. Morbi volutpat mollis ullamcorper. Cras sed ultrices felis.
+                    </p>
+                    <a class="custbtn" href="/signUp/">Register Here</a>
+                    
+                </div>
+                <div id="contactUs">
+                    <span>Phone: 00-00000000</span>
+                    <span>Email: email@email.com</span>
+                </div>
             </div>
             <div id="loginBox" class="col-xs-12 col-sm-12 col-md-5">
                 <div id="loginForm">
-                    <h1>Login</h1>
+                    <h1>Login to your account</h1>
                     <form method="POST" action="auth/" onsubmit="return validateInput(this)">
                         {% csrf_token %}
                         <input class="form-line" id="username" type="text" placeholder="Username" name="username" fieldName="Username" />
-                        <span id="errorusername"></span>
+                        <span id="errorusername""></span>
                         <input class="form-line" id="pass" type="password" placeholder="Password" name="password" fieldName="Password" />
-                        <span id="errorpass"></span>
-                        <button type="submit">Login</button>
+                        <span id="errorpass"></span><br>
+                        <button class="custbtn" type="submit">Login</button>
                     </form>
                 </div>
                 

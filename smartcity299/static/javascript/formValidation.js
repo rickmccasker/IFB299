@@ -129,7 +129,7 @@ function isEmpty(input) {
     var strError = "error" + input.id;
     if (input.hasAttribute("fieldName")) { //fieldName attribute governs whether a field is compulsory or not
         if (input.value.match(/^\s*$/) || input.value == '') {
-            document.getElementById(strError).innerHTML = input.getAttribute("fieldName") + " field must not be empty. <br>";
+            document.getElementById(strError).innerHTML = "&nbsp*" + input.getAttribute("fieldName") + " field must not be empty. <br>";
             result = true
         }
     }

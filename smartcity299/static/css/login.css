@@ -1,24 +1,58 @@
+body{
+    background-color: grey;
+}
 .row { 
     background-color: black;
-    margin-top: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     margin-left: 5%;
     margin-right: 5%;
+    height: 750px;
 }
 
-.col-xs-6{
+.custbtn {
+  background: #4bd150;
+  background-image: -webkit-linear-gradient(top, #4bd150, #2b992e);
+  background-image: -moz-linear-gradient(top, #4bd150, #2b992e);
+  background-image: -ms-linear-gradient(top, #4bd150, #2b992e);
+  background-image: -o-linear-gradient(top, #4bd150, #2b992e);
+  background-image: linear-gradient(to bottom, #4bd150, #2b992e);
+  -webkit-border-radius: 1;
+  -moz-border-radius: 1;
+  border-radius: 1px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 7px 20px 7px 20px;
+  text-decoration: none;
+}
+
+.custbtn:hover {
+  background: #45ba48;
+  background-image: -webkit-linear-gradient(top, #45ba48, #248227);
+  background-image: -moz-linear-gradient(top, #45ba48, #248227);
+  background-image: -ms-linear-gradient(top, #45ba48, #248227);
+  background-image: -o-linear-gradient(top, #45ba48, #248227);
+  background-image: linear-gradient(to bottom, #45ba48, #248227);
+  text-decoration: none;
+  color: #ffffff;
+}
+
+h1{
+    font-size: 28px;
 }
 
 #loginBox{
     background-color: green;
     min-width: 350px;
+    height: 750px;
 }
 
 #loginForm{
     min-width: 250px;
-    margin-top: 10%;
+    margin-top: 275px;
     margin-left: 10%;
     margin-right: 10%;
-    background-color: grey;
     padding-left: 10%;
 }
 
@@ -27,19 +61,60 @@
     outline: none;
     width: 85%;
     display: block;
-    padding: 5px;
+    padding: 2px;
     height: 30px;
     border: none;
     margin-top: 8px;
     border-bottom: 1px solid #ddd;
     background: transparent;
     font: 16px Arial, Helvetica, sans-serif;
+}
 
+#loginForm input{
+    margin-bottom: 3px;
+}
+
+#loginForm span{
+    color: red;
+}
+
+#loginForm button{
+    margin-top: -10px;
+    padding-top: 2px;
+    height: 35px;
+    border: none;
 }
 
 #aboutBox{
     background-color: red;
+    height: 100%;
 }
+
+#aboutText{
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 250px;
+}
+
+
+#aboutText p{
+    font-size: 15px;
+    margin-left: 5px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+#contactUs{
+    margin-top: 250px;
+    margin-left: 5%;
+    color: white;
+}
+
+#contactUs span{
+    margin-left: 5%;
+}
+
+
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: lightgray;
