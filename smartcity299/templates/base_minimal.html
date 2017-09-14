@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html>
+<head> <!--THIS WILL NOT INCLUDE THE SEARCH FIELD-->
+    {% block head %}
+    {% endblock %}
+</head>
+
+<body>
+    <h1>BASE BLOCK IS WORKING</h1>
+    <span> Need to decide where to put this</span><a href="/logout">Logout</a>
+    <!-- Header/menu stuff goes here-->
+    {% block content %}
+    <!-- Body stuff goes here-->
+    {% endblock %}
+    <!-- Footer stuff goes here-->
+    
+</body>
+</html>
