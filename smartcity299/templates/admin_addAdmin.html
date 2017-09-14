@@ -1,0 +1,24 @@
+{% extends "base_generic.html" %}
+{% load staticfiles %}
+{% block head %}
+    <title>Add Admin</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script type="text/javascript" src="{% static 'javascript/formValidation.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <form method="post" action="attempt_addadmin/" onsubmit="return validateInput(this)">
+        {% csrf_token %}
+        <span>UserName: </span>
+            <input id="username" type="text" placeholder="username" name="username" fieldName="Username" />* <br />
+            <span id="errorusername"></span>
+        <span>Password: </span>
+            <input id="password" type="password" placeholder="password" name="password" fieldName="Password" />* <br />
+            <span id="errorpassword"></span>
+        <span>Confirm Password: </span>
+            <input id="confpassword" type="password" placeholder="confirm password" name="confpassword" fieldName="Confirm password" />* <br />
+            <span id="errorconfpassword"></span>
+        <button type="submit">Sign Up</button>
+        <span>*Required Fields</span>
+    </form>
+{% endblock %}

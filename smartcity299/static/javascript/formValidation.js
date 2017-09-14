@@ -1,7 +1,3 @@
-function testMessage() {
-    alert("THE JAVASCRIPT FILE HAS BEEN Re/LOADED");
-}
-
 /**
 Description: 
     Function validates all input fields in a given form and prevents submission when errors detected, 
@@ -13,7 +9,6 @@ Return:
         requirements otherwise return false.
 **/
 function validateInput(form) {
-    testMessage();
     var inputs = form.getElementsByTagName('input');
     var errorCounter = 0;
     for (i = 0; i < inputs.length; i++)

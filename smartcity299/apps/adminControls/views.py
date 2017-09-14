@@ -39,6 +39,11 @@ def drawAddModelPage(request, modelName):
 		return render(request, 'admin_addModels.html', context)
 	return redirect('/search/')
 	
+def drawAddAdmin(request):
+	if(is_admin(request)):
+		return render(request, 'admin_addAdmin.html')
+	return redirect('/search/')
+	
 
 #allows getting of all possible models making admin page ca
 def getAllModels():

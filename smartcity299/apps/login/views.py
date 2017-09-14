@@ -6,7 +6,11 @@ from django.contrib.auth import authenticate, login
 
 #Render login.html template
 def drawLogin(request):
-	return render(request, 'login.html')
+	#if(request.user.is_authenticated):
+		#return redirect('/search/')
+	#else:
+		return render(request, 'login.html')
+	
 
 #Retrieve post and check if user exists in database. If so direct to home page, if not
 #Loop back to login page with new prompts

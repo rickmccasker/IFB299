@@ -1,11 +1,11 @@
-<!DOCTYPE HTML>
+{% extends "base_generic.html" %}
 {% load staticfiles %}
-<html>
-<head>
-    <title>SIGNUP</title>
+{% block head %}
+    <title>Sign Up</title>
     <script type="text/javascript" src="{% static 'javascript/formValidation.js' %}"></script>
-</head>
-<body>
+{% endblock %}
+
+{% block content %}
     <div>
         <h1>Welcome</h1>
         <form method="POST" action="attempt_signup/" onsubmit="return validateInput(this)">
@@ -33,7 +33,6 @@
                 <span id="errorfname"></span>
             <span>Last Name: </span> 
                 <input id="lname" type="text" placeholder="lname" name="lastname" inputtype = "letters"/> <br />
-
                 <span id="errorlname"></span>
             <span>Phone Number: </span>
                 <input id="phonenum" type="text" placeholder="phone number" name="phone" inputtype = "numbers"/> <br />
@@ -43,9 +42,8 @@
                 <span id="erroremail"></span>
             <span>Address: </span>
                 <input type="text" placeholder="address" name="address" /> <br />
-            <button type="submit">Login</button>
+            <button type="submit">Sign Up</button>
             <span>*Required Fields</span>
         </form>
     </div>
-</body>
-</html>
+{% endblock %}
