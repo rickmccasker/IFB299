@@ -1,15 +1,15 @@
-{% extends "base_generic.html" %}
+{% extends "base_minimal.html" %}
 {% load staticfiles %}
 {% block head %}
     <title>Login</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
-    <script type="text/javascript" src="{% static 'javascript/formValidation.js' %}"></script>
+    <script type="text/javascript" src="{% static 'javascript/faormValidation.js' %}"></script>
 {% endblock %}
    
 {% block content %}
     <container class="container">
         <div class="row">
-            <div id="aboutBox" class="col-xs-12 col-sm-12 col-md-7">
+            <div id="aboutBox" class="col-xs-12 col-sm-12 col-md-8">
                 <div id="aboutText">
                     <h1>Welcome to smartycity.app</h1>
                     <p>
@@ -27,19 +27,23 @@
                     <span>Email: email@email.com</span>
                 </div>
             </div>
-            <div id="loginBox" class="col-xs-12 col-sm-12 col-md-5">
+            <div id="loginBox" class="col-xs-12 col-sm-12 col-md-4">
                 <div id="loginForm">
                     <h1>Login to your account</h1>
                     <form method="POST" action="auth/" onsubmit="return validateInput(this)">
                         {% csrf_token %}
                         <input class="form-line" id="username" type="text" placeholder="Username" name="username" fieldName="Username" />
-                        <span id="errorusername""></span>
+                        <span id="errorusername"></span>
                         <input class="form-line" id="pass" type="password" placeholder="Password" name="password" fieldName="Password" />
                         <span id="errorpass"></span><br>
                         <button class="custbtn" type="submit">Login</button>
                     </form>
                 </div>
-                
+                {% if messages %}
+                    {% for message in messages %}
+                        <span class="errMessage"> {{message}} </span><br />
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
     </container>

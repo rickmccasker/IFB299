@@ -9,6 +9,7 @@ Return:
         requirements otherwise return false.
 **/
 function validateInput(form) {
+    validSelectField(form);
     var inputs = form.getElementsByTagName('input');
     var errorCounter = 0;
     for (i = 0; i < inputs.length; i++)
@@ -44,12 +45,12 @@ function validateInput(form) {
     }
     if (errorCounter > 0)
     {
-        alert("VALIDATION FAILED"); //Debugging purposes only
+        //alert("VALIDATION FAILED"); //Debugging purposes only
         return false;
     }
     else
     {
-        alert("VALIDATION SUCCESS"); //Debugging purposes only
+        //alert("VALIDATION SUCCESS"); //Debugging purposes only
         return true;
     }
     
@@ -71,7 +72,7 @@ function validAlphaChars(input){
     }
     else
     {
-        alert("ALL ALPHABET") //Debugging purposes only
+        //alert("ALL ALPHABET") //Debugging purposes only
         return true
     }
 }
@@ -91,7 +92,7 @@ function validNumeralChars(input){
         return false
     }
     else {
-        alert("ALL numbers") //Debugging purposes only
+        //alert("ALL numbers") //Debugging purposes only
         return true
     }
 }
@@ -111,9 +112,24 @@ function validEmailForm(input) {
         return false
     }
     else {
-        alert("CORRECT email form") //Debugging purposes only
+        //alert("CORRECT email form") //Debugging purposes only
         return true
     }
+}
+
+function validSelectField(form) {
+    var inputs = document.getElementsByTagName("select");
+    for(i=0; i<inputs.length; i++){
+        var input = inputs[i];
+        var strError = "error" + input.id;
+        if (input.hasAttribute("fieldName")) { //fieldName attribute governs whether a field is compulsory or not
+            if (input.options.length == 0 || input.value.length == 0) {
+                document.getElementById(strError).innerHTML = "&nbsp*" + input.getAttribute("fieldName") + " field must not be empty. <br>";
+                result = true
+            }
+        }
+    }
+    
 }
 
 /**
@@ -128,6 +144,7 @@ function isEmpty(input) {
     var result = false
     var strError = "error" + input.id;
     if (input.hasAttribute("fieldName")) { //fieldName attribute governs whether a field is compulsory or not
+        //alert(input.getAttribute("fieldName"));
         if (input.value.match(/^\s*$/) || input.value == '') {
             document.getElementById(strError).innerHTML = "&nbsp*" + input.getAttribute("fieldName") + " field must not be empty. <br>";
             result = true

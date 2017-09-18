@@ -1,49 +1,121 @@
-{% extends "base_generic.html" %}
+{% extends "base_minimal.html" %}
 {% load staticfiles %}
 {% block head %}
     <title>Sign Up</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/signup.css' %}">
     <script type="text/javascript" src="{% static 'javascript/formValidation.js' %}"></script>
 {% endblock %}
 
 {% block content %}
-    <div>
-        <h1>Welcome</h1>
-        <form method="POST" action="attempt_signup/" onsubmit="return validateInput(this)">
-            {% csrf_token %}
-            <span>UserName: </span>
-                <input id="username"type="text" placeholder="username" name="username" fieldName="Username" />* <br />
-                <span id="errorusername"></span>
-            <span>Password: </span>
-                <input id="password" type="password" placeholder="password" name="password" fieldName="Password"/>* <br />
-                <span id="errorpassword"></span>
-            <span>Confirm Password: </span>
-                <input id="confpassword" type="password" placeholder="confirm password" name="confpassword" fieldName="Confirm password"/>* <br />
-                <span id="errorconfpassword"></span>
-            <span>User type: </span>
-                <select id="usertype" name="usertype" fieldName="User type">
-                    <option selected disabled>Please select an option...</option>
-                    <option value="Tourist">Tourist</option>
-                    <option value="Student">Student</option>
-                    <option value="Businessman">Businessman</option>
-                </select>* <br />
-                <span id="errorusertype"></span>
-            <span>Name: </span> <br />
-            <span>First Name: </span>
-                <input id="fname" type="text" placeholder="fname" name="firstname" inputtype = "letters" /> <br />
-                <span id="errorfname"></span>
-            <span>Last Name: </span> 
-                <input id="lname" type="text" placeholder="lname" name="lastname" inputtype = "letters"/> <br />
-                <span id="errorlname"></span>
-            <span>Phone Number: </span>
-                <input id="phonenum" type="text" placeholder="phone number" name="phone" inputtype = "numbers"/> <br />
-                <span id="errorphonenum"></span>
-            <span>Email: </span>
-                <input id="email" type="text" placeholder="email" name="email" inputtype = "email"/> <br />
-                <span id="erroremail"></span>
-            <span>Address: </span>
-                <input type="text" placeholder="address" name="address" /> <br />
-            <button type="submit">Sign Up</button>
-            <span>*Required Fields</span>
-        </form>
-    </div>
+    <container class="container">
+        <div class="signupBox">
+            <h1>Register</h1>
+            <form method="POST" action="attempt_signup/" onsubmit="return validateInput(this)">
+                {% csrf_token %}
+                <!--USER NAME FORM-->
+                <div class="form-group">
+                    <div id="x"class="col-xs-4 col-sm-4 col-md-4 control-label">
+                        <label>UserName: </label>
+                    </div>
+                    <div class="col-xs-8 col-sm-8 col-md-8 a">
+                        <input id="username" type="text" placeholder="Username" name="username" fieldName="Username" /> <br />
+                        <span id="errorusername"></span>
+                    </div>
+                </div>
+
+                <!--PASSWORD FORMS-->
+                <div class="form-group">
+                    <div id="x" class="col-xs-4 col-sm-4 col-md-4 control-label">
+                        <label>Password: </label>
+                    </div>
+                    <div class="col-xs-8 col-sm-8 col-md-8 a">
+                        <input id="password" type="password" placeholder="Password" name="password" fieldName="Password" />* <br />
+                        <span id="errorpassword"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div id="x" class="col-xs-4 col-sm-4 col-md-4 control-label">
+                        <label>Confirm Password: </label>
+                    </div>
+                    <div class="col-xs-8 col-sm-8 col-md-8 a">
+                        <input id="confpassword" type="password" placeholder="Confirm Password" name="confpassword" fieldName="Confirm password" />* <br />
+                        <span id="errorconfpassword"></span>
+                    </div>
+                </div>
+
+                <!--USER TYPE FORM-->
+                <div class="form-group">
+                    <div id="x" class="col-xs-4 col-sm-4 col-md-4 control-label">
+                        <label>User type: </label>
+                    </div>
+                    <div class="col-xs-8 col-sm-8 col-md-8 a">
+                        <select id="usertype" name="usertype" fieldName="User type">
+                            <option selected disabled value="">Please select an option...</option>
+                            <option value="Tourist">Tourist</option>
+                            <option value="Student">Student</option>
+                            <option value="Businessman">Businessman</option>
+                        </select>* <br />
+                        <span id="errorusertype"></span>
+                    </div>
+                </div>
+
+                <!--NAME FORMS-->
+                <div class="form-group">
+                    <div id="x" class="col-xs-4 col-sm-4 col-md-4 control-label">
+                        <label>First Name: </label>
+                    </div>
+                    <div class="col-xs-8 col-sm-8 col-md-8 a">
+                        <input id="fname" type="text" placeholder="First Name" name="firstname" inputtype="letters" /> <br />
+                        <span id="errorfname"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div id="x" class="col-xs-4 col-sm-4 col-md-4 control-label">
+                        <label>Last Name: </label>
+                    </div>
+                    <div class="col-xs-8 col-sm-8 col-md-8 a">
+                        <input id="lname" type="text" placeholder="Last Name" name="lastname" inputtype="letters" /> <br />
+                        <span id="errorlname"></span>
+                    </div>
+                </div>
+                
+                <!--Contact DETAIL FORMS-->
+                <div class="form-group">
+                    <div id="x" class="col-xs-4 col-sm-4 col-md-4 control-label">
+                        <label>Phone Number: </label>
+                    </div>
+                    <div class="col-xs-8 col-sm-8 col-md-8 a">
+                        <input id="phonenum" type="text" placeholder="Phone Number" name="phone" inputtype="numbers" /> <br />
+                        <span id="errorphonenum"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div id="x" class="col-xs-4 col-sm-4 col-md-4 control-label">
+                        <label>Email: </label>
+                    </div>
+                    <div class="col-xs-8 col-sm-8 col-md-8 a">
+                        <input id="email" type="text" placeholder="Email" name="email" inputtype="email" /> <br />
+                        <span id="erroremail"></span>
+                    </div>
+                </div>
+                
+                <!--ADDRESS FORMS-->
+                <div class="form-group">
+                    <div id="x" class="col-xs-4 col-sm-4 col-md-4 control-label">
+                        <label>Address: </label>
+                    </div>
+                    <div class="col-xs-8 col-sm-8 col-md-8 a">
+                        <input type="text" placeholder="Address" name="address" /> <br />
+                    </div>
+                </div>
+                <button class="custbtn" type="submit">Sign Up</button> <br />
+                <span id="req">*Required Fields</span>
+            </form>
+            {% if messages %}
+            {% for message in messages %}
+            <span> {{message}} </span><br />
+            {% endfor %}
+            {% endif %}
+        </div>
+    </container>
 {% endblock %}

@@ -40,6 +40,9 @@ body{
 
 h1{
     font-size: 28px;
+    font: 32px Helvetica, Arial;
+    font-weight: 500;
+    color: white;
 }
 
 #loginBox{
@@ -65,17 +68,15 @@ h1{
     height: 30px;
     border: none;
     margin-top: 8px;
-    border-bottom: 1px solid #ddd;
+    margin-bottom: 3px;
+    border-bottom: 1px solid white;
     background: transparent;
     font: 16px Arial, Helvetica, sans-serif;
-}
-
-#loginForm input{
-    margin-bottom: 3px;
+    color: white;
 }
 
 #loginForm span{
-    color: red;
+    color: lightgrey;
 }
 
 #loginForm button{
@@ -83,6 +84,7 @@ h1{
     padding-top: 2px;
     height: 35px;
     border: none;
+    margin-bottom: 10px;
 }
 
 #aboutBox{
@@ -95,7 +97,6 @@ h1{
     margin-right: 10%;
     margin-top: 250px;
 }
-
 
 #aboutText p{
     font-size: 15px;
@@ -114,17 +115,20 @@ h1{
     margin-left: 5%;
 }
 
-
+.errMessage{
+    color: lightgrey;
+    margin-left: 21%;
+}
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: lightgray;
+  color: white;
 }
 ::-moz-placeholder { /* Firefox 19+ */
-  color: lightgray;
+  color: white;
 }
 :-ms-input-placeholder { /* IE 10+ */
-  color: lightgray;
+  color: white;
 }
 :-moz-placeholder { /* Firefox 18- */
-  color: lightgray;
+  color: white;
 }

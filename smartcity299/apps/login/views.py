@@ -3,12 +3,13 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
+from django.contrib import messages
 
 #Render login.html template
 def drawLogin(request):
-	#if(request.user.is_authenticated):
-		#return redirect('/search/')
-	#else:
+	if(request.user.is_authenticated):
+		return redirect('/search/')
+	else:
 		return render(request, 'login.html')
 	
 
@@ -21,4 +22,5 @@ def auth_user(request):
 		return redirect('/')
 	else:
 		#"This user doesnt exist, change page accordingly, Possible with redirect?"
+		messages.add_message(request, messages.ERROR, 'Incorrect username or password')
 		return redirect('/login/')
