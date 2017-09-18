@@ -13,7 +13,7 @@ class Colleges(models.Model):
 	departments = models.CharField(max_length=100, blank=True, null=True) #dep1, dep2, dep3, etc.
 	desc = models.CharField(max_length=120, blank=True, null=True) 
 	city = models.CharField(max_length=5, blank=True, null=True)
-	usertype = models.CharField(max_length=10, blank=True, null=True, default='Student')
+	usertype = models.CharField(max_length=60, blank=True, null=True, default='Student')
 	class Meta: #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
 		db_table = "Colleges"
 		verbose_name = "Colleges"
@@ -30,7 +30,7 @@ class Libraries(models.Model):
 	phone = models.CharField(max_length=15, blank=True, null=True)
 	desc = models.CharField(max_length=120, blank=True, null=True) 
 	city = models.CharField(max_length=5, blank=True, null=True)
-	usertype = models.CharField(max_length=10, blank=True, null=True)
+	usertype = models.CharField(max_length=60, blank=True, null=True, default='Student')
 	class Meta:
 		db_table = "Libraries" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
 		verbose_name = "Libraries"
@@ -47,7 +47,7 @@ class Industries(models.Model):
 	industry_type = models.CharField(max_length=60, blank=True, null=True)
 	desc = models.CharField(max_length=120, blank=True, null=True) 
 	city = models.CharField(max_length=5, blank=True, null=True)
-	usertype = models.CharField(max_length=10, blank=True, null=True)
+	usertype = models.CharField(max_length=60, blank=True, null=True, default='Businessman')
 	class Meta: #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
 		db_table = "Industries"
 		verbose_name = "Industries"
@@ -64,7 +64,7 @@ class Hotels(models.Model):
 	email = models.CharField(max_length=60, blank=True, null=True)
 	desc = models.CharField(max_length=120, blank=True, null=True)
 	city = models.CharField(max_length=5, blank=True, null=True)
-	usertype = models.CharField(max_length=10, blank=True, null=True)
+	usertype = models.CharField(max_length=60, blank=True, null=True, default='Businessman, Tourist')
 	class Meta:
 		db_table = "Hotels" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
 		verbose_name = "Hotels"
@@ -81,7 +81,7 @@ class Parks(models.Model):
 	email = models.CharField(max_length=60, blank=True, null=True)
 	desc = models.CharField(max_length=120, blank=True, null=True)
 	city = models.CharField(max_length=5, blank=True, null=True)
-	usertype = models.CharField(max_length=10, blank=True, null=True)
+	usertype = models.CharField(max_length=60, blank=True, null=True, default='Tourist')
 	class Meta:
 		db_table = "Parks" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
 		verbose_name = "Parks"
@@ -98,7 +98,7 @@ class Zoos(models.Model):
 	email = models.CharField(max_length=60, blank=True, null=True)
 	desc = models.CharField(max_length=120, blank=True, null=True)
 	city = models.CharField(max_length=5, blank=True, null=True)
-	usertype = models.CharField(max_length=10, blank=True, null=True)
+	usertype = models.CharField(max_length=60, blank=True, null=True, default='Tourist')
 	class Meta:
 		db_table = "Zoos" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
 		verbose_name = "Zoos"
@@ -115,7 +115,7 @@ class Museums(models.Model):
 	email = models.CharField(max_length=60, blank=True, null=True)
 	desc = models.CharField(max_length=120, blank=True, null=True)
 	city = models.CharField(max_length=5, blank=True, null=True)
-	usertype = models.CharField(max_length=10, blank=True, null=True)
+	usertype = models.CharField(max_length=60, blank=True, null=True)
 	class Meta:
 		db_table = "Museums" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
 		verbose_name = "Museums"
@@ -132,7 +132,7 @@ class Restaurants(models.Model):
 	email = models.CharField(max_length=60, blank=True, null=True)
 	desc = models.CharField(max_length=120, blank=True, null=True)
 	city = models.CharField(max_length=5, blank=True, null=True)
-	usertype = models.CharField(max_length=10, blank=True, null=True)
+	usertype = models.CharField(max_length=60, blank=True, null=True)
 	class Meta:
 		db_table = "Restaurants" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
 		verbose_name = "Restaurants"
@@ -149,7 +149,7 @@ class Malls(models.Model):
 	email = models.CharField(max_length=60, blank=True, null=True)
 	desc = models.CharField(max_length=120, blank=True, null=True)
 	city = models.CharField(max_length=5, blank=True, null=True)
-	usertype = models.CharField(max_length=10, blank=True, null=True)
+	usertype = models.CharField(max_length=60, blank=True, null=True)
 	class Meta:
 		db_table = "Malls" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
 		verbose_name = "Malls"

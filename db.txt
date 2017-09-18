@@ -1,34 +1,52 @@
-CREATE DATABASE smartcity;
+#Create db
+CREATE DATABASE `smartcity`
 
-CREATE TABLE `smartcity`.`services` (
-  
-	`id` INT NOT NULL AUTO_INCREMENT,
-  
-	`name` VARCHAR(45) NULL,
-  
-	`desc` VARCHAR(120) NULL,
-  
-	`city` VARCHAR(5) NULL,
-  
-	PRIMARY KEY (`id`));
+#Setup admin
+INSERT INTO `smartcity`.`auth_user` (`is_superuser`, `username`, `email`, `is_staff`, `is_active`) VALUES ('1', 'admin1', 'admin1@admins.com', '1', '1');
 
-CREATE TABLE `smartcity`.`users` (
-  
-	`id` INT NOT NULL AUTO_INCREMENT,
-	`username` VARCHAR(45) NOT NULL,
 
-	`password` VARCHAR(45) NOT NULL,
-  
-	`usertype` VARCHAR(45) NOT NULL,
-  
-	`name` VARCHAR(45) NOT NULL,
-  
-	`phone` VARCHAR(10) NULL,
-  
-	`email` VARCHAR(45) NULL,
-  
-	`address` VARCHAR(45) NULL,
-  
-	PRIMARY KEY (`id`));
+#Setup test user
+//Just make sure you dont have an id=1 in your db already
+INSERT INTO `smartcity`.`auth_user` (`id`, `password`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`) VALUES ('1', 'Test', 'testA', 'testAFN', 'testALN', 'test@test.com', '0', '1');
 
+INSERT INTO `smartcity`.`user_profile` (`address`, `user_id`, `phone_num`, `user_type`) VALUES ('test', '1', '123456789', 'Student');
+
+
+
+#>>STUDENT INFO
+#Setup colleges
+INSERT INTO `smartcity`.`colleges` (`name`, `address`, `email`, `departments`, `desc`, `city`, `usertype`) VALUES ('collegeA', 'a', 'a', 'a', 'a', 'a', 'Student');
+
+
+#Setup library
+INSERT INTO `smartcity`.`libraries` (`name`, `address`, `email`, `phone`, `desc`, `city`, `usertype`) VALUES ('libraryA', 'a', 'a', 'a', 'a', 'a', 'Student');
+
+
+#>>BUSINESS AND TOURIST INFO
+#Setup hotels
+INSERT INTO `smartcity`.`hotels` (`name`, `address`, `phone`, `email`, `desc`, `city`, `usertype`) VALUES ('hotelA', 'a', 'a', 'a', 'a', 'a', 'Businessman, Tourist');
+
+
+#Setup industries
+INSERT INTO `smartcity`.`hotels` (`name`, `address`, `phone`, `email`, `desc`, `city`, `usertype`) VALUES ('industryA', 'a', 'a', 'a', 'a', 'a', 'Businessman');
+
+#>>CITY INFORMATION
+#Setup parks
+INSERT INTO `smartcity`.`parks` (`name`, `address`, `phone`, `email`, `desc`, `city`, `usertype`) VALUES ('parkA', 'a', 'a', 'a', 'a', 'a', 'Businessman, Tourist, Student');
+
+
+#Setup zoos
+INSERT INTO `smartcity`.`zoos` (`name`, `address`, `phone`, `email`, `desc`, `city`, `usertype`) VALUES ('zooA', 'a', 'a', 'a', 'a', 'a', 'Businessman, Tourist, Student');
+
+
+#Setup museums
+INSERT INTO `smartcity`.`museums` (`name`, `address`, `phone`, `email`, `desc`, `city`, `usertype`) VALUES ('museumA', 'a', 'a', 'a', 'a', 'a', Businessman, Tourist, Student');
+
+
+#Setup restaurant
+INSERT INTO `smartcity`.`restaurants` (`name`, `address`, `phone`, `email`, `desc`, `city`, `usertype`) VALUES ('restaurantA', 'a', 'a', 'a', 'a', 'a', 'Businessman, Tourist, Student');
+
+
+#Setup mall
+INSERT INTO `smartcity`.`malls` (`name`, `address`, `phone`, `email`, `desc`, `city`, `usertype`) VALUES ('mallA', 'a', 'a', 'a', 'a', 'a', 'Businessman, Tourist, Student');
 

@@ -6,6 +6,8 @@ from django.template import Context
 from django.db.models.query import EmptyQuerySet
 from django.apps import apps
 
+from django.contrib import messages
+
 def drawSearch(request):
 	if(request.user.is_authenticated == False):
 		return redirect("/")
@@ -17,12 +19,17 @@ def search(request):
 	sQuery = request.GET['sQuery']
 	modelSet = apps.get_app_config('search').get_models()
 	resultSet = set()
-	for model in modelSet:
-		temp = model.objects.filter(name__icontains=sQuery)
-		if not(request.user.is_superuser): #A admin/superuser can see all results
-			temp = temp.filter(usertype__iexact=request.user.userprofile.user_type)
-		if(temp.exists()):
-			resultSet.add(temp.get())
+	try:
+		for model in modelSet:
+			temp = model.objects.filter(name__icontains=sQuery)
+			if not(request.user.is_superuser): #A admin/superuser can see all results
+				temp = temp.filter(usertype__icontains=request.user.userprofile.user_type)
+			if(temp.exists()):
+				for result in temp:
+					resultSet.add(result)
+	except Exception as e:
+		messages.add_message(request, messages.ERROR, 'Error occured. Please retry search and if problem persists contact system administrator.')
+		return redirect("/search/")
 	context = {
 		'resultSet' : resultSet,
 		'queryReq' : sQuery
