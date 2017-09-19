@@ -10,6 +10,11 @@
     <div id="addPage">
         <a href="./add_page/">Add page</a>
     </div>
+    {% if messages %}
+        {% for message in messages %}
+            <span> {{message}} </span><br />
+        {% endfor %}
+    {% endif %}
     <div> 
         <!--Additional tools go here-->
     </div>
