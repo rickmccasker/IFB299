@@ -6,7 +6,6 @@
 {% endblock %}
 
 {% block content %}
-    <script>testMessage()</script>
     <form method="POST" action="submit_item/" onsubmit="return validateInput(this)">
         {% csrf_token %}
         {% for fieldName in fieldArr %} <!--The "addModels" in a url tag is its namespace, ensure it is named in the urls-->
@@ -14,7 +13,11 @@
             <input id="{{fieldName}}" type="text" placeholder="Input text here" name="{{fieldName}}" fieldName="{{fieldName}}" />* <br />
             <span id="error{{fieldName}}"></span>
         {% endfor %}
-
-        <button type="submit">Submit</button> <!--CURRENTLY SUBMIT_ITEM IS NOT MAPPED, SORT THIS SHIT OUT-->
+        <button type="submit">Submit</button>
+        {% if messages %}
+            {% for message in messages %}
+                <span> {{message}} </span><br />
+            {% endfor %}
+        {% endif %}
     </form>
 {% endblock %}
