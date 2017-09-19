@@ -5,7 +5,7 @@
 
 {% block content %}
     {% for model in allModels %} <!--The "addModels" in a url tag is its namespace, ensure it is named in the urls-->
-        <a href='{% url "addModels" "add_page"  %}{{model}}'>{{model}}</a> <br />
+        <a href='{% url "addModels" "add_page" %}{{model}}'>{{model}}</a> <br />
     {% empty %}
         <p>No models exist for services, please check that the search app has models associated with it.</p>
     {% endfor %}
