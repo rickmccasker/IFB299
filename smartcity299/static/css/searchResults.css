@@ -1,0 +1,30 @@
+body {
+    background-color: grey;
+}
+
+.box{
+    background-color: white;
+    margin-left: 5%;
+    width: 90%;
+    min-width: 750px;
+}
+
+.resultSet{
+    background-color: red;
+}
+
+.result{
+    border-style: solid;
+    border-color: black;
+    border-width: 2px 2px 2px 2px;
+}
+
+table{
+    width: 100%;
+}
+
+
+.map{
+    background-color: black;
+    height: 100%;
+}

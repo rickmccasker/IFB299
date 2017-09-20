@@ -1,16 +1,32 @@
 {% extends "base_generic.html" %}
 {% load staticfiles %}
+{% load app_filters %}
 {% block head %}
-    <title>Service {{serviceDetails.name}}</title>
+    <title>{{serviceDetails.name|title}}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css\searchDetails.css' %}">
 {% endblock %}
 
 {% block content %}
-    <div>
-        Name of place: {{serviceDetails.name}} <br />
-        Desc of place: {{serviceDetails.desc}} <br />
-        City of service: {{serviceDetails.city}} <br />
-        <!-- THIS CHECKS IF THE IMAGE EXISTS AND RETURNS A 404 IF IT DOESNT-->
-        <img src="{{ STATIC_URL }}/static/images/serviceImg/{{serviceDetails.name}}.jpg/" onerror="this.src='{{ STATIC_URL}}/static/images/serviceImg/404.jpg/'"/>
-        <!-- BE AWARE THAT THE IMAGE NAME MUST MATCH THE PLACE NAME, MAKE IT SO WHEN INSERTING-->
-    </div>
+    <container class="container">
+        <div class="box">
+            <div class="col-xs-12 col-sm-7 col-md-7 details">
+                <h1>{{serviceDetails.name|title}}</h1> <br />
+                <div id="inner">
+                    Address: {{serviceDetails.address}} <br />
+                    City: {{serviceDetails.city}} <br />
+                    {% for detail in serviceDetails %}
+                        {% if detail != "city" and detail != "desc" and detail != "name" and detail != "usertype" and detail != "id" and detail != "address" %}
+                            <span>{{detail|title}} : {{serviceDetails|get_model_val:detail}}</span><br />
+                        {% endif %}
+                    {% endfor %}
+                    Desc of place: {{serviceDetails.desc}} <br />
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-5 col-md-5 image">
+                <img src="{{ STATIC_URL }}/static/images/serviceImg/{{serviceDetails.name}}.jpg/" onerror="this.src='{{ STATIC_URL}}/static/images/serviceImg/404.jpg/'" />
+            </div>
+            
+        </div>
+    </container>
+   
 {% endblock %}

@@ -1,0 +1,27 @@
+body {
+    background-color: grey;
+}
+
+.box{
+    background-color: white;
+    margin-left: 5%;
+    width: 90%;
+    min-width: 600px;
+}
+
+.details{
+    background-color: white;
+}
+
+.image{
+    margin-top: 20px;
+}
+
+#inner{
+    margin-left: 20px;
+}
+
+img{
+    width: 100%;
+    height: auto;
+}

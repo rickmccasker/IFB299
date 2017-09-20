@@ -1,16 +1,47 @@
-<!DOCTYPE HTML>
-
-<html>
-<head>
+{% extends "base_minimal.html" %}
+{% load staticfiles %}
+{% block head %}
     <title>Resultset</title>
-</head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css\searchResults.css' %}">
+{% endblock %}
 
-<body>
-    <div> These are the results for your search query "{{queryReq}}": <br /> </div>
-    {% for result in resultSet %}
-        <a href='{% url "details" result.retName result.name %}'>LINK{{result.name}}</a> <br />
-    {% empty %}
-        <p>It appears that there a no results based on your query and user type preference, please try searching again.</p>
-    {% endfor %}
-</body>
-</html>
+{% block content %}
+    <container class="container">
+        <div class="box"> 
+            <h1>Results</h1>
+            {% if queryReq|length == 0 %}
+                <h2>Searching for all relevant items. </h2><br />
+            {% else %}
+                <h2>Searching for "{{queryReq}}". </h2><br />
+            {% endif %}
+
+            <div class="resultSet"> <!--"col-xs-12 col-sm-8 col-md-8-->
+                <table>
+                    <tr>
+                        <th id="name">Name</th>
+                        <th id="type">Type</th>
+                        <th id="address">Address</th>
+                    </tr>
+                    {% for result in resultSet %}
+                    <tr class="result">
+                        <td><a href='{% url "details" result.retName result.name %}'>{{result.name|title}}</a> <br /></td>
+                        <td>{{result.retName}}</td>
+                        <td>{{result.address}}</td>
+                    </tr>
+
+
+                    {% empty %}
+                    <p>It appears that there are no results based on your search and user type preference, please try searching again.</p>
+                    {% endfor %}
+                </table>
+            </div>
+
+            <!--<div class="col-xs-12 col-sm-4 col-md-4 map">
+                <p>MAP GOES HERE</p>
+            </div>-->
+            
+        </div>
+        
+    </container>
+    
+{% endblock %}

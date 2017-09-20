@@ -1,0 +1,39 @@
+body{
+    background-color: grey;
+}
+
+#searchBox{
+    margin-left: 7%;
+    background-color: white;
+    width: 85%;
+    min-width: 800px;
+}
+
+#searchBox h1{
+    background-color: red;
+    text-align: center;
+    width: 50%;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+.input-group{
+    background-color: green;
+    width: 80%;
+    min-width: 700px;
+    margin: 0 auto;
+}
+
+#searchField{
+    padding-left: 15px;
+    width: 90%;
+    height: 60px;
+    font: 35px Arial, Helvetica, sans-serif;
+}
+
+#searchBtn{
+    position: absolute;
+    width: 10%;
+    min-width: 70px;
+    height: 60px;
+}

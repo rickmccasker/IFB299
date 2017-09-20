@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.template import Context
 from django.db.models.query import EmptyQuerySet
 from django.apps import apps
-
+from django.forms.models import model_to_dict
 from django.contrib import messages
 
 def drawSearch(request):
@@ -41,5 +41,6 @@ def details(request, serviceType, serviceName):
 		return redirect("/")
 	model = apps.get_app_config('search').get_model(serviceType)
 	serviceDetails = model.objects.get(name=serviceName)
+	serviceDetails = model_to_dict(serviceDetails)
 	context = { 'serviceDetails' : serviceDetails }
 	return render(request, 'details.html', context)

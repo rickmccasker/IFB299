@@ -2,14 +2,24 @@
 {% load staticfiles %}
 {% block head %}
     <title>Home page title</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/searchMain.css' %}">
 {% endblock %}
 
 {% block content %}
-    <p> This is the home page text</p>
-    <form method="GET" action="/search/results/">
-        <input type="text" id="searchBox" name="sQuery" placeholder="searchbox" />
-        <input type="submit" value="Search" />
-    </form>
+    <container class="container">
+        <div id="searchBox" class="col-md-10">
+            <h1>Search</h1>
+            <form id="searchForm" method="GET" action="/search/results/">
+                <div class="input-group">
+                        <input type="text" id="searchField" name="sQuery" placeholder="Search..." />
+                        <input type="submit" id="searchBtn" value="Search" />
+                </div>
+                
+            </form>
+        </div>
+    </container>
+    
+    
     {% if messages %}
         {% for message in messages %}
             <span class="errMessage"> {{message}} </span><br />
