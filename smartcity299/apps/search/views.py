@@ -8,12 +8,25 @@ from django.apps import apps
 from django.forms.models import model_to_dict
 from django.contrib import messages
 
+#Drawing
 def drawSearch(request):
+	"""
+	If user is authenticated send to search page
+
+	Else redirect to home
+	"""
 	if(request.user.is_authenticated == False):
 		return redirect("/")
 	return render(request, 'search.html')
 
 def search(request):
+	"""
+	If user is authenticated attempt to extract query and search models for similarities.
+	Else redirect to home page
+
+	If the model successfully extracts none to many items, render the page with the search query and the result set as a Context
+	In the event of an exception redirect user to search page with generic error message.
+	"""
 	if(request.user.is_authenticated == False):
 		return redirect("/")
 	sQuery = request.GET['sQuery']
@@ -37,6 +50,12 @@ def search(request):
 	return render(request, 'results.html', context)
 
 def details(request, serviceType, serviceName):	
+	"""
+	If user is authenticated attempt to get the model from search using the param "serviceType" and then further filter results
+	by getting the item based on the param serviceName.
+
+	Create a dict and render the details page with the dict as context.
+	"""
 	if(request.user.is_authenticated == False):
 		return redirect("/")
 	model = apps.get_app_config('search').get_model(serviceType)

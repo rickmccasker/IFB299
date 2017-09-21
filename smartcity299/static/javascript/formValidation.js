@@ -117,6 +117,14 @@ function validEmailForm(input) {
     }
 }
 
+/**
+Description: 
+    Function checks if the select field in the formcontains some sort of value and if it doesn't alter error message accordingly
+Parameters: 
+    form - the entire form which should contain a select field
+Return: 
+    Boolean - Return true when a value is set and false if otherwise
+**/
 function validSelectField(form) {
     var inputs = document.getElementsByTagName("select");
     for(i=0; i<inputs.length; i++){
@@ -125,11 +133,14 @@ function validSelectField(form) {
         if (input.hasAttribute("fieldName")) { //fieldName attribute governs whether a field is compulsory or not
             if (input.options.length == 0 || input.value.length == 0) {
                 document.getElementById(strError).innerHTML = "&nbsp*" + input.getAttribute("fieldName") + " field must not be empty. <br>";
-                result = true
+                return false
+            }
+            else {
+                document.getElementById(strError).innerHTML = "";
+                return true
             }
         }
     }
-    
 }
 
 /**

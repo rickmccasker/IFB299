@@ -1,15 +1,15 @@
 #Create db
-CREATE DATABASE `smartcity`
+CREATE DATABASE `smartcity`;
 
 #Setup admin
 INSERT INTO `smartcity`.`auth_user` (`is_superuser`, `username`, `email`, `is_staff`, `is_active`) VALUES ('1', 'admin1', 'admin1@admins.com', '1', '1');
 
 
 #Setup test user
-//Just make sure you dont have an id=1 in your db already
-INSERT INTO `smartcity`.`auth_user` (`id`, `password`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`) VALUES ('1', 'Test', 'testA', 'testAFN', 'testALN', 'test@test.com', '0', '1');
-
-INSERT INTO `smartcity`.`user_profile` (`address`, `user_id`, `phone_num`, `user_type`) VALUES ('test', '1', '123456789', 'Student');
+#Just make sure you dont have an id=1 in your db already
+#Password is 'password'
+INSERT INTO `smartcity`.`auth_user` (`password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES ('pbkdf2_sha256$36000$9qZ1MT6vH86p$Hy6btiVnCOhkuwipk5/wJ+H+5Jz4xFOSwuCr+e0S3/A=', '2017-09-19 07:20:59.834000', '0', 'userX', 'userX', 'Xuser', 'x@user.com', '0', '1', '2017-09-19 07:20:59.834000');
+INSERT INTO `smartcity`.`user_profile` (`address`, `user_id`, `phone_num`, `user_type`) VALUES ('testVill', LAST_INSERT_ID(), '123', 'Student');
 
 
 
