@@ -3,14 +3,15 @@ body {
 }
 
 .box{
-    background-color: white;
+    background-color: green;
     margin-left: 5%;
     width: 90%;
+    padding: 10px;
     min-width: 750px;
 }
 
 .resultSet{
-    background-color: red;
+    background-color: white;
 }
 
 .result{

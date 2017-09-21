@@ -16,12 +16,13 @@ h1{
     text-align: center;
 }
 
-#x{
-    background-color: black;
+.control-label{
+    margin-right: -25px;
 }
 
 .form-group label{
-    color: red;
+    margin-top: 2px;
+    color: black;
     float: right;
 }
 
@@ -40,10 +41,6 @@ h1{
     display: block;
     color: red;
     margin-bottom: 5px;
-}
-
-.a{
-    background-color: black;
 }
 
 #req{
