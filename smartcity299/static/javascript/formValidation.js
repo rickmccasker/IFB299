@@ -67,7 +67,7 @@ Return:
 function validAlphaChars(input){
     var alphaChar_regex = /^[A-z]+$/;
     if (!alphaChar_regex.test(input.value)) {
-        document.getElementById("error" + input.id).innerHTML = "Please ensure only alphabet characters are used. <br>"
+        document.getElementById("error" + input.id).innerHTML = "&nbsp*Please ensure only alphabet characters are used. <br>"
         return false
     }
     else
@@ -88,7 +88,7 @@ Return:
 function validNumeralChars(input){
     var numericChar_regex = /^[0-9]+$/;
     if (!numericChar_regex.test(input.value)) {
-        document.getElementById("error" + input.id).innerHTML = "Please ensure only numbers are used. <br>"
+        document.getElementById("error" + input.id).innerHTML = "&nbsp*Please ensure only numbers are used. <br>"
         return false
     }
     else {
@@ -108,7 +108,7 @@ Return:
 function validEmailForm(input) {
     var email_regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!email_regex.test(input.value)) {
-        document.getElementById("error" + input.id).innerHTML = "Please ensure correct email form is used (a@a.com). <br>"
+        document.getElementById("error" + input.id).innerHTML = "&nbsp*Please ensure correct email form is used (a@a.com). <br>"
         return false
     }
     else {

@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.apps import apps
 from ..search import models as search_model
+from django.core.validators import validate_email
 
 #Custom functions
 def is_admin(request):
@@ -97,15 +98,28 @@ def addAdmin(request):
 	If admin is successfully authenticated add them to the DB, return meaningful message and redirect back to admin control panel
 	Else redirect back to home (/) with a meaningful error message
 	"""
-	if(request.user.is_authenticated and request.user.is_superuser):
-		admin = User.objects.create_superuser(username = request.POST['username'],
-												email = request.POST['email'],
-												password = request.POST['password'])
-		messages.add_message(request, messages.ERROR, 'Administrator account created successfully.')
-		return redirect('/admin/')
-	else:
-		messages.add_message(request, messages.ERROR, 'Unauthorized access.')
-		return redirect('/')
+	if(request.POST['confpassword'] != request.POST['password']):
+		messages.add_message(request, messages.ERROR, 'Password and confirmation of password mismatch, please try again.')
+		return redirect('/admin/add_admin/')
+	try:
+		validate_email(request.POST['email'])
+		if(request.user.is_authenticated and request.user.is_superuser):
+			admin = User.objects.create_superuser(username = request.POST['username'],
+													email = request.POST['email'],
+													password = request.POST['password'])
+			messages.add_message(request, messages.ERROR, 'Administrator account created successfully.')
+			return redirect('/admin/')
+		else:
+			messages.add_message(request, messages.ERROR, 'Unauthorized access.')
+			return redirect('/')
+	except Exception as e:
+		if(e.__class__.__name__ == "IntegrityError"):
+			messages.add_message(request, messages.ERROR, 'Error creating account, user already exists.')
+		elif(e.__class__.__name__ == "ValidationError"):
+			messages.add_message(request, messages.ERROR, 'Email invalid format, please try again.')
+		else:
+			messages.add_message(request, messages.ERROR, 'Error creating account please try again.')
+		return redirect('/admin/add_admin/')
 
 def addItem(request, tableName):
 	"""
