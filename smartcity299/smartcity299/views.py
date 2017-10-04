@@ -12,7 +12,6 @@ def redirector(request):
 	If the request contains a user that is authenticated, redirect to the search page.
 	If the request has an unauthenticated user, redirect to login page.
 	"""
-	print help(redirector)
 	if request.user.is_authenticated: #User session only ends when their browser if fully closed
 		return redirect('search/')
 	else:

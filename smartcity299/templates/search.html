@@ -5,7 +5,7 @@
     <title>Home page title</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/searchMain.css' %}">
     <script type="text/javascript" src="{% static 'javascript/maps.js' %}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzl6bbNp1i-f5UByJaae8dXMlDrea_Q5Q&libraries=places"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcH76SKD-GzqVJquVjdnn6sxxp-WgViOg&libraries=places"></script>
 {% endblock %}
 
 {% block content %}
@@ -14,8 +14,10 @@
             <h1>Search</h1>
             <form id="searchForm" method="GET" action="/search/results/">
                 <div class="input-group">
-                        <input type="text" id="searchField" name="sQuery" placeholder="Search..." />
-                        <input type="submit" id="searchBtn" value="Search" />
+                    <input type="text" id="searchField" name="sQuery" placeholder="Search..." />
+                    <input type="submit" id="searchBtn" value="Search" />
+                    <input type="hidden" name="city" value="-33.866,151.196" />
+                    <input type="hidden" name="type" value="" />
                 </div>
                 
             </form>

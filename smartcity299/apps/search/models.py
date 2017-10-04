@@ -16,7 +16,7 @@ class Colleges(models.Model):
 	usertype = models.CharField(max_length=60, blank=True, null=True, default='Student')
 	class Meta: #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
 		db_table = "Colleges"
-		verbose_name = "Colleges"
+		verbose_name = "College"
 		verbose_name_plural = "Colleges"
 	def retName(self):
 		return self._meta.db_table
@@ -33,7 +33,7 @@ class Libraries(models.Model):
 	usertype = models.CharField(max_length=60, blank=True, null=True, default='Student')
 	class Meta:
 		db_table = "Libraries" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
-		verbose_name = "Libraries"
+		verbose_name = "Library"
 		verbose_name_plural = "Libraries"
 	def retName(self):
 		return self._meta.db_table
@@ -50,7 +50,7 @@ class Industries(models.Model):
 	usertype = models.CharField(max_length=60, blank=True, null=True, default='Businessman')
 	class Meta: #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
 		db_table = "Industries"
-		verbose_name = "Industries"
+		verbose_name = "Industry"
 		verbose_name_plural = "Industries"
 	def retName(self):
 		return self._meta.db_table
@@ -67,7 +67,7 @@ class Hotels(models.Model):
 	usertype = models.CharField(max_length=60, blank=True, null=True, default='Businessman, Tourist')
 	class Meta:
 		db_table = "Hotels" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
-		verbose_name = "Hotels"
+		verbose_name = "Hotel"
 		verbose_name_plural = "Hotels"
 	def retName(self):
 		return self._meta.db_table
@@ -84,7 +84,7 @@ class Parks(models.Model):
 	usertype = models.CharField(max_length=60, blank=True, null=True, default='Tourist')
 	class Meta:
 		db_table = "Parks" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
-		verbose_name = "Parks"
+		verbose_name = "Park"
 		verbose_name_plural = "Parks"
 	def retName(self):
 		return self._meta.db_table
@@ -101,7 +101,7 @@ class Zoos(models.Model):
 	usertype = models.CharField(max_length=60, blank=True, null=True, default='Tourist')
 	class Meta:
 		db_table = "Zoos" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
-		verbose_name = "Zoos"
+		verbose_name = "Zoo"
 		verbose_name_plural = "Zoos"
 	def retName(self):
 		return self._meta.db_table
@@ -118,7 +118,7 @@ class Museums(models.Model):
 	usertype = models.CharField(max_length=60, blank=True, null=True)
 	class Meta:
 		db_table = "Museums" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
-		verbose_name = "Museums"
+		verbose_name = "Museum"
 		verbose_name_plural = "Museums"
 	def retName(self):
 		return self._meta.db_table
@@ -135,7 +135,7 @@ class Restaurants(models.Model):
 	usertype = models.CharField(max_length=60, blank=True, null=True)
 	class Meta:
 		db_table = "Restaurants" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
-		verbose_name = "Restaurants"
+		verbose_name = "Restaurant"
 		verbose_name_plural = "Restaurants"
 	def retName(self):
 		return self._meta.db_table
@@ -152,7 +152,7 @@ class Malls(models.Model):
 	usertype = models.CharField(max_length=60, blank=True, null=True)
 	class Meta:
 		db_table = "Malls" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
-		verbose_name = "Malls"
+		verbose_name = "Mall"
 		verbose_name_plural = "Malls"
 	def retName(self):
 		return self._meta.db_table
