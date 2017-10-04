@@ -2,6 +2,12 @@ body{
     background-color: grey;
 }
 
+
+
+#map{
+    height: 400px;
+}
+
 #divSearchBox{
     margin-left: 7%;
     background-color: green;
