@@ -40,56 +40,59 @@ def search(request):
 	type = request.GET['type']
 	modelSet = apps.get_app_config('search').get_models()
 	resultSet = dictSet()
-	try:
-		for model in modelSet:
-			#Match tablenames
-			if(model._meta.db_table.lower() == sQuery.strip().lower() or
-			   model._meta.verbose_name.lower() == sQuery.strip().lower()):
-				print model._meta.db_table
-				print model._meta.verbose_name
-			
-			#Match fieldnames
+	#try:
+	for model in modelSet:
+		#Match tablenames
+		if(model._meta.db_table.lower() == sQuery.strip().lower() or
+		   model._meta.verbose_name.lower() == sQuery.strip().lower()):
+			temp = model.objects.all()
+			print ">>>>>>>>>>>>>>>>MODEL"
+			print temp
+		else:
 			temp = model.objects.filter(name__icontains=sQuery)
-			
-			if not(request.user.is_superuser): #An admin/superuser can see all results
-				temp = temp.filter(usertype__icontains=request.user.userprofile.user_type)
-			if(temp.exists()):
-				for result in temp:
-					resultSet[result.name] = result
-					resultSet['parkB'] = result
-	except Exception as e:
-		messages.add_message(request, messages.ERROR, 'Error occured. Please retry search and if problem persists contact system administrator.')
-		return redirect("/search/")
+			print ">>>>>>>>>>>>>>>>name"
+			print temp
+		if not(request.user.is_superuser): #An admin/superuser can see all results
+			temp = temp.filter(usertype__icontains=request.user.userprofile.user_type)
+		if(temp.exists()):
+			for result in temp:
+				resultSet[result.name] = result
+	#except Exception as e:
+		#messages.add_message(request, messages.ERROR, 'Error occured. Please retry search and if problem persists contact system administrator.')
+		#return redirect("/search/")
 
 	
-		#Bind google maps data to dataset
+	#Bind google maps data to dataset
+	url = nearby_build_URL(location, sQuery, type) #Type must correspond to user type &type=park|parking, str concated based on user type
+	data_response = urllib2.urlopen(url).read()
+	maps_dataset = json.loads(data_response)
+	print url
+	iterator = 0
+	while iterator < len(maps_dataset['results']):
+		place_details = placeDetails_build_URL(maps_dataset['results'][iterator]['place_id'])
+		details_response = urllib2.urlopen(place_details).read()
+		maps_detailset = json.loads(details_response)
 
-	#url = nearby_build_URL(location, sQuery, type)
-	#data_response = urllib2.urlopen(url).read()
-	#maps_dataset = json.loads(data_response)
+		print "AAAAAAAAAAA"
 
-	#place_details = placeDetails_build_URL(maps_dataset['results'][0]['place_id'])
-	#details_response = urllib2.urlopen(place_details).read()
-	#maps_detailset = json.loads(details_response)
-
-	#print "AAAAAAAAAAA"
-
-	#place = dictSet()
+		place = dictSet()
 	
-	#address_str = maps_detailset['result']['formatted_address'].encode()
-	#name_str = maps_dataset['results'][0]['name'].encode()
-	#type_str = maps_dataset['results'][0]['types'][0].encode().capitalize()
+		address_str = maps_detailset['result']['formatted_address'].encode()
+		name_str = maps_dataset['results'][iterator]['name'].encode()
+		type_str = maps_dataset['results'][iterator]['types'][0].encode().capitalize() #https://developers.google.com/places/web-service/supported_types
 
-	#place.address = address_str
-	#place.name = name_str
-	#place.type = type_str
+		place.address = address_str
+		place.name = name_str
+		place.type = type_str
 	
-	#print "XXXXXXXXXXX"
-	#print place
-	#print y['results'][0]['name'] #HOW TO RETRIEVE ONE AT A TIME VIA NAME. CHANGE TO DICT>PULL RESULTS>PULL 0th VAL>PULL NAME
-	
-	print resultSet
-	print resultSet['parkA'].address
+		print "XXXXXXXXXXX"
+		print place
+		#print y['results'][0]['name'] #HOW TO RETRIEVE ONE AT A TIME VIA NAME. CHANGE TO DICT>PULL RESULTS>PULL 0th VAL>PULL NAME
+		
+		position = str(iterator) + '' + place.name
+		resultSet[position] = place
+		iterator+=1
+
 	context = {
 		'resultSet' : resultSet,
 		'queryReq' : sQuery
@@ -115,7 +118,7 @@ def nearby_build_URL(location, query, type):
 	base_url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json'
 	query_string = '?keyword=' + urllib.quote(query)
 	location_string = '&location=' + location
-	radius = '&radius=' + '50'                                  
+	radius = '&radius=' + '100'                                  
 	type_string = ''
 	key_string = '&key=' + "AIzaSyAcH76SKD-GzqVJquVjdnn6sxxp-WgViOg"          
 	url = base_url+query_string+location_string+radius+type_string+key_string
@@ -127,3 +130,7 @@ def placeDetails_build_URL(placeid):
 	key_string = '&key='+'AIzaSyAcH76SKD-GzqVJquVjdnn6sxxp-WgViOg'
 	url = base_url + placeid_string + key_string
 	return url
+
+#TODO:
+	#Add so only dbtable names can be displayed from google
+	#Limit visibility based on user type

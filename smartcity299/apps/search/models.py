@@ -19,7 +19,7 @@ class Colleges(models.Model):
 		verbose_name = "College"
 		verbose_name_plural = "Colleges"
 	def retName(self):
-		return self._meta.db_table
+		return self._meta.verbose_name
 	def __unicode__(self):
 		return 'Colleges: ' + self.name
 
@@ -36,7 +36,7 @@ class Libraries(models.Model):
 		verbose_name = "Library"
 		verbose_name_plural = "Libraries"
 	def retName(self):
-		return self._meta.db_table
+		return self._meta.verbose_name
 	def __unicode__(self):
 		return 'Libraries: ' + self.name
 
@@ -53,7 +53,7 @@ class Industries(models.Model):
 		verbose_name = "Industry"
 		verbose_name_plural = "Industries"
 	def retName(self):
-		return self._meta.db_table
+		return self._meta.verbose_name
 	def __unicode__(self):
 		return 'Industries: ' + self.name
 
@@ -70,7 +70,7 @@ class Hotels(models.Model):
 		verbose_name = "Hotel"
 		verbose_name_plural = "Hotels"
 	def retName(self):
-		return self._meta.db_table
+		return self._meta.verbose_name
 	def __unicode__(self):
 		return 'Hotels: ' + self.name
 
@@ -87,7 +87,7 @@ class Parks(models.Model):
 		verbose_name = "Park"
 		verbose_name_plural = "Parks"
 	def retName(self):
-		return self._meta.db_table
+		return self._meta.verbose_name
 	def __unicode__(self):
 		return 'Parks: ' + self.name
 
@@ -104,7 +104,7 @@ class Zoos(models.Model):
 		verbose_name = "Zoo"
 		verbose_name_plural = "Zoos"
 	def retName(self):
-		return self._meta.db_table
+		return self._meta.verbose_name
 	def __unicode__(self):
 		return 'Zoos: ' + self.name
 
@@ -121,7 +121,7 @@ class Museums(models.Model):
 		verbose_name = "Museum"
 		verbose_name_plural = "Museums"
 	def retName(self):
-		return self._meta.db_table
+		return self._meta.verbose_name
 	def __unicode__(self):
 		return 'Museums: ' + self.name
 
@@ -138,7 +138,7 @@ class Restaurants(models.Model):
 		verbose_name = "Restaurant"
 		verbose_name_plural = "Restaurants"
 	def retName(self):
-		return self._meta.db_table
+		return self._meta.verbose_name
 	def __unicode__(self):
 		return 'Restaurants: ' + self.name
 
@@ -155,6 +155,6 @@ class Malls(models.Model):
 		verbose_name = "Mall"
 		verbose_name_plural = "Malls"
 	def retName(self):
-		return self._meta.db_table
+		return self._meta.verbose_name
 	def __unicode__(self):
 		return 'Malls: ' + self.name
