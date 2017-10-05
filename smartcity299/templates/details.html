@@ -12,7 +12,11 @@
             <div class="col-xs-12 col-sm-7 col-md-7 details">
                 <h1>{{serviceDetails.name|title}}</h1> <br />
                 <div id="inner">
-                    Address: {{serviceDetails.address}} <br />
+                    {% if serviceDetails.address %}
+                        Address: {{serviceDetails.address}} <br />
+                    {% else %}
+                        Address: ERRROR <br />
+                    {% endif %}
                     City: {{serviceDetails.city}} <br />
                     {% for detail in serviceDetails %}
                         {% if detail != "city" and detail != "desc" and detail != "name" and detail != "usertype" and detail != "id" and detail != "address" %}

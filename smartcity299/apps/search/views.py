@@ -9,6 +9,7 @@ from django.forms.models import model_to_dict
 from django.contrib import messages
 import urllib2
 import urllib
+import json
 
 #Drawing
 def drawSearch(request):
@@ -29,14 +30,16 @@ def search(request):
 	If the model successfully extracts none to many items, render the page with the search query and the result set as a Context
 	In the event of an exception redirect user to search page with generic error message.
 	"""
+	class dictSet(dict):
+		pass
+
 	if(request.user.is_authenticated == False):
 		return redirect("/")
 	sQuery = request.GET['sQuery']
 	location = request.GET['city']
 	type = request.GET['type']
 	modelSet = apps.get_app_config('search').get_models()
-	resultSet = set()
-	response = set()
+	resultSet = dictSet()
 	try:
 		for model in modelSet:
 			#Match tablenames
@@ -52,23 +55,47 @@ def search(request):
 				temp = temp.filter(usertype__icontains=request.user.userprofile.user_type)
 			if(temp.exists()):
 				for result in temp:
-					resultSet.add(result)
-			#Add google maps stuff
-			#response = urllib2.urlopen(url).read()
+					resultSet[result.name] = result
+					resultSet['parkB'] = result
 	except Exception as e:
 		messages.add_message(request, messages.ERROR, 'Error occured. Please retry search and if problem persists contact system administrator.')
 		return redirect("/search/")
-	url = build_URL(location, sQuery, type)
-	print url
-	#response = urllib2.urlopen(url).read()
+
+	
+		#Bind google maps data to dataset
+
+	#url = nearby_build_URL(location, sQuery, type)
+	#data_response = urllib2.urlopen(url).read()
+	#maps_dataset = json.loads(data_response)
+
+	#place_details = placeDetails_build_URL(maps_dataset['results'][0]['place_id'])
+	#details_response = urllib2.urlopen(place_details).read()
+	#maps_detailset = json.loads(details_response)
+
+	#print "AAAAAAAAAAA"
+
+	#place = dictSet()
+	
+	#address_str = maps_detailset['result']['formatted_address'].encode()
+	#name_str = maps_dataset['results'][0]['name'].encode()
+	#type_str = maps_dataset['results'][0]['types'][0].encode().capitalize()
+
+	#place.address = address_str
+	#place.name = name_str
+	#place.type = type_str
+	
+	#print "XXXXXXXXXXX"
+	#print place
+	#print y['results'][0]['name'] #HOW TO RETRIEVE ONE AT A TIME VIA NAME. CHANGE TO DICT>PULL RESULTS>PULL 0th VAL>PULL NAME
+	
+	print resultSet
+	print resultSet['parkA'].address
 	context = {
 		'resultSet' : resultSet,
 		'queryReq' : sQuery
 	}
-	print response
-	print context
 	return render(request, 'results.html', context)
-
+	print resultSet['parkA'].address
 def details(request, serviceType, serviceName):	
 	"""
 	If user is authenticated attempt to get the model from search using the param "serviceType" and then further filter results
@@ -84,12 +111,19 @@ def details(request, serviceType, serviceName):
 	context = { 'serviceDetails' : serviceDetails }
 	return render(request, 'details.html', context)
 
-def build_URL(location, query, type):
+def nearby_build_URL(location, query, type):
 	base_url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json'
 	query_string = '?keyword=' + urllib.quote(query)
 	location_string = '&location=' + location
-	radius = '&radius=' + '200'                                  
+	radius = '&radius=' + '50'                                  
 	type_string = ''
 	key_string = '&key=' + "AIzaSyAcH76SKD-GzqVJquVjdnn6sxxp-WgViOg"          
 	url = base_url+query_string+location_string+radius+type_string+key_string
+	return url
+
+def placeDetails_build_URL(placeid):
+	base_url = 'https://maps.googleapis.com/maps/api/place/details/json'
+	placeid_string = '?placeid=' + placeid
+	key_string = '&key='+'AIzaSyAcH76SKD-GzqVJquVjdnn6sxxp-WgViOg'
+	url = base_url + placeid_string + key_string
 	return url

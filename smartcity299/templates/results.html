@@ -22,11 +22,12 @@
                         <th id="type">Type</th>
                         <th id="address">Address</th>
                     </tr>
-                    {% for result in resultSet %}
+                    {% for key, values in resultSet.items %}
                     <tr class="result">
-                        <td><a href='{% url "details" result.retName result.name %}'>{{result.name|title}}</a> <br /></td>
-                        <td>{{result.retName}}</td>
-                        <td>{{result.address}}</td>
+                            <td><a href='{% url "details" values.retName values.name %}'>{{values.name|title}}</a> <br /></td>
+                            <td>{{values.retName}}</td>
+                            <td>{{values.address}}</td>
+
                     </tr>
 
 
