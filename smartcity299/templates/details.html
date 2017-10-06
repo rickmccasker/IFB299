@@ -23,7 +23,9 @@
                             <span>{{detail|title}} : {{serviceDetails|get_model_val:detail}}</span><br />
                         {% endif %}
                     {% endfor %}
-                    Desc of place: {{serviceDetails.desc}} <br />
+                    {% if serviceDetails.desc %}
+                        Desc of place: {{serviceDetails.desc}} <br />
+                    {% endif %}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-5 col-md-5 image">

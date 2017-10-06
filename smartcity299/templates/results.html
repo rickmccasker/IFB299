@@ -24,14 +24,14 @@
                     </tr>
                     {% for key, values in resultSet.items %}
                     <tr class="result">
+                        {% if values.retName %}
                             <td><a href='{% url "details" values.retName values.name %}'>{{values.name|title}}</a> <br /></td>
-                            {% if values.retName %}
-                                <td>{{values.retName}}</td>
-                            {% else %}
-                                <td>{{values.type}}</td>
-                            {% endif %}
+                            <td>{{values.retName}}</td>
+                        {% else %}
+                            <td><a href='{% url "g_details" values.id values.name %}'>{{values.name|title}}</a> <br /></td>
+                            <td>{{values.type}}</td>
+                        {% endif %}
                             <td>{{values.address}}</td>
-
                     </tr>
 
 
