@@ -6,7 +6,7 @@ from django.db import models
 #Currently not normalized, usertype should be part of a different table reffering to each item
 #But relies too heavily on current system, hard to change :(
 
-class Colleges(models.Model):
+class College(models.Model):
 	name = models.CharField(max_length=45, blank=True, null=True)
 	address = models.CharField(max_length=45, blank=True, null=True)
 	email = models.CharField(max_length=60, blank=True, null=True)
@@ -15,7 +15,7 @@ class Colleges(models.Model):
 	city = models.CharField(max_length=5, blank=True, null=True)
 	usertype = models.CharField(max_length=60, blank=True, null=True, default='Student')
 	class Meta: #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
-		db_table = "Colleges"
+		db_table = "College"
 		verbose_name = "College"
 		verbose_name_plural = "Colleges"
 	def retName(self):
@@ -23,7 +23,7 @@ class Colleges(models.Model):
 	def __unicode__(self):
 		return 'Colleges: ' + self.name
 
-class Libraries(models.Model):
+class Library(models.Model):
 	name = models.CharField(max_length=45, blank=True, null=True)
 	address = models.CharField(max_length=45, blank=True, null=True)
 	email = models.CharField(max_length=60, blank=True, null=True)
@@ -32,7 +32,7 @@ class Libraries(models.Model):
 	city = models.CharField(max_length=5, blank=True, null=True)
 	usertype = models.CharField(max_length=60, blank=True, null=True, default='Student')
 	class Meta:
-		db_table = "Libraries" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
+		db_table = "Library" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
 		verbose_name = "Library"
 		verbose_name_plural = "Libraries"
 	def retName(self):
@@ -40,7 +40,7 @@ class Libraries(models.Model):
 	def __unicode__(self):
 		return 'Libraries: ' + self.name
 
-class Industries(models.Model):
+class Industry(models.Model):
 	name = models.CharField(max_length=45, blank=True, null=True)
 	address = models.CharField(max_length=45, blank=True, null=True)
 	email = models.CharField(max_length=60, blank=True, null=True)
@@ -49,7 +49,7 @@ class Industries(models.Model):
 	city = models.CharField(max_length=5, blank=True, null=True)
 	usertype = models.CharField(max_length=60, blank=True, null=True, default='Businessman')
 	class Meta: #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
-		db_table = "Industries"
+		db_table = "Industry"
 		verbose_name = "Industry"
 		verbose_name_plural = "Industries"
 	def retName(self):
@@ -57,7 +57,7 @@ class Industries(models.Model):
 	def __unicode__(self):
 		return 'Industries: ' + self.name
 
-class Hotels(models.Model):
+class Hotel(models.Model):
 	name = models.CharField(max_length=45, blank=True, null=True)
 	address = models.CharField(max_length=45, blank=True, null=True)
 	phone = models.CharField(max_length=15, blank=True, null=True)
@@ -66,7 +66,7 @@ class Hotels(models.Model):
 	city = models.CharField(max_length=5, blank=True, null=True)
 	usertype = models.CharField(max_length=60, blank=True, null=True, default='Businessman, Tourist')
 	class Meta:
-		db_table = "Hotels" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
+		db_table = "Hotel" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
 		verbose_name = "Hotel"
 		verbose_name_plural = "Hotels"
 	def retName(self):
@@ -74,7 +74,7 @@ class Hotels(models.Model):
 	def __unicode__(self):
 		return 'Hotels: ' + self.name
 
-class Parks(models.Model):
+class Park(models.Model):
 	name = models.CharField(max_length=45, blank=True, null=True)
 	address = models.CharField(max_length=45, blank=True, null=True)
 	phone = models.CharField(max_length=15, blank=True, null=True)
@@ -83,7 +83,7 @@ class Parks(models.Model):
 	city = models.CharField(max_length=5, blank=True, null=True)
 	usertype = models.CharField(max_length=60, blank=True, null=True, default='Tourist')
 	class Meta:
-		db_table = "Parks" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
+		db_table = "Park" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
 		verbose_name = "Park"
 		verbose_name_plural = "Parks"
 	def retName(self):
@@ -91,7 +91,7 @@ class Parks(models.Model):
 	def __unicode__(self):
 		return 'Parks: ' + self.name
 
-class Zoos(models.Model):
+class Zoo(models.Model):
 	name = models.CharField(max_length=45, blank=True, null=True)
 	address = models.CharField(max_length=45, blank=True, null=True)
 	phone = models.CharField(max_length=15, blank=True, null=True)
@@ -100,7 +100,7 @@ class Zoos(models.Model):
 	city = models.CharField(max_length=5, blank=True, null=True)
 	usertype = models.CharField(max_length=60, blank=True, null=True, default='Tourist')
 	class Meta:
-		db_table = "Zoos" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
+		db_table = "Zoo" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
 		verbose_name = "Zoo"
 		verbose_name_plural = "Zoos"
 	def retName(self):
@@ -108,7 +108,7 @@ class Zoos(models.Model):
 	def __unicode__(self):
 		return 'Zoos: ' + self.name
 
-class Museums(models.Model):
+class Museum(models.Model):
 	name = models.CharField(max_length=45, blank=True, null=True)
 	address = models.CharField(max_length=45, blank=True, null=True)
 	phone = models.CharField(max_length=15, blank=True, null=True)
@@ -117,7 +117,7 @@ class Museums(models.Model):
 	city = models.CharField(max_length=5, blank=True, null=True)
 	usertype = models.CharField(max_length=60, blank=True, null=True)
 	class Meta:
-		db_table = "Museums" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
+		db_table = "Museum" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
 		verbose_name = "Museum"
 		verbose_name_plural = "Museums"
 	def retName(self):
@@ -125,7 +125,7 @@ class Museums(models.Model):
 	def __unicode__(self):
 		return 'Museums: ' + self.name
 
-class Restaurants(models.Model):
+class Restaurant(models.Model):
 	name = models.CharField(max_length=45, blank=True, null=True)
 	address = models.CharField(max_length=45, blank=True, null=True)
 	phone = models.CharField(max_length=15, blank=True, null=True)
@@ -134,7 +134,7 @@ class Restaurants(models.Model):
 	city = models.CharField(max_length=5, blank=True, null=True)
 	usertype = models.CharField(max_length=60, blank=True, null=True)
 	class Meta:
-		db_table = "Restaurants" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
+		db_table = "Restaurant" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
 		verbose_name = "Restaurant"
 		verbose_name_plural = "Restaurants"
 	def retName(self):
@@ -142,7 +142,7 @@ class Restaurants(models.Model):
 	def __unicode__(self):
 		return 'Restaurants: ' + self.name
 
-class Malls(models.Model):
+class Mall(models.Model):
 	name = models.CharField(max_length=45, blank=True, null=True)
 	address = models.CharField(max_length=45, blank=True, null=True)
 	phone = models.CharField(max_length=15, blank=True, null=True)
@@ -151,10 +151,11 @@ class Malls(models.Model):
 	city = models.CharField(max_length=5, blank=True, null=True)
 	usertype = models.CharField(max_length=60, blank=True, null=True)
 	class Meta:
-		db_table = "Malls" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
+		db_table = "Mall" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
 		verbose_name = "Mall"
 		verbose_name_plural = "Malls"
 	def retName(self):
 		return self._meta.verbose_name
 	def __unicode__(self):
 		return 'Malls: ' + self.name
+
