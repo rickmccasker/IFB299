@@ -122,6 +122,7 @@ def search(request):
 	}
 	return render(request, 'results.html', context)
 	print resultSet['parkA'].address
+
 def details(request, serviceType, serviceName):	
 	"""
 	If user is authenticated attempt to get the model from search using the param "serviceType" and then further filter results
@@ -156,14 +157,18 @@ def googleDetails(request, placeid, serviceName):
 	placeDetail_url_response = urllib2.urlopen(placeDetail_url).read()
 	placeDetail_url_data = json.loads(placeDetail_url_response)
 	latlng = str(placeDetail_url_data['result']['geometry']['location']['lat']) + "," + str(placeDetail_url_data['result']['geometry']['location']['lng'])
-
+	print placeDetail_url
 	location_url = revgeocode_build_URL(latlng)
 	location_url_response = urllib2.urlopen(location_url).read()
 	location_url_data = json.loads(location_url_response)
 	print location_url_data['results'][0]['formatted_address']
 
+	placeDetail_image = image_build_URL(placeDetail_url_data['result']['photos'][0]['photo_reference'])
+	print placeDetail_image
+
 	place_details.name = placeDetail_url_data['result']['name']
 	place_details.address = location_url_data['results'][0]['formatted_address']
+	place_details.image = placeDetail_image
 	for component in placeDetail_url_data['result']['address_components']: 
 		if 'administrative_area_level_2' in component['types']:
 			place_details.city = component['short_name'] #Ensure city is set to sydney, bris etc >> needs testing
@@ -196,7 +201,13 @@ def placeDetails_build_URL(placeid):
 	url = base_url + placeid_string + key_string
 	return url
 
+def image_build_URL(photoreference):
+	base_url = 'https://maps.googleapis.com/maps/api/place/photo'
+	photoreference_string = '?photoreference=' + photoreference
+	maxwidth_string = '&maxwidth=600'
+	key_string = '&key='+'AIzaSyAcH76SKD-GzqVJquVjdnn6sxxp-WgViOg'
+	url = base_url + photoreference_string + maxwidth_string + key_string
+	return url
+
 #TODO:
 	#Add so only dbtable names can be displayed from google >>ask client
-	#Limit visibility based on user type >>Check available place types and sort into user categories accordingly
-	#Fully test both search bars

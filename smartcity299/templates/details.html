@@ -4,6 +4,8 @@
 {% block head %}
     <title>{{serviceDetails.name|title}}</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css\searchDetails.css' %}">
+    <script type="text/javascript" src="{% static 'javascript/maps.js' %}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcH76SKD-GzqVJquVjdnn6sxxp-WgViOg&libraries=places"></script>
 {% endblock %}
 
 {% block content %}
@@ -27,11 +29,24 @@
                         Desc of place: {{serviceDetails.desc}} <br />
                     {% endif %}
                 </div>
+                
             </div>
+
             <div class="col-xs-12 col-sm-5 col-md-5 image">
+
+                {% if serviceDetails.image %}
+                    <img src="{{serviceDetails.image}}"/
+                {% endif %}
                 <img src="{{ STATIC_URL }}/static/images/serviceImg/{{serviceDetails.name}}.jpg/" onerror="this.src='{{ STATIC_URL}}/static/images/serviceImg/404.jpg/'" />
-            </div>
+                <div id="map">
+                    <script>
+                    //Must accept array of db results too when implemented in resultSet
+                    initMap(-33.866, 151.196);
+                    </script>
+                </div>
             
+            </div>
+
         </div>
     </container>
    

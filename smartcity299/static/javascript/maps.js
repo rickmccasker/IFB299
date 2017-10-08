@@ -40,3 +40,12 @@ function createMarker(place) {
         infowindow.open(map, this);
     });
 }
+
+function initMapSingle(latitude, longitude) {
+    var location = { lat: latitude, lng: longitude }
+
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: location,
+        zoom: 15
+    });
+}

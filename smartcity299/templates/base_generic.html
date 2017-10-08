@@ -24,9 +24,11 @@
             </ul>
             <form class="navbar-form navbar-left" method="GET" action="/search/results/">
                 <div class="form-group">
-                    <input id="searchBox" type="text" class="form-control" name="sQuery" placeholder="Search">
+                    <input id="searchBox" type="text" class="form-control" name="sQuery" placeholder="Search...">
+                    <button type="submit" class="btn btn-default">Submit</button>
+                    <input type="hidden" name="city" value="-33.866,151.196" />
+                    <input type="hidden" name="type" value="" />
                 </div>
-                <button type="submit" class="btn btn-default">Submit</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/logout">Logout</a>
