@@ -3,6 +3,8 @@
 {% block head %}
     <title>Resultset</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css\searchResults.css' %}">
+    <script type="text/javascript" src="{% static 'javascript/maps.js' %}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcH76SKD-GzqVJquVjdnn6sxxp-WgViOg&libraries=places"></script>
 {% endblock %}
 
 {% block content %}
@@ -33,7 +35,7 @@
                         {% endif %}
                             <td>{{values.address}}</td>
                     </tr>
-
+                    
 
                     {% empty %}
                     <p>It appears that there are no results based on your search and user type preference, please try searching again.</p>
@@ -41,9 +43,19 @@
                 </table>
             </div>
 
-            <!--<div class="col-xs-12 col-sm-4 col-md-4 map">
-                <p>MAP GOES HERE</p>
-            </div>-->
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <div id="map">
+                    <script>
+                        initMapSingle(-33.866, 151.196);
+                        "{% for key, values in resultSet.items %}";
+                            var latitude = Number("{{values.latitude}}");
+                            var longitude = Number("{{values.longitude}}");
+                            var name = "{{values.name|title}}";
+                            createSingleMarker(latitude, longitude, name)
+                        "{% endfor %}"
+                    </script>
+                </div>
+            </div>
             
         </div>
         

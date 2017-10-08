@@ -70,6 +70,7 @@ def search(request):
 	data_response = urllib2.urlopen(url).read()
 	maps_dataset = json.loads(data_response)
 	print url
+
 	iterator = 0
 
 	tourist = "airport,car_rental,lodging"
@@ -95,27 +96,28 @@ def search(request):
 			place_details = placeDetails_build_URL(maps_dataset['results'][iterator]['place_id'])
 			details_response = urllib2.urlopen(place_details).read()
 			maps_detailset = json.loads(details_response)
-
+			print place_details
 			place = dictSet()
 	
 			address_str = maps_detailset['result']['formatted_address'].encode()
 			name_str = maps_dataset['results'][iterator]['name'].encode()
 			type_str = maps_dataset['results'][iterator]['types'][0].encode().capitalize() #https://developers.google.com/places/web-service/supported_types
 			placeID_str = maps_dataset['results'][iterator]['place_id'].encode()
+			latitude = maps_detailset['result']['geometry']['location']['lat']
+			longitude = maps_detailset['result']['geometry']['location']['lng']
 
 			place.address = address_str
 			place.name = name_str
 			place.type = type_str
 			place.id = placeID_str
+			place.latitude = latitude
+			place.longitude = longitude
 	
-			print "XXXXXXXXXXX"
-			print place
 			#print y['results'][0]['name'] #HOW TO RETRIEVE ONE AT A TIME VIA NAME. CHANGE TO DICT>PULL RESULTS>PULL 0th VAL>PULL NAME
 		
 			position = str(iterator) + '' + place.name
 			resultSet[position] = place
 			iterator+=1
-
 	context = {
 		'resultSet' : resultSet,
 		'queryReq' : sQuery

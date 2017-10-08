@@ -38,8 +38,9 @@
             <div class="col-xs-12 col-sm-5 col-md-5 image">
                 {% if serviceDetails.image %}
                     <img src="{{serviceDetails.image}}"/>
-                {% endif %}
+                {% else %}
                 <img src="{{ STATIC_URL }}/static/images/serviceImg/{{serviceDetails.name}}.jpg/" onerror="this.src='{{ STATIC_URL}}/static/images/serviceImg/404.jpg/'" />
+                {% endif %}
                 <div id="map">
                     <script>
                         alert("{{serviceDetails.latitude}}");
@@ -48,9 +49,10 @@
                         var name = "{{serviceDetails.name|title}}";
                         //Must accept array of db results too when implemented in resultSet
                         //initMapSingle(latitude, longitude, name);
-                        initMap(-33.866, 151.196); //This is simply for testings sake
+                        initMap(latitude, longitude);
+                        createSingleMarker(latitude, longitude, name);
+                        //This is simply for testings sake
                         //Add a for loop for all entries in service details dict and create a marker for each
-                        createSingleMarker(latitude, longitude, name); //This is simply for testings sake
                     </script>
                 </div>
             

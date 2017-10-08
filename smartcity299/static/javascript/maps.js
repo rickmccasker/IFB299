@@ -1,7 +1,7 @@
 var map;
 var infowindow;
 
-function initMap(latitude, longitude) {
+/*function initMap(latitude, longitude, query){
     var location = { lat: latitude, lng: longitude };
     map = new google.maps.Map(document.getElementById('map'), {
         center: location,
@@ -11,11 +11,11 @@ function initMap(latitude, longitude) {
     var service = new google.maps.places.PlacesService(map);
     service.nearbySearch({
         location: location,
-        radius: 500//,
+        radius: 500,
+        keyword: query
         //type: ['park']
     }, callback);
-
-
+    
     //for loop based on given db array
 }
 
@@ -38,8 +38,9 @@ function createMarker(place) {
         infowindow.setContent(place.name);
         infowindow.open(map, this);
     });
-}
+}*/
 
+//Single stuff
 function createSingleMarker(latitude, longitude, name) {
     alert("ASD");
     var location = { lat: latitude, lng: longitude }
@@ -54,7 +55,8 @@ function createSingleMarker(latitude, longitude, name) {
     });
 }
 
-function initMapSingle(latitude, longitude, name) {
+//Create an empty map
+function initMap(latitude, longitude) {
     var location = { lat: latitude, lng: longitude };
 
     map = new google.maps.Map(document.getElementById('map'), {
@@ -63,6 +65,4 @@ function initMapSingle(latitude, longitude, name) {
     });
     
     infowindow = new google.maps.InfoWindow();
-    createSingleMarker(latitude, longitude, name);
-    //for loop based on given db array
 }
