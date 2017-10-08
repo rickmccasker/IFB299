@@ -169,6 +169,8 @@ def googleDetails(request, placeid, serviceName):
 	place_details.name = placeDetail_url_data['result']['name']
 	place_details.address = location_url_data['results'][0]['formatted_address']
 	place_details.image = placeDetail_image
+	place_details.latitude = placeDetail_url_data['result']['geometry']['location']['lat']
+	place_details.longitude = placeDetail_url_data['result']['geometry']['location']['lng']
 	for component in placeDetail_url_data['result']['address_components']: 
 		if 'administrative_area_level_2' in component['types']:
 			place_details.city = component['short_name'] #Ensure city is set to sydney, bris etc >> needs testing

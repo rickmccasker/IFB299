@@ -13,6 +13,8 @@ class College(models.Model):
 	departments = models.CharField(max_length=100, blank=True, null=True) #dep1, dep2, dep3, etc.
 	desc = models.CharField(max_length=120, blank=True, null=True) 
 	city = models.CharField(max_length=5, blank=True, null=True)
+	latitude = models.CharField(max_length=50, blank=True, null=True)
+	longitude = models.CharField(max_length=50, blank=True, null=True)
 	usertype = models.CharField(max_length=60, blank=True, null=True, default='Student')
 	class Meta: #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
 		db_table = "College"
