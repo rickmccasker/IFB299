@@ -83,6 +83,8 @@ class Park(models.Model):
 	email = models.CharField(max_length=60, blank=True, null=True)
 	desc = models.CharField(max_length=120, blank=True, null=True)
 	city = models.CharField(max_length=5, blank=True, null=True)
+	latitude = models.CharField(max_length=50, blank=True, null=True)
+	longitude = models.CharField(max_length=50, blank=True, null=True)
 	usertype = models.CharField(max_length=60, blank=True, null=True, default='Tourist')
 	class Meta:
 		db_table = "Park" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME

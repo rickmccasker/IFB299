@@ -10,7 +10,8 @@ from django.contrib import messages
 import urllib2
 import urllib
 import json
-
+class dictSet(dict):
+	pass
 #Drawing
 def drawSearch(request):
 	"""
@@ -18,7 +19,6 @@ def drawSearch(request):
 
 	Else redirect to home
 	"""
-	print request.user.userprofile.usertype.validtypes #grab with foreign keys test
 
 	if(request.user.is_authenticated == False):
 		return redirect("/")
@@ -32,8 +32,7 @@ def search(request):
 	If the model successfully extracts none to many items, render the page with the search query and the result set as a Context
 	In the event of an exception redirect user to search page with generic error message.
 	"""
-	class dictSet(dict):
-		pass
+
 
 	if(request.user.is_authenticated == False):
 		return redirect("/")
@@ -50,15 +49,15 @@ def search(request):
 		#Collect based on name if squery match
 		else:
 			temp = model.objects.filter(name__icontains=sQuery)
+
+		print temp
 		if not(request.user.is_superuser): #An admin/superuser can see all results
 			type_string = request.user.userprofile.usertype.validtypes.encode()
 			for type_string_singular in type_string.split(','): 
-				print type_string_singular
-				temp_arr = []
-				temp_arr.extend(temp.filter(usertype__icontains=type_string_singular))
-				if(len(temp_arr)>0):
-					for result in temp:
-						resultSet[result.name] = result
+				temp.extend(temp.filter(usertype__icontains=type_string_singular))
+		if(len(temp)>0):		
+			for result in temp:
+				resultSet[result.name] = result
 	#except Exception as e:
 		#messages.add_message(request, messages.ERROR, 'Error occured. Please retry search and if problem persists contact system administrator.')
 		#return redirect("/search/")
@@ -83,25 +82,26 @@ def setupGoogleResultset(resultSet, request, sQuery):
 
 	#Sort out google maps items
 	iterator = 0
-
-	tourist = "airport,car_rental,lodging"
-	businessman = "accounting"
-	student = "library,university,school"
-	check_type = ""
-	if request.user.userprofile.usertype.usertype == 'student':
-		check_type = tourist+businessman
-	if request.user.userprofile.usertype.usertype == 'businessman':
-		check_type = tourist+student
-	if request.user.userprofile.usertype.usertype == 'tourist':
-		check_type = businessman+student
+	if not(request.user.is_superuser):
+		tourist = "airport,car_rental,lodging"
+		businessman = "accounting"
+		student = "library,university,school"
+		check_type = ""
+		if request.user.userprofile.usertype.usertype == 'student':
+			check_type = tourist+businessman
+		if request.user.userprofile.usertype.usertype == 'businessman':
+			check_type = tourist+student
+		if request.user.userprofile.usertype.usertype == 'tourist':
+			check_type = businessman+student
 
 	while iterator < len(maps_dataset['results']):
-		valid = False
-		for item_type in maps_dataset['results'][iterator]['types']:
-			if item_type not in check_type:
-				valid = True
-			else:
-				valid = False
+		valid = True
+		if not(request.user.is_superuser):
+			for item_type in maps_dataset['results'][iterator]['types']:
+				if item_type not in check_type:
+					valid = True
+				else:
+					valid = False
 
 		if valid == True:
 			place_details = placeDetails_build_URL(maps_dataset['results'][iterator]['place_id'])
