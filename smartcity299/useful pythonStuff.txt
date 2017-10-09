@@ -4,6 +4,10 @@ python manage.py findstatic --verbosity 2 images/test.jpg
 python manage.py runserver 127.0.0.2:8080
 #Run you server on another port if needed
 
+python manage.py loaddata fixturename
+#Searches all valid applications then loads that fixture json obj.
+#Can have multiple fixtures with the same names
+
 python manage.py makemigrations appname
 python manage.py migrate appname
 #Because django doesnt migrate individual apps sometimes

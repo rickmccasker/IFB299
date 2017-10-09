@@ -1,0 +1,28 @@
+[
+  {
+    "model": "search.park",
+    "pk": 1,
+    "fields": {
+      "address": "15 ax",
+      "city": "bris",
+      "desc": "aaaaaaaa aaaaa a aaaaaaa",
+      "email": "rick@gmail.com",
+      "name": "rick",
+      "phone": "axssse",
+      "usertype": "student"
+    }
+  },
+  {
+    "model": "search.park",
+    "pk": 2,
+    "fields": {
+      "address": "15 ax",
+      "city": "bris",
+      "desc": "aaaaaaaa aaaaa a aaaaaaa",
+      "email": "rick@gmail.com",
+      "name": "rick",
+      "phone": "axssse",
+      "usertype": "student"
+    }
+  }
+]
