@@ -43,18 +43,23 @@ def search(request):
 	#try:
 	for model in modelSet:
 		#Collect all if tablenames match
-		if(model._meta.db_table.lower() == sQuery.strip().lower() or
-		   model._meta.verbose_name.lower() == sQuery.strip().lower()):
+		db_name = model._meta.db_table.lower()
+		db_verbose_name = model._meta.verbose_name.lower()
+		print db_name + "__" + db_verbose_name + " == " + sQuery.strip().lower()
+		if(db_name == sQuery.strip().lower() or db_verbose_name == sQuery.strip().lower()):
+			print "GET ALL"
 			temp = model.objects.all()
-		#Collect based on name if squery match
+		#Collect based on name if squery match and table names dont
 		else:
+			print "BY NAME"
 			temp = model.objects.filter(name__icontains=sQuery)
-
 		print temp
+
 		if not(request.user.is_superuser): #An admin/superuser can see all results
-			type_string = request.user.userprofile.usertype.validtypes.encode()
+			type_string = request.user.userprofile.usertype.validtypes.encode().lower()
 			for type_string_singular in type_string.split(','): 
-				temp.extend(temp.filter(usertype__icontains=type_string_singular))
+				if(type_string_singular != db_name or type_string_singular != db_verbose_name):
+					temp.delete() #Not very efficient > should be if statements within blocks above?
 		if(len(temp)>0):		
 			for result in temp:
 				resultSet[result.name] = result
