@@ -38,8 +38,7 @@ def search(request):
 	if(request.user.is_authenticated == False):
 		return redirect("/")
 	sQuery = request.GET['sQuery']
-	location = request.GET['city']
-	type = request.GET['type']
+	
 	modelSet = apps.get_app_config('search').get_models()
 	resultSet = dictSet()
 	#try:
@@ -64,13 +63,25 @@ def search(request):
 		#messages.add_message(request, messages.ERROR, 'Error occured. Please retry search and if problem persists contact system administrator.')
 		#return redirect("/search/")
 
+	resultSet = setupGoogleResultset(resultSet, request, sQuery)
 	
+	context = {
+		'resultSet' : resultSet,
+		'queryReq' : sQuery
+	}
+	return render(request, 'results.html', context)
+	print resultSet['parkA'].address
+
+def setupGoogleResultset(resultSet, request, sQuery):
+	location = request.GET['city']
+	type = request.GET['type']
 	#Bind google maps data to dataset
 	url = nearby_build_URL(location, sQuery, type) #Type must correspond to user type &type=park|parking, str concated based on user type
 	data_response = urllib2.urlopen(url).read()
 	maps_dataset = json.loads(data_response)
 	print url
 
+	#Sort out google maps items
 	iterator = 0
 
 	tourist = "airport,car_rental,lodging"
@@ -118,12 +129,7 @@ def search(request):
 			position = str(iterator) + '' + place.name
 			resultSet[position] = place
 			iterator+=1
-	context = {
-		'resultSet' : resultSet,
-		'queryReq' : sQuery
-	}
-	return render(request, 'results.html', context)
-	print resultSet['parkA'].address
+	return resultSet
 
 def details(request, serviceType, serviceName):	
 	"""
