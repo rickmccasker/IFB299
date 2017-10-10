@@ -68,6 +68,8 @@ def drawAddModelPage(request, modelName):
 	"""
 	model = apps.get_app_config('search').get_model(modelName)._meta.get_fields()
 	fieldArr = []
+	VAX = "ASDASDSADASDASDASDASD"
+	print "{:<5}".format(VAX[:5])
 	for field in model:
 		if(field.name != "id" and field.name != "usertype" and field.name != "city"):
 			#print(field.name) #Testing only
@@ -134,11 +136,22 @@ def addItem(request, tableName):
 		if(model.objects.filter(name__iexact=request.POST.get('Name', False))):
 			messages.add_message(request, messages.ERROR, 'Item already exists.')
 			return redirect('/admin/add_page/' + tableName + '/')
+		
+		if(model.objects.filter(latitude__iexact=request.POST.get('Latitude', False)) and 
+		   model.objects.filter(longitude__iexact=request.POST.get('Longitude', False))):
+			messages.add_message(request, messages.ERROR, 'An item already exists at this location.')
+			return redirect('/admin/add_page/' + tableName + '/')
+
+
 		new_entry = model()
 		for field in request.POST:
 			if(field != "csrfmiddlewaretoken"):
 				lowField = field.lower()
-				setattr(new_entry, lowField, request.POST[field])
+				if(field == "Latitude" or field == "Longitude"):
+					limit = request.POST[field][:12]
+					setattr(new_entry, lowField, limit)
+				else:
+					setattr(new_entry, lowField, request.POST[field])
 		new_entry.save()
 		messages.add_message(request, messages.ERROR, 'Page created successfully.')
 		return redirect('/admin/')
