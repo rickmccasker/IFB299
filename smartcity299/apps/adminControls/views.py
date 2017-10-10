@@ -69,7 +69,7 @@ def drawAddModelPage(request, modelName):
 	model = apps.get_app_config('search').get_model(modelName)._meta.get_fields()
 	fieldArr = []
 	for field in model:
-		if(field.name != "id" and field.name != "usertype"):
+		if(field.name != "id" and field.name != "usertype" and field.name != "city"):
 			#print(field.name) #Testing only
 			fieldArr.append(field.name.title())
 	if(is_admin(request)):

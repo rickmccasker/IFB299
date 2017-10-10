@@ -15,7 +15,7 @@ class College(models.Model):
 	city = models.CharField(max_length=5, blank=True, null=True)
 	latitude = models.CharField(max_length=50, blank=True, null=True)
 	longitude = models.CharField(max_length=50, blank=True, null=True)
-	usertype = models.CharField(max_length=60, blank=True, null=True, default='Student')
+	usertype = models.CharField(max_length=60, blank=True, null=True, default='Student') #PREP THIS FOR REMOVAL
 	class Meta: #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
 		db_table = "College"
 		verbose_name = "College"
