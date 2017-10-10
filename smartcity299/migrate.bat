@@ -5,5 +5,9 @@ python manage.py makemigrations login
 
 python manage.py migrate
 
+python manage.py loaddata usertypes
+python manage.py loaddata defaultusers
+python manage.py loaddata search
+
 python manage.py runserver
 exit /b

@@ -7,7 +7,7 @@
       "is_superuser": "1",
       "username": "admin",
       "email": "admin@admin.com",
-      "is_staff":  "1"
+      "is_staff": "1"
     }
   }
 ]

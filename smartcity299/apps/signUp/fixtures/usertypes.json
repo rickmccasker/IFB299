@@ -1,0 +1,26 @@
+[
+  {
+    "model": "signUp.usertype",
+    "pk": 1,
+    "fields": {
+      "usertype": "student",
+      "validtypes": "college"
+    }
+  },
+  {
+    "model": "signUp.usertype",
+    "pk": 2,
+    "fields": {
+      "usertype": "tourist",
+      "validtypes": "park"
+    }
+  },
+  {
+    "model": "signUp.usertype",
+    "pk": 3,
+    "fields": {
+      "usertype": "businessman",
+      "validtypes": "industry"
+    }
+  }
+]

@@ -25,6 +25,7 @@ def createUser(request):
 	Try to create a user and if an error occurs, such as the username already existing, catch the exception and send a meaningful message with the redirect to the signup page
 	If an error does not occur fill in the extended user profile using the id as a foreign key and save both then redirect user back to login
 	"""
+	print request.POST['usertype']
 	if(request.POST['confpassword'] != request.POST['password']):
 		messages.add_message(request, messages.ERROR, 'Password and confirmation of password mismatch, please try again.')
 		return redirect('/signUp/')
