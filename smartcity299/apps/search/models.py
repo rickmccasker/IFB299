@@ -82,7 +82,7 @@ class Park(models.Model):
 	phone = models.CharField(max_length=15, blank=True, null=True)
 	email = models.CharField(max_length=60, blank=True, null=True)
 	desc = models.CharField(max_length=120, blank=True, null=True)
-	city = models.CharField(max_length=5, blank=True, null=True)
+	city = models.CharField(max_length=15, blank=True, null=True)
 	latitude = models.CharField(max_length=50, blank=True, null=True)
 	longitude = models.CharField(max_length=50, blank=True, null=True)
 	usertype = models.CharField(max_length=60, blank=True, null=True, default='Tourist')

@@ -15,18 +15,18 @@
             <form id="searchForm" method="GET" action="/search/results/">
                 <div class="input-group">
                     <input type="text" id="searchField" name="sQuery" placeholder="Search..." />
-                    <input type="submit" id="searchBtn" value="Search" />
-                    <input type="hidden" name="city" value="-33.866,151.196" />
+                    <input type="submit" id="searchBtn" value="Search" /><br />
+                    <input type="hidden" name="city" value="" />
+                    <select id="city" name="city" fieldName="City">
+                        <option selected disabled value="">Select city: </option>
+                        <option value="Sydney">Sydney</option>
+                        <option value="Brisbane">Brisbane</option>
+                    </select>* <br />
+                    <!--<input type="hidden" name="city" value="-33.866,151.196" />-->
                     <input type="hidden" name="type" value="" />
                 </div>
             </form>
         </div><br />
-        <div id="map">
-            <script>
-            //Must accept array of db results too when implemented in resultSet
-            initMap(-33.866, 151.196);
-            </script>
-        </div>
     </container>
     
     
@@ -36,3 +36,6 @@
         {% endfor %}
     {% endif %}
 {% endblock %}
+
+<!-- Actually do something with the city lat longs and compare to val in db. Might have to send vals
+    as actual city name rather than lat long and do the position server side cuz db results use city in description-->

@@ -36,9 +36,12 @@ def search(request):
 
 	if(request.user.is_authenticated == False):
 		return redirect("/")
+	
 	sQuery = request.GET['sQuery']
 	city = request.GET['city']
-	
+	if(request.GET['city'] == ""):
+		messages.add_message(request, messages.ERROR, 'Please ensure a city is selected before searching.')
+		return redirect("/search/")
 	modelSet = apps.get_app_config('search').get_models()
 	resultSet = dictSet()
 	#try:
@@ -47,25 +50,20 @@ def search(request):
 		db_name = str(model._meta.db_table.lower())
 		db_verbose_name = str(model._meta.verbose_name.lower())
 		sQuery_str = str(sQuery.strip().lower())
-
-		if(db_name == sQuery_str or db_verbose_name == sQuery_str):
+		if(db_name == sQuery_str or db_verbose_name == sQuery_str or len(sQuery.strip()) == 0):
 			print "%r Grabbed all %r"%(db_name, sQuery_str)
-			temp = model.objects.all()
+			temp = model.objects.all().filter(city=city)
 		#Collect based on name if squery match and table names dont
 		else:
-			temp = model.objects.filter(name__icontains=sQuery)
+			temp = model.objects.filter(name__icontains=sQuery, city=city)
 			print "%r Grabbed some %r"%(db_name, sQuery_str)
-		print len(temp)
+		for n in temp:
+			print n.city
 		#Get all types from user and only keep if they are equal to current db name
 		if not(request.user.is_superuser): #An admin/superuser can see all results
 			type_string = request.user.userprofile.usertype.validtypes.encode().lower()
 			if(db_name not in type_string and db_verbose_name not in type_string):
-				print "%r NOT IN %r"%(db_name, type_string)
 				temp.delete() #Not very efficient > should be if statements within blocks above?
-			else:
-				print db_name + " IN " + type_string
-			print len(temp)
-
 		if(len(temp)>0):		
 			for result in temp:
 				position = result.name + db_name
@@ -75,9 +73,13 @@ def search(request):
 		#return redirect("/search/")
 
 	resultSet = setupGoogleResultset(resultSet, request, sQuery)
-	print resultSet
+	if resultSet == "ERROR":
+		return redirect('/search/')
+	hidden = dictSet()
+	hidden.city = city
 
 	context = {
+		'hidden' : hidden,
 		'resultSet' : resultSet,
 		'queryReq' : sQuery
 	}
@@ -85,8 +87,18 @@ def search(request):
 
 def setupGoogleResultset(resultSet, request, sQuery):
 	location = request.GET['city']
+	coords = '0,0'
+
+	if location == "Sydney":
+		coords = '-33.865143,151.209900'
+	#elif(location == "Brisbane"):
+		#coords = '-33.865143,151.209900' >>Finish this stuff off
+	print coords
+	if coords == '0,0':
+		messages.add_message(request, messages.ERROR, 'City error.')
+		return "ERROR"
 	#Bind google maps data to dataset
-	url = nearby_build_URL(location, sQuery) #Type must correspond to user type &type=park|parking, str concated based on user type
+	url = nearby_build_URL(coords, sQuery) #Type must correspond to user type &type=park|parking, str concated based on user type
 	data_response = urllib2.urlopen(url).read()
 	maps_dataset = json.loads(data_response)
 	print "GOOGLE URL>>>>>>"
@@ -119,7 +131,7 @@ def setupGoogleResultset(resultSet, request, sQuery):
 	while iterator < len(maps_dataset['results']):
 		valid = False
 		if not(request.user.is_superuser):
-			if sQuery.lower() in maps_dataset['results'][iterator]['name'].encode().lower():
+			if sQuery.lower() == maps_dataset['results'][iterator]['name'].encode().lower():
 				valid = True
 			for item_type in maps_dataset['results'][iterator]['types']:
 				if item_type not in check_type and valid == False:
@@ -223,7 +235,7 @@ def nearby_build_URL(location, query):
 	base_url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json'
 	query_string = '?keyword=' + urllib.quote(query)
 	location_string = '&location=' + location
-	radius = '&radius=' + '100'
+	radius = '&radius=' + '100' #Increase
 	key_string = '&key=' + "AIzaSyAcH76SKD-GzqVJquVjdnn6sxxp-WgViOg"          
 	url = base_url+query_string+location_string+radius+key_string
 	return url
