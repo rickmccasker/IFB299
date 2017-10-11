@@ -47,13 +47,10 @@ def search(request):
 		db_verbose_name = model._meta.verbose_name.lower()
 		print db_name + "__" + db_verbose_name + " == " + sQuery.strip().lower()
 		if(db_name == sQuery.strip().lower() or db_verbose_name == sQuery.strip().lower()):
-			print "GET ALL"
 			temp = model.objects.all()
 		#Collect based on name if squery match and table names dont
 		else:
-			print "BY NAME"
 			temp = model.objects.filter(name__icontains=sQuery)
-		print temp
 
 		if not(request.user.is_superuser): #An admin/superuser can see all results
 			type_string = request.user.userprofile.usertype.validtypes.encode().lower()
@@ -68,7 +65,8 @@ def search(request):
 		#return redirect("/search/")
 
 	resultSet = setupGoogleResultset(resultSet, request, sQuery)
-	
+	print resultSet
+
 	context = {
 		'resultSet' : resultSet,
 		'queryReq' : sQuery
@@ -78,11 +76,11 @@ def search(request):
 
 def setupGoogleResultset(resultSet, request, sQuery):
 	location = request.GET['city']
-	type = request.GET['type']
 	#Bind google maps data to dataset
-	url = nearby_build_URL(location, sQuery, type) #Type must correspond to user type &type=park|parking, str concated based on user type
+	url = nearby_build_URL(location, sQuery) #Type must correspond to user type &type=park|parking, str concated based on user type
 	data_response = urllib2.urlopen(url).read()
 	maps_dataset = json.loads(data_response)
+	print "GOOGLE URL>>>>>>"
 	print url
 
 	#Sort out google maps items
@@ -93,26 +91,41 @@ def setupGoogleResultset(resultSet, request, sQuery):
 		student = "library,university,school"
 		check_type = ""
 		if request.user.userprofile.usertype.usertype == 'student':
-			check_type = tourist+businessman
+			check_type = tourist+","+businessman
 		if request.user.userprofile.usertype.usertype == 'businessman':
-			check_type = tourist+student
+			check_type = tourist+","+student
 		if request.user.userprofile.usertype.usertype == 'tourist':
-			check_type = businessman+student
+			check_type = businessman+","+student
+	#if sQuery.lower() in maps_dataset['results'][iterator]['name'].encode().lower():
+					#valid = True
+				#if item_type not in check_type and valid = False:
+					#if sQuery.lower() == item_type.encode().lower():
+						#print "THIS SUCCEEDED: " + sQuery.lower() + " >><< " + item_type.encode().lower() + " >><< " + maps_dataset['results'][iterator]['name'].encode().lower()
+						#valid = True
+					#else:
+						#print "THIS FAILED: " + sQuery.lower() + " >><< " + item_type.encode().lower() + " >><< " + maps_dataset['results'][iterator]['name'].encode().lower()
+				#else:
+					#valid = False
 
 	while iterator < len(maps_dataset['results']):
-		valid = True
+		valid = False
 		if not(request.user.is_superuser):
+			if sQuery.lower() in maps_dataset['results'][iterator]['name'].encode().lower():
+				valid = True
+				print maps_dataset['results'][iterator]['name'].encode().lower() + ">Matched the query name"
 			for item_type in maps_dataset['results'][iterator]['types']:
-				if item_type not in check_type:
-					valid = True
-				else:
-					valid = False
+				print iterator
+				print "Assessed item_type: " + item_type
+				if item_type not in check_type and valid == False:
+					if str(item_type).strip() == str(sQuery).strip():
+						valid = True
+		else:
+			valid = True #If superuser can search for results regardless of matching
 
 		if valid == True:
 			place_details = placeDetails_build_URL(maps_dataset['results'][iterator]['place_id'])
 			details_response = urllib2.urlopen(place_details).read()
 			maps_detailset = json.loads(details_response)
-			print place_details
 			place = dictSet()
 	
 			address_str = maps_detailset['result']['formatted_address'].encode()
@@ -130,10 +143,10 @@ def setupGoogleResultset(resultSet, request, sQuery):
 			place.longitude = longitude
 	
 			#print y['results'][0]['name'] #HOW TO RETRIEVE ONE AT A TIME VIA NAME. CHANGE TO DICT>PULL RESULTS>PULL 0th VAL>PULL NAME
-		
 			position = str(iterator) + '' + place.name
 			resultSet[position] = place
-			iterator+=1
+			print "End of iteration"
+		iterator+=1
 	return resultSet
 
 def details(request, serviceType, serviceName):	
@@ -170,15 +183,18 @@ def googleDetails(request, placeid, serviceName):
 	placeDetail_url_response = urllib2.urlopen(placeDetail_url).read()
 	placeDetail_url_data = json.loads(placeDetail_url_response)
 	latlng = str(placeDetail_url_data['result']['geometry']['location']['lat']) + "," + str(placeDetail_url_data['result']['geometry']['location']['lng'])
+	print "PLACE_DETAIL_URL>>>"
 	print placeDetail_url
 	location_url = revgeocode_build_URL(latlng)
 	location_url_response = urllib2.urlopen(location_url).read()
 	location_url_data = json.loads(location_url_response)
-	print location_url_data['results'][0]['formatted_address']
 
-	placeDetail_image = image_build_URL(placeDetail_url_data['result']['photos'][0]['photo_reference'])
+	try:
+		placeDetail_image = image_build_URL(placeDetail_url_data['result']['photos'][0]['photo_reference'])
+	except KeyError:
+		placeDetail_image = "Failed to retrieve an image"
+	print "PLACE_IMAGE_URL>>>"
 	print placeDetail_image
-
 	place_details.name = placeDetail_url_data['result']['name']
 	place_details.address = location_url_data['results'][0]['formatted_address']
 	place_details.image = placeDetail_image
@@ -187,7 +203,6 @@ def googleDetails(request, placeid, serviceName):
 	for component in placeDetail_url_data['result']['address_components']: 
 		if 'administrative_area_level_2' in component['types']:
 			place_details.city = component['short_name'] #Ensure city is set to sydney, bris etc >> needs testing
-
 
 	context = { 'serviceDetails' : place_details }
 	return render(request, 'details.html', context)
@@ -199,14 +214,13 @@ def revgeocode_build_URL(latlng):
 	url = base_url + latlng_string + key_string
 	return url
 
-def nearby_build_URL(location, query, type):
+def nearby_build_URL(location, query):
 	base_url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json'
 	query_string = '?keyword=' + urllib.quote(query)
 	location_string = '&location=' + location
-	radius = '&radius=' + '100'                                  
-	type_string = ''
+	radius = '&radius=' + '100'
 	key_string = '&key=' + "AIzaSyAcH76SKD-GzqVJquVjdnn6sxxp-WgViOg"          
-	url = base_url+query_string+location_string+radius+type_string+key_string
+	url = base_url+query_string+location_string+radius+key_string
 	return url
 
 def placeDetails_build_URL(placeid):
