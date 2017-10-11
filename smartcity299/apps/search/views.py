@@ -37,29 +37,39 @@ def search(request):
 	if(request.user.is_authenticated == False):
 		return redirect("/")
 	sQuery = request.GET['sQuery']
+	city = request.GET['city']
 	
 	modelSet = apps.get_app_config('search').get_models()
 	resultSet = dictSet()
 	#try:
 	for model in modelSet:
 		#Collect all if tablenames match
-		db_name = model._meta.db_table.lower()
-		db_verbose_name = model._meta.verbose_name.lower()
-		print db_name + "__" + db_verbose_name + " == " + sQuery.strip().lower()
-		if(db_name == sQuery.strip().lower() or db_verbose_name == sQuery.strip().lower()):
+		db_name = str(model._meta.db_table.lower())
+		db_verbose_name = str(model._meta.verbose_name.lower())
+		sQuery_str = str(sQuery.strip().lower())
+
+		if(db_name == sQuery_str or db_verbose_name == sQuery_str):
+			print "%r Grabbed all %r"%(db_name, sQuery_str)
 			temp = model.objects.all()
 		#Collect based on name if squery match and table names dont
 		else:
 			temp = model.objects.filter(name__icontains=sQuery)
-
+			print "%r Grabbed some %r"%(db_name, sQuery_str)
+		print len(temp)
+		#Get all types from user and only keep if they are equal to current db name
 		if not(request.user.is_superuser): #An admin/superuser can see all results
 			type_string = request.user.userprofile.usertype.validtypes.encode().lower()
-			for type_string_singular in type_string.split(','): 
-				if(type_string_singular != db_name or type_string_singular != db_verbose_name):
-					temp.delete() #Not very efficient > should be if statements within blocks above?
+			if(db_name not in type_string and db_verbose_name not in type_string):
+				print "%r NOT IN %r"%(db_name, type_string)
+				temp.delete() #Not very efficient > should be if statements within blocks above?
+			else:
+				print db_name + " IN " + type_string
+			print len(temp)
+
 		if(len(temp)>0):		
 			for result in temp:
-				resultSet[result.name] = result
+				position = result.name + db_name
+				resultSet[position] = result
 	#except Exception as e:
 		#messages.add_message(request, messages.ERROR, 'Error occured. Please retry search and if problem persists contact system administrator.')
 		#return redirect("/search/")
@@ -72,7 +82,6 @@ def search(request):
 		'queryReq' : sQuery
 	}
 	return render(request, 'results.html', context)
-	print resultSet['parkA'].address
 
 def setupGoogleResultset(resultSet, request, sQuery):
 	location = request.GET['city']
@@ -112,10 +121,7 @@ def setupGoogleResultset(resultSet, request, sQuery):
 		if not(request.user.is_superuser):
 			if sQuery.lower() in maps_dataset['results'][iterator]['name'].encode().lower():
 				valid = True
-				print maps_dataset['results'][iterator]['name'].encode().lower() + ">Matched the query name"
 			for item_type in maps_dataset['results'][iterator]['types']:
-				print iterator
-				print "Assessed item_type: " + item_type
 				if item_type not in check_type and valid == False:
 					if str(item_type).strip() == str(sQuery).strip():
 						valid = True
@@ -145,7 +151,6 @@ def setupGoogleResultset(resultSet, request, sQuery):
 			#print y['results'][0]['name'] #HOW TO RETRIEVE ONE AT A TIME VIA NAME. CHANGE TO DICT>PULL RESULTS>PULL 0th VAL>PULL NAME
 			position = str(iterator) + '' + place.name
 			resultSet[position] = place
-			print "End of iteration"
 		iterator+=1
 	return resultSet
 
