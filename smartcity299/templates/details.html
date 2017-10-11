@@ -7,8 +7,6 @@
     </script>
     <title>{{serviceDetails.name|title}}</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css\searchDetails.css' %}">
-    <script type="text/javascript" src="{% static 'javascript/maps.js' %}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcH76SKD-GzqVJquVjdnn6sxxp-WgViOg&libraries=places"></script>
 {% endblock %}
 
 {% block content %}
@@ -24,10 +22,20 @@
                     {% endif %}
                     City: {{serviceDetails.city}} <br />
                     {% for detail in serviceDetails %}
-                        {% if detail != "city" and detail != "desc" and detail != "name" and detail != "usertype" and detail != "id" and detail != "address" %}
+                        {% if detail != "city" and detail != "desc" and detail != "name" and detail != "usertype" and detail != "id" and detail != "address" and detail != "latitude" and detail != "longitude" %}
                             <span>{{detail|title}} : {{serviceDetails|get_model_val:detail}}</span><br />
                         {% endif %}
                     {% endfor %}
+                    {% if serviceDetails.latitude %}
+                        Latitude: {{serviceDetails.latitude}} <br />
+                    {% else %}
+                        Latitude: Undefined <br />
+                    {% endif %}
+                    {% if serviceDetails.longitude %}
+                        Longitude: {{serviceDetails.longitude}} <br />
+                    {% else %}
+                        Longitude: Undefined <br />
+                    {% endif %}
                     {% if serviceDetails.desc %}
                         Desc of place: {{serviceDetails.desc}} <br />
                     {% endif %}
@@ -42,15 +50,18 @@
                 <img src="{{ STATIC_URL }}/static/images/serviceImg/{{serviceDetails.name}}.jpg/" onerror="this.src='{{ STATIC_URL}}/static/images/serviceImg/404.jpg/'" />
                 {% endif %}
                 <div id="map">
+                    <script type="text/javascript" src="{% static 'javascript/maps.js' %}"></script>
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcH76SKD-GzqVJquVjdnn6sxxp-WgViOg&libraries=places"></script>
                     <script>
                         alert("{{serviceDetails.latitude}}");
                         var latitude = Number("{{serviceDetails.latitude}}");
                         var longitude = Number("{{serviceDetails.longitude}}");
                         var name = "{{serviceDetails.name|title}}";
+                        var address = "{{serviceDetails.address}}";
                         //Must accept array of db results too when implemented in resultSet
                         //initMapSingle(latitude, longitude, name);
                         initMap(latitude, longitude);
-                        createSingleMarker(latitude, longitude, name);
+                        createSingleMarker(latitude, longitude, name, address);
                         //This is simply for testings sake
                         //Add a for loop for all entries in service details dict and create a marker for each
                     </script>

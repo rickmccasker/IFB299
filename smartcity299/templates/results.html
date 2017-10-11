@@ -51,7 +51,8 @@
                             var latitude = Number("{{values.latitude}}");
                             var longitude = Number("{{values.longitude}}");
                             var name = "{{values.name|title}}";
-                            createSingleMarker(latitude, longitude, name)
+                            var address = "{{values.address}}";
+                            createSingleMarker(latitude, longitude, name, address)
                         "{% endfor %}"
                     </script>
                 </div>

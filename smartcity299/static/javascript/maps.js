@@ -113,8 +113,8 @@ function panMap() {
 
 
 //Single stuff
-function createSingleMarker(latitude, longitude, name) {
-    alert("ASD");
+function createSingleMarker(latitude, longitude, name, address) {
+    alert(name);
     var location = { lat: latitude, lng: longitude }
     var marker = new google.maps.Marker({
         map: map,
@@ -122,7 +122,7 @@ function createSingleMarker(latitude, longitude, name) {
     });
 
     google.maps.event.addListener(marker, 'click', function () {
-        infowindow.setContent(name);
+        infowindow.setContent(name + "<br>" + address);
         infowindow.open(map, this);
     });
 }
