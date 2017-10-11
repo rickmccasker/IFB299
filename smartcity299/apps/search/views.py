@@ -77,6 +77,10 @@ def search(request):
 		return redirect('/search/')
 	hidden = dictSet()
 	hidden.city = city
+	hidden_latlng = getCoordsByCityName(city).split(',')
+	hidden.city_latitude = hidden_latlng[0]
+	hidden.city_longitude = hidden_latlng[1]
+	print "%r >><< %r"%(hidden.city_latitude, hidden.city_longitude)
 
 	context = {
 		'hidden' : hidden,
@@ -85,15 +89,17 @@ def search(request):
 	}
 	return render(request, 'results.html', context)
 
-def setupGoogleResultset(resultSet, request, sQuery):
-	location = request.GET['city']
-	coords = '0,0'
-
-	if location == "Sydney":
+def getCoordsByCityName(city_name):
+	coords = '0,0' #An error num
+	if city_name == "Sydney":
 		coords = '-33.865143,151.209900'
-	#elif(location == "Brisbane"):
-		#coords = '-33.865143,151.209900' >>Finish this stuff off
-	print coords
+	elif(city_name == "Brisbane"):
+		coords = '-27.4698,153.0251'
+	#>>Finish this stuff off
+	return coords
+
+def setupGoogleResultset(resultSet, request, sQuery):
+	coords = getCoordsByCityName(request.GET['city'])
 	if coords == '0,0':
 		messages.add_message(request, messages.ERROR, 'City error.')
 		return "ERROR"
@@ -117,16 +123,6 @@ def setupGoogleResultset(resultSet, request, sQuery):
 			check_type = tourist+","+student
 		if request.user.userprofile.usertype.usertype == 'tourist':
 			check_type = businessman+","+student
-	#if sQuery.lower() in maps_dataset['results'][iterator]['name'].encode().lower():
-					#valid = True
-				#if item_type not in check_type and valid = False:
-					#if sQuery.lower() == item_type.encode().lower():
-						#print "THIS SUCCEEDED: " + sQuery.lower() + " >><< " + item_type.encode().lower() + " >><< " + maps_dataset['results'][iterator]['name'].encode().lower()
-						#valid = True
-					#else:
-						#print "THIS FAILED: " + sQuery.lower() + " >><< " + item_type.encode().lower() + " >><< " + maps_dataset['results'][iterator]['name'].encode().lower()
-				#else:
-					#valid = False
 
 	while iterator < len(maps_dataset['results']):
 		valid = False
