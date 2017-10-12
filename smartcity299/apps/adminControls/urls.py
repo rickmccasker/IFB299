@@ -7,6 +7,8 @@ urlpatterns = [
 	url(r'add_admin/$', admin_views.drawAddAdmin),
 	url(r'add_admin/attempt_addadmin/$', admin_views.addAdmin), 
 	url(r'add_page/$', admin_views.drawSelectModelPage),
+	url(r'add_page/(\w+)/$', admin_views.drawAddModelPage, name="addModels"),
 	url(r'add_page/(\w+)/submit_item/', admin_views.addItem), 
-	url(r'(\w+)/$', admin_views.drawAddModelPage, name="addModels"),
+	url(r'edit_page/$', admin_views.drawSelectModelPage),
+	url(r'edit_page/(\w+)/$', admin_views.drawEditModelPage, name="editModels"),
 ]

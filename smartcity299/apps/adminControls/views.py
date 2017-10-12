@@ -53,8 +53,14 @@ def drawSelectModelPage(request):
 
 	Allows admin to select a model from all created in context
 	"""
+	actionType = {}
 	if(is_admin(request)):
+		if "edit_page" in request.path:
+			actionType['url'] = "edit_page"
+		else:
+			actionType['url'] = "add_page"
 		context = {
+			'actionType' : actionType,
 			'allModels' : getAllModels()
 		}
 		return render(request, 'admin_selectPage.html', context)
@@ -80,6 +86,28 @@ def drawAddModelPage(request, modelName):
 			'fieldArr' : fieldArr
 		}
 		return render(request, 'admin_addModels.html', context)
+	return redirect('/search/')
+
+def drawEditModelPage(request, modelName):
+	"""
+	Draw the admin_addModels page if admin is logged in.
+
+	Allows admin to add their own row to the selected modelName
+	"""
+	model = apps.get_app_config('search').get_model(modelName)._meta.get_fields()
+	fieldArr = []
+	VAX = "ASDASDSADASDASDASDASD"
+	print "{:<5}".format(VAX[:5])
+	for field in model:
+		if(field.name != "id" and field.name != "usertype"):
+			#print(field.name) #Testing only
+			fieldArr.append(field.name.title())
+	if(is_admin(request)):
+		context = {
+			'modelName' : modelName, 
+			'fieldArr' : fieldArr
+		}
+		return render(request, 'admin_editModels.html', context)
 	return redirect('/search/')
 	
 def drawAddAdmin(request):
