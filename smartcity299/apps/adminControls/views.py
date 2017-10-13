@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.apps import apps
 from ..search import models as search_model
+from django.forms.models import model_to_dict
 from django.core.validators import validate_email
 
 #Custom functions
@@ -57,6 +58,8 @@ def drawSelectModelPage(request):
 	if(is_admin(request)):
 		if "edit_page" in request.path:
 			actionType['url'] = "edit_page"
+		elif "select" in request.path:
+			actionType['url'] = "select_page"
 		else:
 			actionType['url'] = "add_page"
 		context = {
@@ -88,28 +91,38 @@ def drawAddModelPage(request, modelName):
 		return render(request, 'admin_addModels.html', context)
 	return redirect('/search/')
 
-def drawEditModelPage(request, modelName):
+def drawSelectEditItemPage(request, modelName):
 	"""
 	Draw the admin_addModels page if admin is logged in.
 
 	Allows admin to add their own row to the selected modelName
 	"""
-	model = apps.get_app_config('search').get_model(modelName)._meta.get_fields()
-	fieldArr = []
-	VAX = "ASDASDSADASDASDASDASD"
-	print "{:<5}".format(VAX[:5])
-	for field in model:
-		if(field.name != "id" and field.name != "usertype"):
-			#print(field.name) #Testing only
-			fieldArr.append(field.name.title())
 	if(is_admin(request)):
+		model = apps.get_app_config('search').get_model(modelName) #apps.get_model('search', modelName)
+		modelData = model.objects.all().defer(id).values()
 		context = {
-			'modelName' : modelName, 
-			'fieldArr' : fieldArr
+			'modelName' : modelName,
+			'modelData' : modelData
 		}
-		return render(request, 'admin_editModels.html', context)
+		return render(request, 'admin_editItemSelect.html', context)
 	return redirect('/search/')
 	
+def drawEditItemPage(request, modelName, itemName):
+	"""
+	Draw the admin_addModels page if admin is logged in.
+
+	Allows admin to add their own row to the selected modelName
+	"""
+	if(is_admin(request)):
+		modelItem = apps.get_model('search', modelName).objects.get(name=itemName)
+		item = model_to_dict(modelItem)
+		sortedItem = sorted(item.iteritems())
+		context = {
+			'item' : sortedItem
+		}
+		return render(request, 'admin_editItem.html', context)
+	return redirect('/search/')
+
 def drawAddAdmin(request):
 	"""
 	Draw admin_addAdmin.html if admin is logged in.
@@ -186,3 +199,11 @@ def addItem(request, tableName):
 	else:
 		messages.add_message(request, messages.ERROR, 'Unauthorized access.')
 		return redirect('/')
+
+def editItem(request, tableName, itemName):
+	table = apps.get_model('search', tableName).objects.get(name=itemName)
+	for key in request.POST:
+		setattr(table, key, request.POST.get(key, "Empty"))
+	table.save()
+	messages.add_message(request, messages.ERROR, 'Page altered successfully.')
+	return redirect('/admin/')

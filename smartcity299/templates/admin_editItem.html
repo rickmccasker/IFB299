@@ -1,0 +1,32 @@
+{% extends "base_generic.html" %}
+{% load staticfiles %}
+{% block head %}
+    <title>{{modelName}} - Add Item</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin_addmodels.css' %}">
+    <script type="text/javascript" src="{% static 'javascript/formValidation.js' %}"></script>
+    <script type="text/javascript" src="{% static 'javascript/maps.js' %}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcH76SKD-GzqVJquVjdnn6sxxp-WgViOg&libraries=places"></script>
+{% endblock %}
+
+{% block content %}
+    <p>asdasdasdasd</p>
+    <form method="POST" action="submit_edit_item/" onsubmit="return validateInput(this)">
+        {% csrf_token %}
+        {% for field, value in item %}
+            {% if field != 'id' %}
+                <span>{{field|title}}</span>
+                <input id={{field}} type="text" value="{{value}}" name="{{field}}" fieldName="{{field}}" /><br />
+                <span id="error{{field}}"></span>
+            {% endif %}
+        {% endfor %}
+        <button type="submit">Confirm changes</button>
+        <button type="reset">Reset</button>
+    </form>
+    <form method="POST" action="submit_delete_item/" onsubmit="return confDeletion()">
+        <input type="submit" value="Delete Item" />
+    </form>
+    
+{% endblock %}
+
+    <!--Add page for selecting models, mimicjking already existing-->
+    <!--Fix up this page to either be selecting or editing-->
