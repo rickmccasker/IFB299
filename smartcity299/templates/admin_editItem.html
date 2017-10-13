@@ -23,6 +23,7 @@
         <button type="reset">Reset</button>
     </form>
     <form method="POST" action="submit_delete_item/" onsubmit="return confDeletion()">
+        {% csrf_token %}
         <input type="submit" value="Delete Item" />
     </form>
     

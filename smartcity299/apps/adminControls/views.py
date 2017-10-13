@@ -164,6 +164,7 @@ def addAdmin(request):
 			messages.add_message(request, messages.ERROR, 'Error creating account please try again.')
 		return redirect('/admin/add_admin/')
 
+#VVV Needs validation for admin and key entries to do failed entries VVV#
 def addItem(request, tableName):
 	"""
 	If admin is succcessfully authenticated attempt creation of new Item
@@ -206,4 +207,9 @@ def editItem(request, tableName, itemName):
 		setattr(table, key, request.POST.get(key, "Empty"))
 	table.save()
 	messages.add_message(request, messages.ERROR, 'Page altered successfully.')
+	return redirect('/admin/')
+
+def deleteItem(request, tableName, itemName):
+	apps.get_model('search', tableName).objects.get(name=itemName).delete()
+	messages.add_message(request, messages.ERROR, 'Page deleted.')
 	return redirect('/admin/')

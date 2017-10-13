@@ -10,6 +10,7 @@ Return:
 **/
 function validateInput(form) {
     validSelectField(form);
+    alert("A")
     var inputs = form.getElementsByTagName('input');
     var errorCounter = 0;
     for (i = 0; i < inputs.length; i++)
@@ -162,4 +163,13 @@ function isEmpty(input) {
         }
     }
     return result
+}
+
+function confDeletion() {
+    choice = confirm("Confirm deletion of item."); //change to yes/no
+    if (choice) {
+        return true;
+    } else {
+        return false;
+    }
 }
