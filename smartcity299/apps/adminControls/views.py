@@ -115,9 +115,11 @@ def drawEditItemPage(request, modelName, itemName):
 	"""
 	if(is_admin(request)):
 		modelItem = apps.get_model('search', modelName).objects.get(name=itemName)
+		itemName = modelItem.name
 		item = model_to_dict(modelItem)
 		sortedItem = sorted(item.iteritems())
 		context = {
+			'itemName' : itemName,
 			'item' : sortedItem
 		}
 		return render(request, 'admin_editItem.html', context)
@@ -202,10 +204,15 @@ def addItem(request, tableName):
 		return redirect('/')
 
 def editItem(request, tableName, itemName):
-	table = apps.get_model('search', tableName).objects.get(name=itemName)
+	table = apps.get_model('search', tableName)
+	item = table.objects.get(name=itemName)
+	requestName = request.POST.get('name', False)
+	if(itemName != requestName and table.objects.filter(name__iexact=requestName)):
+		messages.add_message(request, messages.ERROR, 'An item with this name already exists.')
+		return redirect('/admin/edit_page/' + tableName + '/' + itemName + '/')
 	for key in request.POST:
-		setattr(table, key, request.POST.get(key, "Empty"))
-	table.save()
+		setattr(item, key, request.POST.get(key, "Empty"))
+	item.save()
 	messages.add_message(request, messages.ERROR, 'Page altered successfully.')
 	return redirect('/admin/')
 

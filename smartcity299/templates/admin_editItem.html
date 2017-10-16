@@ -9,13 +9,21 @@
 {% endblock %}
 
 {% block content %}
-    <p>asdasdasdasd</p>
     <form method="POST" action="submit_edit_item/" onsubmit="return validateInput(this)">
         {% csrf_token %}
+        <h1>{{itemName}}</h1>
         {% for field, value in item %}
             {% if field != 'id' %}
                 <span>{{field|title}}</span>
-                <input id={{field}} type="text" value="{{value}}" name="{{field}}" fieldName="{{field}}" /><br />
+                {% if field == 'city' %}
+                    <select id="city" name="city" fieldName="City">
+                        <option selected disabled value="{{value}}">Current selection: {{value}}</option>
+                        <option value="SYD">Sydney</option>
+                        <option value="BNE">Brisbane</option>
+                    </select>* <br />
+                {% else %}
+                    <input id={{field}} type="text" value="{{value}}" name="{{field}}" fieldName="{{field}}" /><br />
+                {% endif %}
                 <span id="error{{field}}"></span>
             {% endif %}
         {% endfor %}
@@ -26,6 +34,11 @@
         {% csrf_token %}
         <input type="submit" value="Delete Item" />
     </form>
+    {% if messages %}
+        {% for message in messages %}
+            <span> {{message}} </span><br />
+        {% endfor %}
+    {% endif %}
     
 {% endblock %}
 
