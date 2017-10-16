@@ -1,7 +1,7 @@
 {% extends "base_generic.html" %}
 {% load staticfiles %}
 {% block head %}
-    <title>{{modelName}} - Add Item</title>
+    <title>{{itemName}} - Edit Item</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/admin_addmodels.css' %}">
     <script type="text/javascript" src="{% static 'javascript/formValidation.js' %}"></script>
     <script type="text/javascript" src="{% static 'javascript/maps.js' %}"></script>
@@ -21,8 +21,9 @@
                         <option value="SYD">Sydney</option>
                         <option value="BNE">Brisbane</option>
                     </select>* <br />
+                    <button onclick="return panMap()">CLICKME</button>
                 {% else %}
-                    <input id={{field}} type="text" value="{{value}}" name="{{field}}" fieldName="{{field}}" /><br />
+                    <input id={{field|title}} type="text" value="{{value}}" name="{{field}}" fieldName="{{field}}" /><br />
                 {% endif %}
                 <span id="error{{field}}"></span>
             {% endif %}
@@ -40,6 +41,9 @@
         {% endfor %}
     {% endif %}
     
+    <div id="map" style="height: 400px">
+        <script>adminMap()</script>
+    </div>
 {% endblock %}
 
     <!--Add page for selecting models, mimicjking already existing-->
