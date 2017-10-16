@@ -13,6 +13,8 @@ def redirector(request):
 	If the request has an unauthenticated user, redirect to login page.
 	"""
 	if request.user.is_authenticated: #User session only ends when their browser if fully closed
+		if request.user.is_superuser:
+			return redirect('admin/')
 		return redirect('search/')
 	else:
 		return redirect('login/')

@@ -211,7 +211,11 @@ def editItem(request, tableName, itemName):
 		messages.add_message(request, messages.ERROR, 'An item with this name already exists.')
 		return redirect('/admin/edit_page/' + tableName + '/' + itemName + '/')
 	for key in request.POST:
-		setattr(item, key, request.POST.get(key, "Empty"))
+		if(empty(request.POST['key'])):
+			messages.add_message(request, messages.ERROR, 'Input field empty on submission')
+			return redirect('/admin/edit_page/' + tableName + '/' + itemName + '/')
+		else:
+			setattr(item, key, request.POST.get(key, "Empty"))
 	item.save()
 	messages.add_message(request, messages.ERROR, 'Page altered successfully.')
 	return redirect('/admin/')
