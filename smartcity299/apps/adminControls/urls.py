@@ -15,4 +15,5 @@ urlpatterns = [
 	url(r'edit_page/(\w+)/(\w+)/submit_edit_item/$', admin_views.editItem),
 	url(r'edit_page/(\w+)/(\w+)/submit_delete_item/$', admin_views.deleteItem),
 	url(r'add_servicetype/$', admin_views.drawAddServiceTypePage),
+	url(r'add_servicetype/submit_servicetype/$', admin_views.addServiceType),
 ]

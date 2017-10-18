@@ -9,6 +9,7 @@ from django.apps import apps
 from ..search import models as search_model
 from django.forms.models import model_to_dict
 from django.core.validators import validate_email
+from django.db import connection
 
 #Custom functions
 def is_admin(request):
@@ -168,6 +169,20 @@ def addAdmin(request):
 
 def drawAddServiceTypePage(request):
 	return render(request, 'admin_addTable.html')
+
+
+def addServiceType(request):
+	tableName = request.POST.get('tableName') #ADD a try blck
+	cursor = connection.cursor()
+	createTable_str = "CREATE TABLE " + tableName + "("
+	for field in request.POST:
+		if(field != "csrfmiddlewaretoken" and field != "tableName"):
+			createTable_str += field + " VARCHAR(45), "
+	createTable_str = createTable_str[:-2] + ");"
+	print createTable_str
+	cursor.execute(createTable_str)
+	
+	return redirect('/admin/add_page/' + tableName)
 
 #VVV Needs validation for admin and key entries to do failed entries VVV#
 def addItem(request, tableName):
