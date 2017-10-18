@@ -166,6 +166,9 @@ def addAdmin(request):
 			messages.add_message(request, messages.ERROR, 'Error creating account please try again.')
 		return redirect('/admin/add_admin/')
 
+def drawAddServiceTypePage(request):
+	return render(request, 'admin_addTable.html')
+
 #VVV Needs validation for admin and key entries to do failed entries VVV#
 def addItem(request, tableName):
 	"""

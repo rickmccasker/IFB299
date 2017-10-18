@@ -1,0 +1,51 @@
+{% extends "base_generic.html" %}
+{% load staticfiles %}
+{% block head %}
+    <title>{{modelName}} - Add Item</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin_addmodels.css' %}">
+    <script type="text/javascript" src="{% static 'javascript/formValidation.js' %}"></script>
+    <script type="text/javascript" src="{% static 'javascript/adminControls.js' %}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcH76SKD-GzqVJquVjdnn6sxxp-WgViOg&libraries=places"></script>
+{% endblock %}
+
+{% block content %}
+    <form id="zonk" method="POST" action="submit_item/" onsubmit="return validateInput(this)">
+        {% csrf_token %}
+        Compulsory fields: 
+        <label>Name</label>
+        <input id="name" /> <br />
+        <label>Address</label>
+        <input id="Address" /> <br />
+        <label>Latitude</label>
+        <input id="Latitude"/>
+        <label>Longitude</label>
+        <input id="Longitude" /> <br />
+        <select id="city" name="city" fieldName="City">
+            <option selected disabled value="">Please select a city...</option>
+            <option value="SYD">Sydney</option>
+            <option value="BNE">Brisbane</option>
+        </select>* <br />
+        <button onclick="return panMap()">CLICKME</button> <br />
+
+        <input id="fieldName" />
+        <button onclick="return addField()">add</button> <br />
+        <div id="additionalFields">
+
+        </div>
+
+
+
+
+
+        <button type="submit">Submit</button>
+        {% if messages %}
+            {% for message in messages %}
+                <span> {{message}} </span><br />
+            {% endfor %}
+        {% endif %}
+    </form>
+    <div id="map" style="height: 400px">
+        <script>adminMap()</script>
+    </div>
+    
+{% endblock %}
