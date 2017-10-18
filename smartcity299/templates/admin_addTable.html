@@ -13,11 +13,11 @@
         {% csrf_token %}
         <label>TableName: </label>
         <input id="tableName" name="tableName" placeholder="tableName" /><br />
-        <input id="name" name="name" value="name" disabled/><br />
+        <input id="name" name="name" value="name" readonly/><br />
         <input id="address" name="address" value="address" readonly/><br />
-        <input id="latitude" name="latitude" value="latitude" disabled/> <br />
-        <input id="longitude" name="longitude" value="longitude" disabled/> <br />
-        <input id="city" name="city" value="City" disabled /> <br />
+        <input id="latitude" name="latitude" value="latitude" readonly/> <br />
+        <input id="longitude" name="longitude" value="longitude" readonly/> <br />
+        <input id="city" name="city" value="city" readonly /> <br />
         <span>Additional fields: </span> <br>
         <label>Field name: </label>
         <input id="fieldName" />

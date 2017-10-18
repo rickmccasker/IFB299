@@ -13,8 +13,8 @@
         {% csrf_token %}
         <select id="city" name="city" fieldName="City">
             <option selected disabled value="">Please select a city...</option>
-            <option value="SYD">Sydney</option>
-            <option value="BNE">Brisbane</option>
+            <option value="sydney">Sydney</option>
+            <option value="brisbane">Brisbane</option>
         </select>* <br />
         <button onclick="return panMap()">CLICKME</button>
         {% for fieldName in fieldArr %} <!--The "addModels" in a url tag is its namespace, ensure it is named in the urls-->

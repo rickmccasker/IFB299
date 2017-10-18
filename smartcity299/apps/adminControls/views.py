@@ -172,16 +172,31 @@ def drawAddServiceTypePage(request):
 
 
 def addServiceType(request):
+	#Create db table
 	tableName = request.POST.get('tableName') #ADD a try blck
 	cursor = connection.cursor()
 	createTable_str = "CREATE TABLE " + tableName + "("
+	createTable_str += "id int(11) NOT NULL AUTO_INCREMENT, "
 	for field in request.POST:
 		if(field != "csrfmiddlewaretoken" and field != "tableName"):
-			createTable_str += field + " VARCHAR(45), "
-	createTable_str = createTable_str[:-2] + ");"
+			createTable_str += field + " VARCHAR(45) DEFAULT NULL, "
+	createTable_str += "PRIMARY KEY (`id`)) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;"
 	print createTable_str
 	cursor.execute(createTable_str)
 	
+	#Prep writing string
+	write_str = "\n\nclass " + tableName.title() + "(models.Model):\n"
+	for field in request.POST:
+		if(field != "csrfmiddlewaretoken" and field != "tableName"):
+			write_str += "\t" + field.lower() + " = models.CharField(max_length=45, blank=True, null=True)\n"
+	meta_str = "\tclass Meta: \n\t\tdb_table = '" + tableName + "'\n\t\tverbose_name = '" + tableName + "'\n\t\tverbose_name_plural = '" + tableName + "'"
+	custDef_str = "\n\tdef retName(self):\n\t\treturn self._meta.verbose_name\n\tdef __unicode__(self):\n\t\treturn self.name"
+	write_str += meta_str + custDef_str
+	#Write to model to link db
+	file = open('apps/search/models.py', 'a+')
+	file.write(write_str)
+	file.close()
+
 	return redirect('/admin/add_page/' + tableName)
 
 #VVV Needs validation for admin and key entries to do failed entries VVV#

@@ -14,7 +14,7 @@ function addField() {
     input.setAttribute("id", fieldName);
     input.setAttribute("name", fieldName);
     input.setAttribute("value", fieldName);
-    input.setAttribute("disabled", true);
+    input.setAttribute("readonly", true);
     button.innerHTML = "Delete"
     button.setAttribute("id", "delete_" + fieldName);
     button.setAttribute("onclick", "return removeField(this)");
