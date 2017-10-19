@@ -9,6 +9,7 @@ body{
     margin-left: 5%;
     margin-right: 5%;
     height: 750px;
+    min-width: 800px;
 }
 
 .custbtn {
@@ -48,8 +49,12 @@ h1{
 
 #loginBox{
     background-color: green;
-    min-width: 350px;
     height: 750px;
+}
+
+.container{
+    width: 100%;
+    min-width: 1200px;
 }
 
 #loginForm{

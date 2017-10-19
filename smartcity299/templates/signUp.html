@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-    <container class="container">
+    <div class="container">
         <div class="signupBox">
             <h1>Register</h1>
             <form method="POST" action="attempt_signup/" onsubmit="return validateInput(this)">
@@ -18,7 +18,7 @@
                         <label>UserName: </label>
                     </div>
                     <div class="col-xs-8 col-sm-8 col-md-8">
-                        <input id="username" type="text" placeholder="Username" name="username" fieldName="Username" />* <br />
+                        <input id="username" type="text" placeholder="Username" name="username" fieldName="Username" /> <br />
                         <span id="errorusername"></span>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                         <label>Password: </label>
                     </div>
                     <div class="col-xs-8 col-sm-8 col-md-8">
-                        <input id="password" type="password" placeholder="Password" name="password" fieldName="Password" />* <br />
+                        <input id="password" type="password" placeholder="Password" name="password" fieldName="Password" /> <br />
                         <span id="errorpassword"></span>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                         <label>Confirm Password: </label>
                     </div>
                     <div class="col-xs-8 col-sm-8 col-md-8 a">
-                        <input id="confpassword" type="password" placeholder="Confirm Password" name="confpassword" fieldName="Confirm password" />* <br />
+                        <input id="confpassword" type="password" placeholder="Confirm Password" name="confpassword" fieldName="Confirm password" /> <br />
                         <span id="errorconfpassword"></span>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                             <option value="1">Student</option>
                             <option value="2">Tourist</option>
                             <option value="3">Businessman</option>
-                        </select>* <br />
+                        </select> <br />
                         <span id="errorusertype"></span>
                     </div>
                 </div>
@@ -118,5 +118,5 @@
             {% endfor %}
             {% endif %}
         </div>
-    </container>
+    </div>
 {% endblock %}

@@ -1,4 +1,4 @@
-{% extends "base_generic.html" %}
+{% extends "base_admin.html" %}
 {% load staticfiles %}
 {% block head %}
     <title>Add Admin</title>
@@ -7,20 +7,21 @@
 {% endblock %}
 
 {% block content %}
+<div class="content">
     <form method="post" action="attempt_addadmin/" onsubmit="return validateInput(this)">
         {% csrf_token %}
         <span>UserName: </span>
-            <input id="username" type="text" placeholder="username" name="username" fieldName="Username" />* <br />
-            <span id="errorusername"></span>
+        <input id="username" type="text" placeholder="username" name="username" fieldName="Username" />* <br />
+        <span id="errorusername"></span>
         <span>Email: </span>
-            <input id="email" type="text" placeholder="email" name="email" fieldName="Email" inputtype="email"/>* <br />
-            <span id="erroremail"></span>
+        <input id="email" type="text" placeholder="email" name="email" fieldName="Email" inputtype="email" />* <br />
+        <span id="erroremail"></span>
         <span>Password: </span>
-            <input id="password" type="password" placeholder="password" name="password" fieldName="Password" />* <br />
-            <span id="errorpassword"></span>
+        <input id="password" type="password" placeholder="password" name="password" fieldName="Password" />* <br />
+        <span id="errorpassword"></span>
         <span>Confirm Password: </span>
-            <input id="confpassword" type="password" placeholder="confirm password" name="confpassword" fieldName="Confirm password" />* <br />
-            <span id="errorconfpassword"></span>
+        <input id="confpassword" type="password" placeholder="confirm password" name="confpassword" fieldName="Confirm password" />* <br />
+        <span id="errorconfpassword"></span>
         <button type="submit">Sign Up</button>
         <span>*Required Fields</span><br />
         {% if messages %}
@@ -29,4 +30,5 @@
         {% endfor %}
         {% endif %}
     </form>
+</div>
 {% endblock %}

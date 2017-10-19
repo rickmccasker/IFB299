@@ -1,4 +1,4 @@
-{% extends "base_generic.html" %}
+{% extends "base_admin.html" %}
 {% load staticfiles %}
 {% block head %}
     <title>{{modelName}} - Add Item</title>
@@ -9,13 +9,15 @@
 {% endblock %}
 
 {% block content %}
+<div class="content">
     <h1>All from {{modelName}}</h1>
     {% for model in modelData %} <!--The "addModels" in a url tag is its namespace, ensure it is named in the urls-->
-        <a href='{% url "editItem" modelName model.name %}'>{{model.name}}</a> <br />
+    <a href='{% url "editItem" modelName model.name %}'>{{model.name}}</a> <br />
     {% empty %}
-        <span>No items avaiable.</span>      
-    {% endfor %}    
+    <span>No items avaiable.</span>
+    {% endfor %}
+</div>
 {% endblock %}
-<!--Temporary bug found where it couldnt match if a modelname didnt exists, deleted this val and readded it and was fixed?-->
-<!--Add page for selecting models, mimicjking already existing-->
-<!--Fix up this page to either be selecting or editing-->
+    <!--Temporary bug found where it couldnt match if a modelname didnt exists, deleted this val and readded it and was fixed?-->
+    <!--Add page for selecting models, mimicjking already existing-->
+    <!--Fix up this page to either be selecting or editing-->

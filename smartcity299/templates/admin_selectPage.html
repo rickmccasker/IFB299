@@ -1,20 +1,22 @@
-{% extends "base_generic.html" %}
+{% extends "base_admin.html" %}
 {% block head %}
     <title>Add Page</title>
 {% endblock %}
 
 {% block content %}
+<div class="content">
     {% if 'edit_page' in actionType.url %}
         {% for model in allModels %} <!--The "addModels" in a url tag is its namespace, ensure it is named in the urls-->
             <a href='{% url "editSelectItem" model %}'>{{model}}</a> <br />
         {% empty %}
             <p>No models exist for services, please check that the search app has models associated with it.</p>
         {% endfor %}
-    {% elif 'add_page' in actionType.url %}
+        {% elif 'add_page' in actionType.url %}
         {% for model in allModels %} <!--The "addModels" in a url tag is its namespace, ensure it is named in the urls-->
             <a href='{% url "addModels" model %}'>{{model}}</a> <br />
         {% empty %}
             <p>No models exist for services, please check that the search app has models associated with it.</p>
         {% endfor %}
     {% endif %}
+</div>
 {% endblock %}
