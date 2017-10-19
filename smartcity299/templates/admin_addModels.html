@@ -1,4 +1,4 @@
-{% extends "base_generic.html" %}
+{% extends "base_admin.html" %}
 {% load staticfiles %}
 {% block head %}
     <title>{{modelName}} - Add Item</title>
@@ -9,6 +9,7 @@
 {% endblock %}
 
 {% block content %}
+<div class="content">
     <form method="POST" action="submit_item/" onsubmit="return validateInput(this)">
         {% csrf_token %}
         <select id="city" name="city" fieldName="City">
@@ -18,19 +19,19 @@
         </select>* <br />
         <button onclick="return panMap()">CLICKME</button>
         {% for fieldName in fieldArr %} <!--The "addModels" in a url tag is its namespace, ensure it is named in the urls-->
-            <span id="label{{fieldName}}">{{fieldName}}: </span>
-            <input id="{{fieldName}}" type="text" placeholder="Input text here" name="{{fieldName}}" fieldName="{{fieldName}}" />* <br />
-            <span id="error{{fieldName}}"></span>
+        <span id="label{{fieldName}}">{{fieldName}}: </span>
+        <input id="{{fieldName}}" type="text" placeholder="Input text here" name="{{fieldName}}" fieldName="{{fieldName}}" />* <br />
+        <span id="error{{fieldName}}"></span>
         {% endfor %}
         <button type="submit">Submit</button>
         {% if messages %}
-            {% for message in messages %}
-                <span> {{message}} </span><br />
-            {% endfor %}
+        {% for message in messages %}
+        <span> {{message}} </span><br />
+        {% endfor %}
         {% endif %}
     </form>
     <div id="map" style="height: 400px">
         <script>adminMap()</script>
     </div>
-    
+</div>
 {% endblock %}

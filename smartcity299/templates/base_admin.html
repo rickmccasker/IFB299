@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -5,15 +6,16 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin_navbar.css' %}">
     {% block head %}
     {% endblock %}
 </head>
 
 <body>
-    <nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-inverse" id="main-nav">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/">WebSiteName</a>
+                <a class="navbar-brand" href="/">Smartcity</a>
             </div>
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/admin/">Admin</a></li>
@@ -22,7 +24,27 @@
                 <li><a href="/signUp/">signUp</a></li>
                 <!--More links-->
             </ul>
+            <form class="navbar-form navbar-left" method="GET" action="/search/results/">
+                <div class="form-group">
+                    <input id="searchBox" type="text" class="form-control" name="sQuery" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/logout">Logout</a>
+            </ul>
         </div>
+    </nav>
+    <nav class="secondary">
+        <ul>
+            <li><a href="/admin/">Control Panel</a></li>
+            <li><br /><h2>Admin</h2></li>
+            <li><a href="/admin/add_admin/">Add Admin</a></li>
+            <li><a href="/admin/remove_admin/">Remove Admin</a></li>
+            <li><br /><h2>Page</h2></li>
+            <li><a href="/admin/add_page/">Add page</a></li>
+            <li><a href="/admin/edit_page/">Edit/Remove page</a></li>
+        </ul>
     </nav>
     <!-- Header/menu stuff goes here-->
     {% block content %}

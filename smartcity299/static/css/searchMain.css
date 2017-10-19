@@ -10,10 +10,11 @@ body{
 
 #divSearchBox{
     margin-left: 7%;
-    background-color: green;
+    background-color: #126872;
     width: 85%;
     padding-bottom: 20px;
     min-width: 800px;
+    border-radius: 20px;
 }
 
 #divSearchBox h1{
@@ -25,7 +26,6 @@ body{
 }
 
 .input-group{
-    background-color: green;
     width: 80%;
     min-width: 700px;
     margin: 0 auto;
