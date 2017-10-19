@@ -26,7 +26,7 @@ SECRET_KEY = 'wi*if&nog#lvp4e0q=jvdg@bgv@rd&oj^&5+tue4vama6!hh-*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['smartcity-env.8y6i8h9y7w.ap-southeast-2.elasticbeanstalk.com', '127.0.0.1']
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
@@ -81,16 +81,28 @@ WSGI_APPLICATION = 'smartcity299.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'smartcity',	#Name of DB
-        'USER': 'root',			#Default user for DB
-        'PASSWORD': '',			#Make sure you set your password to empty
-        'HOST': 'localhost',	# Or an IP Address that your DB is hosted on
-        'PORT': '3306',			#Default port for mysql
+if 'RDS_HOSTNAME' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.environ['RDS_DB_NAME'],
+            'USER': os.environ['RDS_USERNAME'],
+            'PASSWORD': os.environ['RDS_PASSWORD'],
+            'HOST': os.environ['RDS_HOSTNAME'],
+            'PORT': os.environ['RDS_PORT'],
+        }
     }
-}
+else: 
+	DATABASES = {
+		'default': {
+			'ENGINE': 'django.db.backends.mysql', 
+			'NAME': 'smartcity',	#Name of DB
+			'USER': 'root',			#Default user for DB
+			'PASSWORD': '',			#Make sure you set your password to empty
+			'HOST': 'localhost',	# Or an IP Address that your DB is hosted on
+			'PORT': '3306',			#Default port for mysql
+		}
+	}
 
 
 # Password validation
