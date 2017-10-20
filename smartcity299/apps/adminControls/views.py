@@ -10,6 +10,8 @@ from ..search import models as search_model
 from django.forms.models import model_to_dict
 from django.core.validators import validate_email
 from django.db import connection
+from django.conf import settings
+import os
 
 #Custom functions
 def is_admin(request):
@@ -208,6 +210,9 @@ def addItem(request, tableName):
 	If the name already exists redirect admin back to add page controls with a meaningful error message.
 	Else find a model matching the tableName and input all data where possible and redirect to admin control panel with meaningful message.
 	"""
+	if not uploadImage(request, tableName, request.POST.get('Name', False)):
+		return redirect('/admin/edit_page/' + tableName + '/' + request.POST.get('Name', False) + '/')
+
 	model = apps.get_app_config('search').get_model(tableName)
 	if(request.user.is_authenticated and request.user.is_superuser):
 		if(model.objects.filter(name__iexact=request.POST.get('Name', False))):
@@ -236,7 +241,13 @@ def addItem(request, tableName):
 		messages.add_message(request, messages.ERROR, 'Unauthorized access.')
 		return redirect('/')
 
+
 def editItem(request, tableName, itemName):
+	if not uploadImage(request, tableName, itemName):
+		return redirect('/admin/edit_page/' + tableName + '/' + itemName + '/')
+
+
+
 	table = apps.get_model('search', tableName)
 	item = table.objects.get(name=itemName)
 	requestName = request.POST.get('name', False)
@@ -244,12 +255,14 @@ def editItem(request, tableName, itemName):
 		messages.add_message(request, messages.ERROR, 'An item with this name already exists.')
 		return redirect('/admin/edit_page/' + tableName + '/' + itemName + '/')
 	for key in request.POST:
-		if(empty(request.POST['key'])):
+		if(request.POST[key] == ""):
+			print key
 			messages.add_message(request, messages.ERROR, 'Input field empty on submission')
 			return redirect('/admin/edit_page/' + tableName + '/' + itemName + '/')
 		else:
 			setattr(item, key, request.POST.get(key, "Empty"))
 	item.save()
+	
 	messages.add_message(request, messages.ERROR, 'Page altered successfully.')
 	return redirect('/admin/')
 
@@ -257,3 +270,28 @@ def deleteItem(request, tableName, itemName):
 	apps.get_model('search', tableName).objects.get(name=itemName).delete()
 	messages.add_message(request, messages.ERROR, 'Page deleted.')
 	return redirect('/admin/')
+
+def uploadImage(request, tableName, itemName):
+
+	file = request.FILES['file']
+	if "." in file.name:
+		type=file.name[file.name.find(".")+1:].split()[0]
+	if type.lower() != "jpg" and type.lower() != "png" and type.lower() != "jpeg":
+		messages.add_message(request, messages.ERROR, 'Invalid image type selected')
+		return False
+
+	dir = settings.MEDIA_ROOT + "\\places\\" + tableName + "\\"
+	if not os.path.exists(dir):
+		os.makedirs(dir)
+
+	file_dir = dir + itemName + ".jpg"
+	print file_dir
+	destination = open(file_dir, 'wb+')
+	for chunk in file.chunks():
+		destination.write(chunk)
+	destination.close()
+	return True
+
+	
+
+    

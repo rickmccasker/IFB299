@@ -174,7 +174,8 @@ def details(request, serviceType, serviceName):
 	model = apps.get_app_config('search').get_model(serviceType)
 	serviceDetails = model.objects.get(name=serviceName)
 	serviceDetails = model_to_dict(serviceDetails)
-	context = { 'serviceDetails' : serviceDetails }
+	context = { 'serviceDetails' : serviceDetails,
+				'serviceType' : serviceType }
 	return render(request, 'details.html', context)
 
 def googleDetails(request, placeid, serviceName):	
