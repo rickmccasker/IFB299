@@ -205,7 +205,7 @@ def googleDetails(request, placeid, serviceName):
 	try:
 		placeDetail_image = image_build_URL(placeDetail_url_data['result']['photos'][0]['photo_reference'])
 	except KeyError:
-		placeDetail_image = "Failed to retrieve an image"
+		placeDetail_image = streetview_build_URL(placeDetail_url_data['result']['geometry']['location']['lat'], placeDetail_url_data['result']['geometry']['location']['lng'])
 	print "PLACE_IMAGE_URL>>>"
 	print placeDetail_image
 	place_details.name = placeDetail_url_data['result']['name']
@@ -251,5 +251,10 @@ def image_build_URL(photoreference):
 	url = base_url + photoreference_string + maxwidth_string + key_string
 	return url
 
-#TODO:
-	#Add so only dbtable names can be displayed from google >>ask client
+def streetview_build_URL(latitude, longitude):
+	base_url = 'https://maps.googleapis.com/maps/api/streetview'
+	latlng_string = '?location=%f,%f'%(latitude, longitude)
+	size_string = '&size=600x400'
+	key_string = '&key='+'AIzaSyAcH76SKD-GzqVJquVjdnn6sxxp-WgViOg'
+	url = base_url + latlng_string + size_string
+	return url

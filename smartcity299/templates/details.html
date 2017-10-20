@@ -47,7 +47,7 @@
                 {% if serviceDetails.image %}
                     <img src="{{serviceDetails.image}}"/>
                 {% else %}
-                <img src="{{ STATIC_URL }}/static/images/serviceImg/{{serviceDetails.name}}.jpg/" onerror="this.src='{{ STATIC_URL}}/static/images/serviceImg/404.jpg/'" />
+                    <img src="{{ STATIC_URL }}/static/images/serviceImg/{{serviceDetails.name}}.jpg/" onerror="this.src='{{ STATIC_URL}}/static/images/serviceImg/404.jpg/'" />
                 {% endif %}
                 <div id="map">
                     <script type="text/javascript" src="{% static 'javascript/maps.js' %}"></script>
