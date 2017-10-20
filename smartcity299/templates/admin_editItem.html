@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-    <form method="POST" action="submit_edit_item/" onsubmit="return validateInput(this)">
+    <form method="POST" action="submit_edit_item/" onsubmit="return validateInput(this)" enctype="multipart/form-data">
         {% csrf_token %}
         <h1>{{itemName}}</h1>
         {% for field, value in item %}
@@ -28,8 +28,12 @@
                 <span id="error{{field}}"></span>
             {% endif %}
         {% endfor %}
+        <span>Select an image...</span>
+        <input type="file" name="file" />
         <button type="submit">Confirm changes</button>
         <button type="reset">Reset</button>
+
+        
     </form>
     <form method="POST" action="submit_delete_item/" onsubmit="return confDeletion()">
         {% csrf_token %}

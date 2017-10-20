@@ -42,12 +42,11 @@
                 </div>
                 
             </div>
-
             <div class="col-xs-12 col-sm-5 col-md-5 image">
                 {% if serviceDetails.image %}
                     <img src="{{serviceDetails.image}}"/>
                 {% else %}
-                    <img src="{{ STATIC_URL }}/static/images/serviceImg/{{serviceDetails.name}}.jpg/" onerror="this.src='{{ STATIC_URL}}/static/images/serviceImg/404.jpg/'" />
+                    <img src="/media/places/{{serviceType}}/{{serviceDetails.name}}.jpg/" onerror="this.src='{{ STATIC_URL}}/static/images/serviceImg/404.jpg/'"/>
                 {% endif %}
                 <div id="map">
                     <script type="text/javascript" src="{% static 'javascript/maps.js' %}"></script>

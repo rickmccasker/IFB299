@@ -10,7 +10,7 @@
 
 {% block content %}
 <div class="content">
-    <form method="POST" action="submit_item/" onsubmit="return validateInput(this)">
+    <form method="POST" action="submit_item/" onsubmit="return validateInput(this)" enctype="multipart/form-data">
         {% csrf_token %}
         <select id="city" name="city" fieldName="City">
             <option selected disabled value="">Please select a city...</option>
@@ -29,7 +29,14 @@
         <span> {{message}} </span><br />
         {% endfor %}
         {% endif %}
+        <span>Select an image...</span>
+        <input type="file" name="file" />
     </form>
+    {% if messages %}
+    {% for message in messages %}
+    <span> {{message}} </span><br />
+    {% endfor %}
+    {% endif %}
     <div id="map" style="height: 400px">
         <script>adminMap()</script>
     </div>
