@@ -27,11 +27,20 @@
                     <input id="searchBox" type="text" class="form-control" name="sQuery" placeholder="Search...">
                     <button type="submit" class="btn btn-default">Submit</button>
                     {% if hidden.city %}
-                        <input type="hidden" name="city" value="{{hidden.city}}" />
+                        <select id="city" name="city" fieldName="City">
+                            <option selected disabled value="{{hidden.city}}">Current: {{hidden.city}}</option>
+                            <option value="Sydney">Sydney</option>
+                            <option value="Brisbane">Brisbane</option>
+                            <option value="ThrowError">ThrowError</option>
+                        </select> <br />
                     {% else %}
-                        <input type="hidden" name="city" value="Sydney" />
+                        <select id="city" name="city" fieldName="City">
+                            <option selected disabled value="">Current: NONE</option>
+                            <option value="Sydney">Sydney</option>
+                            <option value="Brisbane">Brisbane</option>
+                            <option value="ThrowError">ThrowError</option>
+                        </select> <br />
                     {% endif %}
-                    <input type="hidden" name="type" value="" />
                 </div>
             </form>
             <ul class="nav navbar-nav navbar-right">
