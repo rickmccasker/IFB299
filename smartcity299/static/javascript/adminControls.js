@@ -37,7 +37,5 @@ function removeField(button) {
     container.removeChild(button);
     container.removeChild(input_field);
 
-    alert('ITEM DELETION...')
-
     return false;
 }

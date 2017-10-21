@@ -49,7 +49,6 @@ function loadStaticMap() {
     selected_city = city.options[city.selectedIndex].value;
     img.src = "../media/city/" + selected_city + ".jpg";
     img.onerror = function () {
-        alert('error');
         img.src = "../static/images/city404.jpg";
     };
 }
@@ -93,7 +92,6 @@ function checkAmount(results, status) {
         for (i = 0; i < results.length; i++) {
             if (!results[i].types.includes("locality")) {
                 counter += 1;
-                alert(results[i].types)
             }
         }
     }
@@ -125,7 +123,6 @@ function panMap() {
 
 //Single stuff
 function createSingleMarker(latitude, longitude, name, address) {
-    alert(name);
     var location = { lat: latitude, lng: longitude }
     var marker = new google.maps.Marker({
         map: map,
