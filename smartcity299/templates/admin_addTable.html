@@ -9,13 +9,13 @@
 {% endblock %}
 
 {% block content %}
-    <form method="POST" action="submit_servicetype/" onsubmit="return validateInput(this)">
+    <form method="POST" action="submit_servicetype/" onsubmit="return !isEmpty(tableName)">
         {% csrf_token %}
         
         
         <h1>Compulsory fields</h1>
         <label>TableName: </label>
-        <input id="tableName" name="tableName" placeholder="tableName" /><br />
+        <input id="tableName" name="tableName" placeholder="tableName" inputtype="letters" fieldName="tableName"/><br />
         <input id="name" name="name" value="name" readonly/><br />
         <input id="address" name="address" value="address" readonly/><br />
         <input id="latitude" name="latitude" value="latitude" readonly/> <br />
@@ -33,6 +33,7 @@
 
 
         <button type="submit">Submit</button>
+        <span id="errortableName"></span>
         {% if messages %}
             {% for message in messages %}
                 <span> {{message}} </span><br />
