@@ -18,8 +18,9 @@
             <p>No models exist for services, please check that the search app has models associated with it.</p>
         {% endfor %}
     {% elif 'upload_map' in actionType.url %}
-        {% for city in cityDict %} <!--The "addModels" in a url tag is its namespace, ensure it is named in the urls-->
-    <a href='{% url "uploadCityMap" city %}'>{{city}}</a> <br />
+        <h1>Upload citymap</h1>
+        {% for city in allModels %} <!--The "addModels" in a url tag is its namespace, ensure it is named in the urls-->
+            <a href='{% url "uploadCityMap" city %}'>{{city}}</a> <br />
         {% endfor %}
     {% endif %}
 </div>

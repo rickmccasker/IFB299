@@ -52,6 +52,15 @@ def drawControlPage(request):
 		return render(request, 'admin_controlPanel.html')
 	return redirect('/search/')
 
+def drawUploadCityMap(request, city):
+	if(is_admin(request)):
+		context = {
+			'city' : city
+		}
+		return render(request, 'admin_uploadMap.html', context)
+	return redirect('/search/')
+    
+
 def drawSelectModelPage(request):
 	"""
 	Draw the admin_selectPage.html template if user is an admin
@@ -72,10 +81,12 @@ def drawSelectModelPage(request):
 			cityDict = dictSet()
 			for city in cityArr:
 				cityDict[city] = city
-			allmodels = cityDict
-		else:
+			allModels = cityDict
+		elif "add_page" in request.path:
 			actionType['url'] = "add_page"
 			allModels = getAllModels()
+		else:
+			return redirect('/admin/')
 		context = {
 			'actionType' : actionType,
 			'allModels' : allModels
@@ -283,7 +294,6 @@ def deleteItem(request, tableName, itemName):
 	return redirect('/admin/')
 
 def uploadImage(request, tableName, itemName):
-
 	file = request.FILES['file']
 	if "." in file.name:
 		type=file.name[file.name.find(".")+1:].split()[0]
@@ -303,6 +313,25 @@ def uploadImage(request, tableName, itemName):
 	destination.close()
 	return True
 
-def uploadCityMap(request, city):
-	pass
-    
+def uploadCityMapImage(request, cityName):
+	try:
+		file = request.FILES['file']
+		if "." in file.name:
+			type=file.name[file.name.find(".")+1:].split()[0]
+		if type.lower() != "jpg" and type.lower() != "png" and type.lower() != "jpeg":
+			messages.add_message(request, messages.ERROR, 'Invalid image type selected')
+
+		dir = settings.MEDIA_ROOT + "\\city\\"
+		if not os.path.exists(dir):
+			os.makedirs(dir)
+
+		file_dir = dir + cityName + ".jpg"
+		destination = open(file_dir, 'wb+')
+		for chunk in file.chunks():
+			destination.write(chunk)
+		destination.close()
+	except:
+		messages.add_message(request, messages.ERROR, 'Error uploading image')
+		return redirect('/admin/upload_map/' + citName + "/")
+	messages.add_message(request, messages.ERROR, 'Success')
+	return redirect('/admin/')
