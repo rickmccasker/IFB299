@@ -43,6 +43,17 @@ function createMarker(place) {
 counter = 0;
 address = "";
 
+function loadStaticMap() {
+    img = document.getElementById("staticMap_img");
+    city = document.getElementById("searchCity");
+    selected_city = city.options[city.selectedIndex].value;
+    img.src = "../media/city/" + selected_city + ".jpg";
+    img.onerror = function () {
+        alert('error');
+        img.src = "../static/images/city404.jpg";
+    };
+}
+
 function adminMap() {
     var location = { lat: -25.2744, lng: 133.7751 };
 

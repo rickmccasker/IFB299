@@ -17,8 +17,8 @@
                     <input type="text" id="searchField" name="sQuery" placeholder="Search..." />
                     <input type="submit" id="searchBtn" value="Search" /><br />
                     <input type="hidden" name="city" value="" />
-                    <select id="city" name="city" fieldName="City">
-                        <option selected disabled value="">Select city: </option>
+                    <select id="searchCity" name="city" fieldName="City" onchange="loadStaticMap()">
+                        <option selected disabled value="" >Select city: </option>
                         <option value="Sydney">Sydney</option>
                         <option value="Brisbane">Brisbane</option>
                         <option value="ThrowError">ThrowError</option>
@@ -28,6 +28,9 @@
                 </div>
             </form>
         </div><br />
+        <div id="staticMap_container">
+            <img id="staticMap_img" />
+        </div>
     </container>
     
     
