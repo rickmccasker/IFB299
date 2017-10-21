@@ -24,18 +24,13 @@
         <span id="error{{fieldName}}"></span>
         {% endfor %}
         <button type="submit">Submit</button>
-        {% if messages %}
+        <span>Select an image...</span>
+        <input type="file" name="file" />
+    </form> <br />
+    {% if messages %}
         {% for message in messages %}
         <span> {{message}} </span><br />
         {% endfor %}
-        {% endif %}
-        <span>Select an image...</span>
-        <input type="file" name="file" />
-    </form>
-    {% if messages %}
-    {% for message in messages %}
-    <span> {{message}} </span><br />
-    {% endfor %}
     {% endif %}
     <div id="map" style="height: 400px">
         <script>adminMap()</script>

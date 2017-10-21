@@ -232,9 +232,13 @@ def addItem(request, tableName):
 	If the name already exists redirect admin back to add page controls with a meaningful error message.
 	Else find a model matching the tableName and input all data where possible and redirect to admin control panel with meaningful message.
 	"""
-	if not uploadImage(request, tableName, request.POST.get('Name', False)):
-		return redirect('/admin/edit_page/' + tableName + '/' + request.POST.get('Name', False) + '/')
-
+	try:
+		if not uploadImage(request, tableName, request.POST.get('Name', False)):
+			messages.add_message(request, messages.ERROR, 'Error uploading image.')
+			return redirect('/admin/add_page/' + tableName + '/')
+	except:
+		messages.add_message(request, messages.ERROR, 'Is there an image selected?')
+		return redirect('/admin/add_page/' + tableName + '/')
 	model = apps.get_app_config('search').get_model(tableName)
 	if(request.user.is_authenticated and request.user.is_superuser):
 		if(model.objects.filter(name__iexact=request.POST.get('Name', False))):
