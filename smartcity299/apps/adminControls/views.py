@@ -13,6 +13,10 @@ from django.db import connection
 from django.conf import settings
 import os
 
+
+class dictSet(dict):
+	pass
+
 #Custom functions
 def is_admin(request):
 	"""
@@ -61,13 +65,20 @@ def drawSelectModelPage(request):
 	if(is_admin(request)):
 		if "edit_page" in request.path:
 			actionType['url'] = "edit_page"
-		elif "select" in request.path:
-			actionType['url'] = "select_page"
+			allModels = getAllModels()
+		elif "upload_map" in request.path:
+			actionType['url'] = "upload_map"
+			cityArr = ["Sydney", "Brisbane"] #CHANGE THIS ACCORDING TO NUM OF CITIES
+			cityDict = dictSet()
+			for city in cityArr:
+				cityDict[city] = city
+			allmodels = cityDict
 		else:
 			actionType['url'] = "add_page"
+			allModels = getAllModels()
 		context = {
 			'actionType' : actionType,
-			'allModels' : getAllModels()
+			'allModels' : allModels
 		}
 		return render(request, 'admin_selectPage.html', context)
 	return redirect('/search/')
@@ -292,6 +303,6 @@ def uploadImage(request, tableName, itemName):
 	destination.close()
 	return True
 
-	
-
+def uploadCityMap(request, city):
+	pass
     
