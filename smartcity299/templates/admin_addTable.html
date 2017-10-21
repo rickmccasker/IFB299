@@ -11,6 +11,9 @@
 {% block content %}
     <form method="POST" action="submit_servicetype/" onsubmit="return validateInput(this)">
         {% csrf_token %}
+        
+        
+        <h1>Compulsory fields</h1>
         <label>TableName: </label>
         <input id="tableName" name="tableName" placeholder="tableName" /><br />
         <input id="name" name="name" value="name" readonly/><br />
