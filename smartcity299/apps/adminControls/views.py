@@ -198,6 +198,9 @@ def drawAddServiceTypePage(request):
 def addServiceType(request):
 	#Create db table
 	tableName = request.POST.get('tableName') #ADD a try blck
+	if tableName == "":
+		messages.add_message(request, messages.ERROR, 'No tablename found, please ensure the table name field is filled.')
+		return redirect('/admin/add_servicetype/')
 	cursor = connection.cursor()
 	createTable_str = "CREATE TABLE " + tableName + "("
 	createTable_str += "id int(11) NOT NULL AUTO_INCREMENT, "
@@ -205,8 +208,11 @@ def addServiceType(request):
 		if(field != "csrfmiddlewaretoken" and field != "tableName"):
 			createTable_str += field + " VARCHAR(45) DEFAULT NULL, "
 	createTable_str += "PRIMARY KEY (`id`)) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;"
-	print createTable_str
-	cursor.execute(createTable_str)
+	try:
+		cursor.execute(createTable_str)
+	except:
+		messages.add_message(request, messages.ERROR, 'Error in tablename. Table already exists.')
+		return redirect('/admin/add_servicetype/')
 	
 	#Prep writing string
 	write_str = "\n\nclass " + tableName.title() + "(models.Model):\n"
