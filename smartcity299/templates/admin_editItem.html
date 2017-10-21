@@ -16,10 +16,10 @@
             {% if field != 'id' %}
                 <span>{{field|title}}</span>
                 {% if field == 'city' %}
-                    <select id="city" name="city" fieldName="City">
+                    <select id="city" name="itemCity" fieldName="City">
                         <option selected disabled value="{{value}}">Current selection: {{value}}</option>
-                        <option value="SYD">Sydney</option>
-                        <option value="BNE">Brisbane</option>
+                        <option value="Sydney">Sydney</option>
+                        <option value="Brisbane">Brisbane</option>
                     </select>* <br />
                     <button onclick="return panMap()">CLICKME</button>
                 {% else %}

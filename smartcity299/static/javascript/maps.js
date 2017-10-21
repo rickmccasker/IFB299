@@ -100,14 +100,14 @@ function checkAmount(results, status) {
 }
 
 function panMap() {
-    city = document.getElementById('city').value;
+    city = document.getElementById('itemCity').value;
     lat = -25.2744;
     lng = 133.7751;
-    if (city == 'SYD') {
+    if (city == 'Sydney') {
         lat = -33.866;
         lng = 151.196;
     } 
-    else if (city == "BNE") {
+    else if (city == "Brisbane") {
         lat = -27.4698;
         lng = 153.0251;
     }

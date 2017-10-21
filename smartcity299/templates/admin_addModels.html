@@ -12,12 +12,12 @@
 <div class="content">
     <form method="POST" action="submit_item/" onsubmit="return validateInput(this)" enctype="multipart/form-data">
         {% csrf_token %}
-        <select id="city" name="city" fieldName="City">
+        <select id="city" name="itemCity" fieldName="City">
             <option selected disabled value="">Please select a city...</option>
-            <option value="sydney">Sydney</option>
-            <option value="brisbane">Brisbane</option>
-        </select>* <br />
-        <button onclick="return panMap()">CLICKME</button>
+            <option value="Sydney">Sydney</option>
+            <option value="Brisbane">Brisbane</option>
+        </select>
+        <button onclick="return panMap()">CLICKME</button><br />
         {% for fieldName in fieldArr %} <!--The "addModels" in a url tag is its namespace, ensure it is named in the urls-->
         <span id="label{{fieldName}}">{{fieldName}}: </span>
         <input id="{{fieldName}}" type="text" placeholder="Input text here" name="{{fieldName}}" fieldName="{{fieldName}}" />* <br />
