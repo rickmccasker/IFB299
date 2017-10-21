@@ -271,9 +271,7 @@ def addItem(request, tableName):
 def editItem(request, tableName, itemName):
 	if not uploadImage(request, tableName, itemName):
 		return redirect('/admin/edit_page/' + tableName + '/' + itemName + '/')
-
-
-
+	
 	table = apps.get_model('search', tableName)
 	item = table.objects.get(name=itemName)
 	requestName = request.POST.get('name', False)
@@ -281,12 +279,12 @@ def editItem(request, tableName, itemName):
 		messages.add_message(request, messages.ERROR, 'An item with this name already exists.')
 		return redirect('/admin/edit_page/' + tableName + '/' + itemName + '/')
 	for key in request.POST:
-		if(request.POST[key] == ""):
-			print key
-			messages.add_message(request, messages.ERROR, 'Input field empty on submission')
-			return redirect('/admin/edit_page/' + tableName + '/' + itemName + '/')
-		else:
-			setattr(item, key, request.POST.get(key, "Empty"))
+		if(key != "file"):
+			if(request.POST[key] == ""):
+				messages.add_message(request, messages.ERROR, 'Input field empty on submission')
+				return redirect('/admin/edit_page/' + tableName + '/' + itemName + '/')
+			else:
+				setattr(item, key, request.POST.get(key, "Empty"))
 	item.save()
 	
 	messages.add_message(request, messages.ERROR, 'Page altered successfully.')
@@ -298,24 +296,27 @@ def deleteItem(request, tableName, itemName):
 	return redirect('/admin/')
 
 def uploadImage(request, tableName, itemName):
-	file = request.FILES['file']
-	if "." in file.name:
-		type=file.name[file.name.find(".")+1:].split()[0]
-	if type.lower() != "jpg" and type.lower() != "png" and type.lower() != "jpeg":
-		messages.add_message(request, messages.ERROR, 'Invalid image type selected')
-		return False
+	try:
+		file = request.FILES['file']
+		if "." in file.name:
+			type=file.name[file.name.find(".")+1:].split()[0]
+		if type.lower() != "jpg" and type.lower() != "png" and type.lower() != "jpeg":
+			messages.add_message(request, messages.ERROR, 'Invalid image type selected')
+			return False
 
-	dir = settings.MEDIA_ROOT + "\\places\\" + tableName + "\\"
-	if not os.path.exists(dir):
-		os.makedirs(dir)
+		dir = settings.MEDIA_ROOT + "\\places\\" + tableName + "\\"
+		if not os.path.exists(dir):
+			os.makedirs(dir)
 
-	file_dir = dir + itemName + ".jpg"
-	print file_dir
-	destination = open(file_dir, 'wb+')
-	for chunk in file.chunks():
-		destination.write(chunk)
-	destination.close()
-	return True
+		file_dir = dir + itemName + ".jpg"
+		print file_dir
+		destination = open(file_dir, 'wb+')
+		for chunk in file.chunks():
+			destination.write(chunk)
+		destination.close()
+		return True
+	except:
+		return True
 
 def uploadCityMapImage(request, cityName):
 	try:
