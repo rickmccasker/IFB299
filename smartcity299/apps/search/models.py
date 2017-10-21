@@ -15,7 +15,6 @@ class College(models.Model):
 	city = models.CharField(max_length=5, blank=True, null=True)
 	latitude = models.CharField(max_length=50, blank=True, null=True)
 	longitude = models.CharField(max_length=50, blank=True, null=True)
-	usertype = models.CharField(max_length=60, blank=True, null=True, default='Student') #PREP THIS FOR REMOVAL
 	class Meta: #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
 		db_table = "College"
 		verbose_name = "College"
@@ -32,7 +31,8 @@ class Library(models.Model):
 	phone = models.CharField(max_length=15, blank=True, null=True)
 	desc = models.CharField(max_length=120, blank=True, null=True) 
 	city = models.CharField(max_length=5, blank=True, null=True)
-	usertype = models.CharField(max_length=60, blank=True, null=True, default='Student')
+	latitude = models.CharField(max_length=50, blank=True, null=True)
+	longitude = models.CharField(max_length=50, blank=True, null=True)
 	class Meta:
 		db_table = "Library" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
 		verbose_name = "Library"
@@ -49,7 +49,8 @@ class Industry(models.Model):
 	industry_type = models.CharField(max_length=60, blank=True, null=True)
 	desc = models.CharField(max_length=120, blank=True, null=True) 
 	city = models.CharField(max_length=5, blank=True, null=True)
-	usertype = models.CharField(max_length=60, blank=True, null=True, default='Businessman')
+	latitude = models.CharField(max_length=50, blank=True, null=True)
+	longitude = models.CharField(max_length=50, blank=True, null=True)
 	class Meta: #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
 		db_table = "Industry"
 		verbose_name = "Industry"
@@ -66,7 +67,8 @@ class Hotel(models.Model):
 	email = models.CharField(max_length=60, blank=True, null=True)
 	desc = models.CharField(max_length=120, blank=True, null=True)
 	city = models.CharField(max_length=5, blank=True, null=True)
-	usertype = models.CharField(max_length=60, blank=True, null=True, default='Businessman, Tourist')
+	latitude = models.CharField(max_length=50, blank=True, null=True)
+	longitude = models.CharField(max_length=50, blank=True, null=True)
 	class Meta:
 		db_table = "Hotel" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
 		verbose_name = "Hotel"
@@ -85,7 +87,6 @@ class Park(models.Model):
 	city = models.CharField(max_length=15, blank=True, null=True)
 	latitude = models.CharField(max_length=50, blank=True, null=True)
 	longitude = models.CharField(max_length=50, blank=True, null=True)
-	usertype = models.CharField(max_length=60, blank=True, null=True, default='Tourist')
 	class Meta:
 		db_table = "Park" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
 		verbose_name = "Park"
@@ -102,7 +103,8 @@ class Zoo(models.Model):
 	email = models.CharField(max_length=60, blank=True, null=True)
 	desc = models.CharField(max_length=120, blank=True, null=True)
 	city = models.CharField(max_length=5, blank=True, null=True)
-	usertype = models.CharField(max_length=60, blank=True, null=True, default='Tourist')
+	latitude = models.CharField(max_length=50, blank=True, null=True)
+	longitude = models.CharField(max_length=50, blank=True, null=True)
 	class Meta:
 		db_table = "Zoo" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
 		verbose_name = "Zoo"
@@ -119,7 +121,8 @@ class Museum(models.Model):
 	email = models.CharField(max_length=60, blank=True, null=True)
 	desc = models.CharField(max_length=120, blank=True, null=True)
 	city = models.CharField(max_length=5, blank=True, null=True)
-	usertype = models.CharField(max_length=60, blank=True, null=True)
+	latitude = models.CharField(max_length=50, blank=True, null=True)
+	longitude = models.CharField(max_length=50, blank=True, null=True)
 	class Meta:
 		db_table = "Museum" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
 		verbose_name = "Museum"
@@ -136,7 +139,8 @@ class Restaurant(models.Model):
 	email = models.CharField(max_length=60, blank=True, null=True)
 	desc = models.CharField(max_length=120, blank=True, null=True)
 	city = models.CharField(max_length=5, blank=True, null=True)
-	usertype = models.CharField(max_length=60, blank=True, null=True)
+	latitude = models.CharField(max_length=50, blank=True, null=True)
+	longitude = models.CharField(max_length=50, blank=True, null=True)
 	class Meta:
 		db_table = "Restaurant" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
 		verbose_name = "Restaurant"
@@ -153,7 +157,8 @@ class Mall(models.Model):
 	email = models.CharField(max_length=60, blank=True, null=True)
 	desc = models.CharField(max_length=120, blank=True, null=True)
 	city = models.CharField(max_length=5, blank=True, null=True)
-	usertype = models.CharField(max_length=60, blank=True, null=True)
+	latitude = models.CharField(max_length=50, blank=True, null=True)
+	longitude = models.CharField(max_length=50, blank=True, null=True)
 	class Meta:
 		db_table = "Mall" #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
 		verbose_name = "Mall"
