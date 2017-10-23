@@ -36,7 +36,7 @@ def getAllModels():
 	app_models_set = apps.get_app_config('search').get_models()
 	app_models = []
 	for model in app_models_set: 
-		print(model._meta.db_table) #Debugging only
+		#print(model._meta.db_table) #Debugging only
 		app_models.append(model._meta.db_table)
 	return app_models
 
@@ -53,6 +53,9 @@ def drawControlPage(request):
 	return redirect('/search/')
 
 def drawUploadCityMap(request, city):
+	"""
+	Draw upload map Page
+	"""
 	if(is_admin(request)):
 		context = {
 			'city' : city
@@ -102,8 +105,6 @@ def drawAddModelPage(request, modelName):
 	"""
 	model = apps.get_app_config('search').get_model(modelName)._meta.get_fields()
 	fieldArr = []
-	VAX = "ASDASDSADASDASDASDASD"
-	print "{:<5}".format(VAX[:5])
 	for field in model:
 		if(field.name != "id" and field.name != "usertype" and field.name != "city"):
 			#print(field.name) #Testing only
@@ -118,7 +119,7 @@ def drawAddModelPage(request, modelName):
 
 def drawSelectEditItemPage(request, modelName):
 	"""
-	Draw the admin_addModels page if admin is logged in.
+	Draw the admin_edititems select page if admin is logged in.
 
 	Allows admin to add their own row to the selected modelName
 	"""
@@ -134,9 +135,8 @@ def drawSelectEditItemPage(request, modelName):
 	
 def drawEditItemPage(request, modelName, itemName):
 	"""
-	Draw the admin_addModels page if admin is logged in.
+	Draw the admin_edititems page if admin is logged in.
 
-	Allows admin to add their own row to the selected modelName
 	"""
 	if(is_admin(request)):
 		modelItem = apps.get_model('search', modelName).objects.get(name=itemName)
@@ -192,10 +192,18 @@ def addAdmin(request):
 		return redirect('/admin/add_admin/')
 
 def drawAddServiceTypePage(request):
+	"""
+	Draw add service type page <<CURRENTLY BROKEN, NO FIX AVAIABLE>>
+	"""
 	return render(request, 'admin_addTable.html')
 
 
 def addServiceType(request):
+	"""
+	Attempt to add a service by grabbing relevant input fields and writing to both the db and the models.py
+	<<THIS FEATURE IS CURRENTLY BROKEN WHEN SERVER IS BEING HOSTED, THE MODELS.py CHANGES CANT BE RECOGNIZED>>
+	<<STILL WORKS IN LOCALHOST THO>>
+	"""
 	#Create db table
 	tableName = request.POST.get('tableName') #ADD a try blck
 	if tableName == "":
@@ -223,11 +231,13 @@ def addServiceType(request):
 	custDef_str = "\n\tdef retName(self):\n\t\treturn self._meta.verbose_name\n\tdef __unicode__(self):\n\t\treturn self.name"
 	write_str += meta_str + custDef_str
 	#Write to model to link db
-	file = open('apps/search/models.py', 'a+')
+
+
+	file = open(settings.BASE_DIR + '/apps/search/models.py', 'a+')
 	file.write(write_str)
 	file.close()
 
-	return redirect('/admin/add_page/' + tableName)
+	return redirect('/admin/') #addpage +tablename
 
 #VVV Needs validation for admin and key entries to do failed entries VVV#
 def addItem(request, tableName):
@@ -275,6 +285,9 @@ def addItem(request, tableName):
 
 
 def editItem(request, tableName, itemName):
+	"""
+	After admin inputs data, write to the relevant database table.
+	"""
 	if not uploadImage(request, tableName, itemName):
 		return redirect('/admin/edit_page/' + tableName + '/' + itemName + '/')
 	
@@ -302,6 +315,9 @@ def deleteItem(request, tableName, itemName):
 	return redirect('/admin/')
 
 def uploadImage(request, tableName, itemName):
+	"""
+	Attempt to upload an image and write it into the MEDIA_ROOT
+	"""
 	try:
 		file = request.FILES['file']
 		if "." in file.name:
@@ -310,12 +326,11 @@ def uploadImage(request, tableName, itemName):
 			messages.add_message(request, messages.ERROR, 'Invalid image type selected')
 			return False
 
-		dir = settings.MEDIA_ROOT + "\\places\\" + tableName + "\\"
+		dir = settings.MEDIA_ROOT + "places/" + tableName + "/"
 		if not os.path.exists(dir):
 			os.makedirs(dir)
-
+		
 		file_dir = dir + itemName + ".jpg"
-		print file_dir
 		destination = open(file_dir, 'wb+')
 		for chunk in file.chunks():
 			destination.write(chunk)
@@ -325,6 +340,9 @@ def uploadImage(request, tableName, itemName):
 		return True
 
 def uploadCityMapImage(request, cityName):
+	"""
+	Alternate take on upload image, customised for uploading a static map image
+	"""
 	try:
 		file = request.FILES['file']
 		if "." in file.name:
@@ -332,7 +350,7 @@ def uploadCityMapImage(request, cityName):
 		if type.lower() != "jpg" and type.lower() != "png" and type.lower() != "jpeg":
 			messages.add_message(request, messages.ERROR, 'Invalid image type selected')
 
-		dir = settings.MEDIA_ROOT + "\\city\\"
+		dir = settings.MEDIA_ROOT + "city/"
 		if not os.path.exists(dir):
 			os.makedirs(dir)
 
@@ -343,6 +361,6 @@ def uploadCityMapImage(request, cityName):
 		destination.close()
 	except:
 		messages.add_message(request, messages.ERROR, 'Error uploading image')
-		return redirect('/admin/upload_map/' + citName + "/")
+		return redirect('/admin/upload_map/' + cityName + "/")
 	messages.add_message(request, messages.ERROR, 'Success')
 	return redirect('/admin/')
