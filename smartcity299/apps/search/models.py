@@ -12,7 +12,7 @@ class College(models.Model):
 	email = models.CharField(max_length=60, blank=True, null=True)
 	departments = models.CharField(max_length=100, blank=True, null=True) #dep1, dep2, dep3, etc.
 	desc = models.CharField(max_length=120, blank=True, null=True) 
-	city = models.CharField(max_length=5, blank=True, null=True)
+	city = models.CharField(max_length=45, blank=True, null=True)
 	latitude = models.CharField(max_length=50, blank=True, null=True)
 	longitude = models.CharField(max_length=50, blank=True, null=True)
 	class Meta: #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
@@ -30,7 +30,7 @@ class Library(models.Model):
 	email = models.CharField(max_length=60, blank=True, null=True)
 	phone = models.CharField(max_length=15, blank=True, null=True)
 	desc = models.CharField(max_length=120, blank=True, null=True) 
-	city = models.CharField(max_length=5, blank=True, null=True)
+	city = models.CharField(max_length=45, blank=True, null=True)
 	latitude = models.CharField(max_length=50, blank=True, null=True)
 	longitude = models.CharField(max_length=50, blank=True, null=True)
 	class Meta:
@@ -48,7 +48,7 @@ class Industry(models.Model):
 	email = models.CharField(max_length=60, blank=True, null=True)
 	industry_type = models.CharField(max_length=60, blank=True, null=True)
 	desc = models.CharField(max_length=120, blank=True, null=True) 
-	city = models.CharField(max_length=5, blank=True, null=True)
+	city = models.CharField(max_length=45, blank=True, null=True)
 	latitude = models.CharField(max_length=50, blank=True, null=True)
 	longitude = models.CharField(max_length=50, blank=True, null=True)
 	class Meta: #ALWAYS ENSURE THIS MATCHES THE CLASS NAME
@@ -66,7 +66,7 @@ class Hotel(models.Model):
 	phone = models.CharField(max_length=15, blank=True, null=True)
 	email = models.CharField(max_length=60, blank=True, null=True)
 	desc = models.CharField(max_length=120, blank=True, null=True)
-	city = models.CharField(max_length=5, blank=True, null=True)
+	city = models.CharField(max_length=45, blank=True, null=True)
 	latitude = models.CharField(max_length=50, blank=True, null=True)
 	longitude = models.CharField(max_length=50, blank=True, null=True)
 	class Meta:
@@ -84,7 +84,7 @@ class Park(models.Model):
 	phone = models.CharField(max_length=15, blank=True, null=True)
 	email = models.CharField(max_length=60, blank=True, null=True)
 	desc = models.CharField(max_length=120, blank=True, null=True)
-	city = models.CharField(max_length=15, blank=True, null=True)
+	city = models.CharField(max_length=45, blank=True, null=True)
 	latitude = models.CharField(max_length=50, blank=True, null=True)
 	longitude = models.CharField(max_length=50, blank=True, null=True)
 	class Meta:
@@ -102,7 +102,7 @@ class Zoo(models.Model):
 	phone = models.CharField(max_length=15, blank=True, null=True)
 	email = models.CharField(max_length=60, blank=True, null=True)
 	desc = models.CharField(max_length=120, blank=True, null=True)
-	city = models.CharField(max_length=5, blank=True, null=True)
+	city = models.CharField(max_length=45, blank=True, null=True)
 	latitude = models.CharField(max_length=50, blank=True, null=True)
 	longitude = models.CharField(max_length=50, blank=True, null=True)
 	class Meta:
@@ -120,7 +120,7 @@ class Museum(models.Model):
 	phone = models.CharField(max_length=15, blank=True, null=True)
 	email = models.CharField(max_length=60, blank=True, null=True)
 	desc = models.CharField(max_length=120, blank=True, null=True)
-	city = models.CharField(max_length=5, blank=True, null=True)
+	city = models.CharField(max_length=45, blank=True, null=True)
 	latitude = models.CharField(max_length=50, blank=True, null=True)
 	longitude = models.CharField(max_length=50, blank=True, null=True)
 	class Meta:
@@ -138,7 +138,7 @@ class Restaurant(models.Model):
 	phone = models.CharField(max_length=15, blank=True, null=True)
 	email = models.CharField(max_length=60, blank=True, null=True)
 	desc = models.CharField(max_length=120, blank=True, null=True)
-	city = models.CharField(max_length=5, blank=True, null=True)
+	city = models.CharField(max_length=45, blank=True, null=True)
 	latitude = models.CharField(max_length=50, blank=True, null=True)
 	longitude = models.CharField(max_length=50, blank=True, null=True)
 	class Meta:
@@ -156,7 +156,7 @@ class Mall(models.Model):
 	phone = models.CharField(max_length=15, blank=True, null=True)
 	email = models.CharField(max_length=60, blank=True, null=True)
 	desc = models.CharField(max_length=120, blank=True, null=True)
-	city = models.CharField(max_length=5, blank=True, null=True)
+	city = models.CharField(max_length=45, blank=True, null=True)
 	latitude = models.CharField(max_length=50, blank=True, null=True)
 	longitude = models.CharField(max_length=50, blank=True, null=True)
 	class Meta:
@@ -167,4 +167,3 @@ class Mall(models.Model):
 		return self._meta.verbose_name
 	def __unicode__(self):
 		return 'Malls: ' + self.name
-
