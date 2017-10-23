@@ -9,45 +9,47 @@
 {% endblock %}
 
 {% block content %}
+<div class="content">
     <form method="POST" action="submit_edit_item/" onsubmit="return validateInput(this)" enctype="multipart/form-data">
         {% csrf_token %}
         <h1>{{itemName}}</h1>
+        <span>City: </span>
+        <select id="city" name="itemCity" fieldName="City">
+            <option selected disabled value="">Current selection: </option>
+            <option value="Sydney">Sydney</option>
+            <option value="Brisbane">Brisbane</option>
+        </select>*
+        <button onclick="return panMap()">Pan Map</button><br />
         {% for field, value in item %}
-            {% if field != 'id' %}
-                <span>{{field|title}}</span>
-                {% if field == 'city' %}
-                    <select id="city" name="itemCity" fieldName="City">
-                        <option selected disabled value="{{value}}">Current selection: {{value}}</option>
-                        <option value="Sydney">Sydney</option>
-                        <option value="Brisbane">Brisbane</option>
-                    </select>* <br />
-                    <button onclick="return panMap()">CLICKME</button>
-                {% else %}
-                    <input id={{field|title}} type="text" value="{{value}}" name="{{field}}" fieldName="{{field}}" /><br />
-                {% endif %}
-                <span id="error{{field}}"></span>
-            {% endif %}
+        {% if field != 'id' %}
+        
+        {% if field != 'city' %}
+            <span>{{field|title}}</span>
+            <input id={{field|title}} type="text" value="{{value}}" name="{{field}}" fieldName="{{field}}" /><br />
+            <span id="error{{field}}"></span>
+        {% endif %}
+        
+        {% endif %}
         {% endfor %}
         <span>Select an image...</span>
         <input type="file" name="file" />
-        <button type="submit">Confirm changes</button>
-        <button type="reset">Reset</button>
-
-        
+        <button id="submitButton" type="submit">Confirm changes</button><br />
+        <button id="resetButton" type="reset">Reset</button><br />
     </form>
     <form method="POST" action="submit_delete_item/" onsubmit="return confDeletion()">
         {% csrf_token %}
-        <input type="submit" value="Delete Item" />
+        <input id="deleteButton" type="submit" value="Delete Item" />
     </form>
     {% if messages %}
-        {% for message in messages %}
-            <span> {{message}} </span><br />
-        {% endfor %}
+    {% for message in messages %}
+    <span> {{message}} </span><br />
+    {% endfor %}
     {% endif %}
-    
+
     <div id="map" style="height: 400px">
         <script>adminMap()</script>
     </div>
+</div>
 {% endblock %}
 
     <!--Add page for selecting models, mimicjking already existing-->

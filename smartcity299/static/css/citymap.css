@@ -1,0 +1,10 @@
+img{
+    max-width: 800px;
+    margin-left: 20px;
+    max-height: 600px;
+}
+
+#imgSelect{
+    margin-top: 20px;
+    margin-left: -20px;
+}

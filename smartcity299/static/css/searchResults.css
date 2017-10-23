@@ -2,12 +2,16 @@ body {
     background-color: grey;
 }
 
-.box{
-    background-color: green;
-    margin-left: 5%;
-    width: 90%;
-    padding: 10px;
-    min-width: 750px;
+#box{
+    margin-left: 7%;
+    background-color: #126872;
+    width: 85%;
+    padding-bottom: 20px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 20px;
+    min-width: 800px;
+    border-radius: 20px;
 }
 
 .resultSet{
@@ -26,6 +30,13 @@ table{
 
 
 #map{
-    background-color: black;
+    margin-top: 50px;
+    min-width: 630px;
     height: 400px;
+    width: 90%;
+    margin-left: 5%;
+}
+
+h1, h2{
+    color: white;
 }

@@ -10,30 +10,34 @@
 
 {% block content %}
 <div class="content">
+    <h1>{{modelName}}</h1>
     <form method="POST" action="submit_item/" onsubmit="return validateInput(this)" enctype="multipart/form-data">
         {% csrf_token %}
+        <span>City: </span>
         <select id="city" name="city" fieldName="City">
             <option selected disabled value="">Please select a city...</option>
             <option value="Sydney">Sydney</option>
             <option value="Brisbane">Brisbane</option>
         </select>
-        <button onclick="return panMap()">CLICKME</button><br />
+        <button onclick="return panMap()">Pan map</button><br />
         {% for fieldName in fieldArr %} <!--The "addModels" in a url tag is its namespace, ensure it is named in the urls-->
         <span id="label{{fieldName}}">{{fieldName}}: </span>
         <input id="{{fieldName}}" type="text" placeholder="Input text here" name="{{fieldName}}" fieldName="{{fieldName}}" />* <br />
         <span id="error{{fieldName}}"></span>
         {% endfor %}
-        <button type="submit">Submit</button>
         <span>Select an image...</span>
         <input type="file" name="file" />
+
+        <button id="submitButton" type="submit">Submit</button>
     </form> <br />
+    <div id="map" style="height: 400px">
+        <script>adminMap()</script>
+    </div>
     {% if messages %}
         {% for message in messages %}
         <span> {{message}} </span><br />
         {% endfor %}
     {% endif %}
-    <div id="map" style="height: 400px">
-        <script>adminMap()</script>
-    </div>
+
 </div>
 {% endblock %}

@@ -2,14 +2,13 @@ body{
     background-color: grey;
 }
 
-
-
 #map{
     height: 400px;
 }
 
 #divSearchBox{
     margin-left: 7%;
+    padding-top: 20px;
     background-color: #126872;
     width: 85%;
     padding-bottom: 20px;
@@ -43,4 +42,15 @@ body{
     width: 10%;
     min-width: 70px;
     height: 60px;
+}
+
+img{
+    width: 80%;
+    margin-left: 10%;
+    color: grey;
+}
+
+.errMessage{
+    margin-left: 10%;
+    color: white;
 }
