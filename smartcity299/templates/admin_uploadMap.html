@@ -5,9 +5,9 @@
 
 {% block content %}
 <div class="content">
-    <h1>RISK</h1>
+    <h1>{{city|title}}</h1>
     <h2>Current map</h2>
-    <img src="/media/city/{{city}}.jpg" onerror="this.src='{{ STATIC_URL }}/static/images/city404.jpg/'" />
+    <img src="/media/city/{{city}}.jpg/" onerror="this.src='{{ STATIC_URL }}/static/images/city404.jpg/'" alt="Image of the city: {{city}}"/>
     <form method="POST" action="submit_map/" enctype="multipart/form-data">
         {% csrf_token %}
         <span>Select an image...</span>

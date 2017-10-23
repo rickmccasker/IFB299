@@ -1,12 +1,28 @@
-{% extends "base_minimal.html" %}
+<!DOCTYPE HTML>
 {% load staticfiles %}
-{% block head %}
+<html>
+<head>
     <title>Sign Up</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'css/signup.css' %}">
     <script type="text/javascript" src="{% static 'javascript/formValidation.js' %}"></script>
-{% endblock %}
+</head>
 
-{% block content %}
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Smartcity</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/login/">Login</a></li>
+                <!--More links-->
+            </ul>
+        </div>
+    </nav>
     <div class="container">
         <div class="signupBox">
             <h1>Register</h1>
@@ -78,7 +94,7 @@
                         <span id="errorlname"></span>
                     </div>
                 </div>
-                
+
                 <!--Contact DETAIL FORMS-->
                 <div class="form-group">
                     <div class="col-xs-4 col-sm-4 col-md-4 control-label">
@@ -98,7 +114,7 @@
                         <span id="erroremail"></span>
                     </div>
                 </div>
-                
+
                 <!--ADDRESS FORMS-->
                 <div class="form-group">
                     <div class="col-xs-4 col-sm-4 col-md-4 control-label">
@@ -111,7 +127,7 @@
                 <button class="custbtn" type="submit">Sign Up</button> <br />
                 <span id="req">*Required Fields</span> <br />
             </form>
-            
+
             {% if messages %}
             {% for message in messages %}
             <span> {{message}} </span><br />
@@ -119,4 +135,5 @@
             {% endif %}
         </div>
     </div>
-{% endblock %}
+</body>
+</html>

@@ -12,7 +12,7 @@
 <div class="content">
     <form method="POST" action="submit_item/" onsubmit="return validateInput(this)" enctype="multipart/form-data">
         {% csrf_token %}
-        <select id="city" name="itemCity" fieldName="City">
+        <select id="city" name="city" fieldName="City">
             <option selected disabled value="">Please select a city...</option>
             <option value="Sydney">Sydney</option>
             <option value="Brisbane">Brisbane</option>

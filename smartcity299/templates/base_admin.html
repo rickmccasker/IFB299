@@ -19,33 +19,9 @@
             </div>
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/admin/">Admin</a></li>
-                <li><a href="/login/">login</a></li>
-                <li><a href="/search/">search</a></li>
-                <li><a href="/signUp/">signUp</a></li>
+                <li><a href="/search/">Search</a></li>
                 <!--More links-->
             </ul>
-            <form class="navbar-form navbar-left" method="GET" action="/search/results/">
-                <div class="form-group">
-                    <input id="searchBox" type="text" class="form-control" name="sQuery" placeholder="Search...">
-                    <button type="submit" class="btn btn-default">Submit</button>
-                    {% if hidden.city %}
-                        <select id="city" name="city" fieldName="City">
-                            <option selected disabled value="{{hidden.city}}">Current: {{hidden.city}}</option>
-                            <option value="Sydney">Sydney</option>
-                            <option value="Brisbane">Brisbane</option>
-                            <option value="ThrowError">ThrowError</option>
-                         </select> <br />
-                    {% else %}
-                        <input type="hidden" name="city" value="" />
-                        <select id="city" name="city" fieldName="City">
-                            <option selected disabled value="">Current: NONE</option>
-                            <option value="Sydney">Sydney</option>
-                            <option value="Brisbane">Brisbane</option>
-                            <option value="ThrowError">ThrowError</option>
-                        </select> <br />
-                    {% endif %}
-                </div>
-            </form>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/logout">Logout</a>
             </ul>
@@ -58,6 +34,7 @@
             <li><a href="/admin/add_admin/">Add Admin</a></li>
             <li><a href="/admin/upload_map/">Upload city map</a></li>
             <li><br /><h2>Page</h2></li>
+            <!--<li><a href="/admin/add_servicetype/">Add Servicetype</a></li>-->
             <li><a href="/admin/add_page/">Add page</a></li>
             <li><a href="/admin/edit_page/">Edit/Remove page</a></li>
         </ul>

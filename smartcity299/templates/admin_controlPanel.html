@@ -5,6 +5,7 @@
 
 {% block content %}
 <div class="content">
+    <p>Please us the home button to be redirected to this page.</p>
     <h2>Admin user controls</h2>
     <div id="addAdmin">
         <a href="./add_admin/">Add Admin</a>
@@ -13,16 +14,15 @@
         <a href="./upload_map/">Upload city map</a>
     </div>
     <h2>Page controls</h2>
-    <div id="addServiceType">
+    <!--<div id="addServiceType">
         <a href="./add_servicetype/">Add service type</a>
-    </div>
+    </div>-->
     <div id="addPage">
         <a href="./add_page/">Add page</a>
     </div>
     <div id="editPage">
         <a href="./edit_page/">Edit/Remove page</a>
     </div>
-
     {% if messages %}
     {% for message in messages %}
     <span> {{message}} </span><br />
