@@ -1,15 +1,14 @@
 [
   {
-    "model": "search.park",
+    "model": "search.College",
     "pk": 1,
     "fields": {
-      "address": "15 ax",
-      "city": "bris",
+      "address": "196 Pitt St, Sydney NSW 2000, Australia",
+      "city": "Sydney",
       "desc": "aaaaaaaa aaaaa a aaaaaaa",
       "email": "rick@gmail.com",
       "name": "rick",
-      "phone": "axssse",
-      "usertype": "student"
+      "phone": "axssse"
     }
   },
   {
@@ -17,12 +16,11 @@
     "pk": 2,
     "fields": {
       "address": "15 ax",
-      "city": "bris",
+      "city": "Brisbane",
       "desc": "aaaaaaaa aaaaa a aaaaaaa",
       "email": "rick@gmail.com",
       "name": "rick",
-      "phone": "axssse",
-      "usertype": "student"
+      "phone": "axssse"
     }
   }
 ]
