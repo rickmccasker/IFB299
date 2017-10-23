@@ -23,19 +23,21 @@
                     </select>* <br />
                     <input type="hidden" name="type" value="" />
                 </div>
-            </form>
+            </form><br />
+            {% if messages %}
+            {% for message in messages %}
+            <span class="errMessage"> {{message}} </span><br />
+            {% endfor %}
+            {% endif %}
         </div><br />
+        
         <div id="staticMap_container">
-            <img id="staticMap_img" alt="Map of selected city"/>
+            <img id="staticMap_img" alt="Map of selected city" />
         </div>
     </container>
     
     
-    {% if messages %}
-        {% for message in messages %}
-            <span class="errMessage"> {{message}} </span><br />
-        {% endfor %}
-    {% endif %}
+
 {% endblock %}
 
 s

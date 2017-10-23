@@ -9,7 +9,7 @@
 
 {% block content %}
     <container class="container">
-        <div class="box"> 
+        <div id="box" > 
             <h1>Results</h1>
             {% if queryReq|length == 0 %}
                 <h2>Searching for all relevant items. </h2><br />
@@ -43,23 +43,22 @@
                 </table>
             </div>
 
-            <div class="col-xs-12 col-sm-4 col-md-4">
-                <div id="map">
-                    <script>
+            <div id="map">
+                <script>
                         initMap(Number("{{hidden.city_latitude}}"), Number("{{hidden.city_longitude}}"));
                         "{% for key, values in resultSet.items %}"
-                            var latitude = Number("{{values.latitude}}");
-                            var longitude = Number("{{values.longitude}}");
-                            var name = "{{values.name|title}}";
-                            var address = "{{values.address}}";
-                            createSingleMarker(latitude, longitude, name, address)
+                        var latitude = Number("{{values.latitude}}");
+                        var longitude = Number("{{values.longitude}}");
+                        var name = "{{values.name|title}}";
+                        var address = "{{values.address}}";
+                        createSingleMarker(latitude, longitude, name, address)
                         "{% endfor %}"
-                    </script>
-                </div>
+                </script>
             </div>
             
         </div>
-        
-    </container>
+                
+
+</container>
     
 {% endblock %}
