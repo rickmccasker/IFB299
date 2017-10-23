@@ -1,48 +1,19 @@
 var map;
 var infowindow;
 
-/*function initMap(latitude, longitude, query){
-    var location = { lat: latitude, lng: longitude };
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: location,
-        zoom: 15
-    });
-    infowindow = new google.maps.InfoWindow();
-    var service = new google.maps.places.PlacesService(map);
-    service.nearbySearch({
-        location: location,
-        radius: 500,
-        keyword: query
-        //type: ['park']
-    }, callback);
-    
-    //for loop based on given db array
-}
 
-function callback(results, status) {
-    if (status === google.maps.places.PlacesServiceStatus.OK) {
-        for (var i = 0; i < results.length; i++) {
-            createMarker(results[i]);
-        }
-    }
-}
-
-function createMarker(place) {
-    var placeLoc = place.geometry.location;
-    var marker = new google.maps.Marker({
-        map: map,
-        position: place.geometry.location
-    });
-
-    google.maps.event.addListener(marker, 'click', function () {
-        infowindow.setContent(place.name);
-        infowindow.open(map, this);
-    });
-}*/
 
 counter = 0;
 address = "";
 
+/**
+Description: 
+    Load a static map image, city selected by the "searchCity" field
+Parameters: 
+    N/A
+Return: 
+    N/A
+**/
 function loadStaticMap() {
     img = document.getElementById("staticMap_img");
     city = document.getElementById("searchCity");
@@ -53,6 +24,15 @@ function loadStaticMap() {
     };
 }
 
+/**
+Description: 
+    Create a map customised for admin use. Clicking on the map fires an event which will autofill lat,lng and address fields
+    to simplify the creation of a place.
+Parameters: 
+    N/A
+Return: 
+    N/A
+**/
 function adminMap() {
     var location = { lat: -25.2744, lng: 133.7751 };
 
@@ -85,6 +65,15 @@ function adminMap() {
     });
 }
 
+/**
+Description: 
+    Ensure only one result exists at each place.
+Parameters: 
+    Results - A set of results
+    Status - Whether or not the method is able to run based on the place status
+Return: 
+    N/A
+**/
 function checkAmount(results, status) {
     counter = 0;
     address = "";
@@ -97,13 +86,21 @@ function checkAmount(results, status) {
     }
 }
 
+/**
+Description: 
+    When relevant button is pressed, pan the map to whereever the city value has been selected.
+Parameters: 
+    N/A
+Return: 
+    Boolean - Return false in all cases to prevent submission
+**/
 function panMap() {
-    city = document.getElementById('itemCity').value;
+    city = document.getElementById('city').value;
     lat = -25.2744;
     lng = 133.7751;
     if (city == 'Sydney') {
-        lat = -33.866;
-        lng = 151.196;
+        lat = -33.865143;
+        lng = 151.209900;
     } 
     else if (city == "Brisbane") {
         lat = -27.4698;
@@ -121,7 +118,17 @@ function panMap() {
 }
 
 
-//Single stuff
+/**
+Description: 
+    Create a single marker on a map with the given params.
+Parameters: 
+    Latitude - The latitude of the pin
+    Longitude - The longitude of the pin
+    Name - The name of the pin, to be used in its infobox
+    Address - The address of the pin, to be used in its infobox
+Return: 
+    N/A
+**/
 function createSingleMarker(latitude, longitude, name, address) {
     var location = { lat: latitude, lng: longitude }
     var marker = new google.maps.Marker({
@@ -136,7 +143,14 @@ function createSingleMarker(latitude, longitude, name, address) {
 }
 
 
-//Create an empty map
+/**
+Description: 
+    Initialise an empty map, ready to be filled
+Parameters: 
+    Latitude, Longitude - Where the map should be centered around
+Return: 
+    N/A
+**/
 function initMap(latitude, longitude) {
     var location = { lat: latitude, lng: longitude };
 

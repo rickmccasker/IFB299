@@ -66,7 +66,8 @@ Return:
 **/
 function validAlphaChars(input){
     var alphaChar_regex = /^[A-z]+$/;
-    if (!alphaChar_regex.test(input.value)) {
+    if (!alphaChar_regex.test(input.value))
+    {
         document.getElementById("error" + input.id).innerHTML = "&nbsp*Please ensure only alphabet characters are used. <br>"
         return false
     }
@@ -87,7 +88,8 @@ Return:
 **/
 function validNumeralChars(input){
     var numericChar_regex = /^[0-9]+$/;
-    if (!numericChar_regex.test(input.value)) {
+    if (!numericChar_regex.test(input.value))
+    {
         document.getElementById("error" + input.id).innerHTML = "&nbsp*Please ensure only numbers are used. <br>"
         return false
     }
@@ -107,7 +109,8 @@ Return:
 **/
 function validEmailForm(input) {
     var email_regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!email_regex.test(input.value)) {
+    if (!email_regex.test(input.value))
+    {
         document.getElementById("error" + input.id).innerHTML = "&nbsp*Please ensure correct email form is used (a@a.com). <br>"
         return false
     }
@@ -127,15 +130,18 @@ Return:
 **/
 function validSelectField(form) {
     var inputs = document.getElementsByTagName("select");
-    for(i=0; i<inputs.length; i++){
+    for (i = 0; i < inputs.length; i++)
+    {
         var input = inputs[i];
         var strError = "error" + input.id;
         if (input.hasAttribute("fieldName")) { //fieldName attribute governs whether a field is compulsory or not
-            if (input.options.length == 0 || input.value.length == 0) {
+            if (input.options.length == 0 || input.value.length == 0)
+            {
                 document.getElementById(strError).innerHTML = "&nbsp*" + input.getAttribute("fieldName") + " field must not be empty. <br>";
                 return false
             }
-            else {
+            else
+            {
                 document.getElementById(strError).innerHTML = "";
                 return true
             }
@@ -154,9 +160,11 @@ Return:
 function isEmpty(input) {
     var result = false
     var strError = "error" + input.id;
-    if (input.hasAttribute("fieldName")) { //fieldName attribute governs whether a field is compulsory or not
+    if (input.hasAttribute("fieldName"))
+    { //fieldName attribute governs whether a field is compulsory or not
         //alert(input.getAttribute("fieldName"));
-        if (input.value.match(/^\s*$/) || input.value == '') {
+        if (input.value.match(/^\s*$/) || input.value == '')
+        {
             document.getElementById(strError).innerHTML = "&nbsp*" + input.getAttribute("fieldName") + " field must not be empty. <br>";
             result = true
         }
@@ -164,11 +172,21 @@ function isEmpty(input) {
     return result
 }
 
+/**
+Description: 
+    Display message to ensure user wishes to delete selected item.
+Parameters: 
+    N/A
+Return: 
+    Boolean - Return true when user selects OK and false when they select CANCEL
+**/
 function confDeletion() {
     choice = confirm("Confirm deletion of item."); //change to yes/no
-    if (choice) {
+    if (choice)
+    {
         return true;
-    } else {
+    } else
+    {
         return false;
     }
 }
