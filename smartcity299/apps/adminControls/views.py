@@ -269,14 +269,19 @@ def addItem(request, tableName):
 
 		new_entry = model()
 		for field in request.POST:
-			if(field != "csrfmiddlewaretoken"):
+			if(field != "csrfmiddlewaretoken" and field != 'file'):
 				lowField = field.lower()
 				if(field == "Latitude" or field == "Longitude"):
 					limit = request.POST[field][:12]
 					setattr(new_entry, lowField, limit)
 				else:
 					setattr(new_entry, lowField, request.POST[field])
-		new_entry.save()
+		#Fail if not all fields were filled
+		try:
+			new_entry.save()
+		except:
+			messages.add_message(request, messages.ERROR, 'Fields were empty.')
+			return redirect('/admin/add_page/' + tableName + '/')
 		messages.add_message(request, messages.ERROR, 'Page created successfully.')
 		return redirect('/admin/')
 	else:
