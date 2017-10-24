@@ -269,6 +269,9 @@ def addItem(request, tableName):
 
 		new_entry = model()
 		for field in request.POST:
+			if( request.POST[field] == "" ):
+				messages.add_message(request, messages.ERROR, 'Ensure all fields are populated.')
+				return redirect('/admin/add_page/' + tableName + '/')
 			if(field != "csrfmiddlewaretoken" and field != 'file'):
 				lowField = field.lower()
 				if(field == "Latitude" or field == "Longitude"):
