@@ -222,6 +222,9 @@ def addItem(request, tableName):
 
 		new_entry = model()
 		for field in request.POST:
+			if( field == "" || field == NULL):
+				messages.add_message(request, messages.ERROR, 'Ensure all fields are populated.')
+				return redirect('/admin/add_page/' + tableName + '/')
 			if(field != "csrfmiddlewaretoken"):
 				lowField = field.lower()
 				if(field == "Latitude" or field == "Longitude"):
