@@ -6,6 +6,10 @@ The goal of the project is to create a webapp in using the django framework and 
 The smartcity application will be able to serve users data based on their preffered type from both a private source(db) and public source(google).
 Searching and observing this data will allow users to have a better understanding on what a particular place involves, its general location, and contact details among other things.
 
+##Other information
+Testing completed with the kantu chrome extension suite, exported as JSON documents
+Site is currently active on: smartcity-env.8y6i8h9y7w.ap-southeast-2.elasticbeanstalk.com
+
 ##Starting the app
 Follow the steps below to start the application.
 
